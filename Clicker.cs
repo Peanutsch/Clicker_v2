@@ -63,10 +63,10 @@ namespace Clicker
 
                 // Append the captured position to the textBox2
 
-                textBox2.AppendText(captureMouseClickPosition + Environment.NewLine);
-                textBox2.SelectAll();
-                textBox2.TextAlign = HorizontalAlignment.Center;
-                textBox2.DeselectAll();
+                textBox1.AppendText(captureMouseClickPosition + Environment.NewLine);
+                textBox1.SelectAll();
+                textBox1.TextAlign = HorizontalAlignment.Center;
+                textBox1.DeselectAll();
 
             }
         }
