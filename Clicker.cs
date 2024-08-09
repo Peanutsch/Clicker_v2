@@ -21,7 +21,7 @@ namespace Clicker
 
         private void comboBoxInterval_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(comboBoxInterval.SelectedItem.ToString()!, out int interval))
+            if (int.TryParse(comboBoxInterval.SelectedItem!.ToString()!, out int interval))
             {
                 SelectedInterval = interval;
                 Debug.WriteLine($"Selected Interval: {SelectedInterval}");
@@ -33,7 +33,7 @@ namespace Clicker
 
         private void comboBoxMaxTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(comboBoxMaxTime.SelectedItem.ToString(), out int maxTime))
+            if (int.TryParse(comboBoxMaxTime.SelectedItem!.ToString(), out int maxTime))
             {
                 SelectedMaxTime = maxTime;
                 Debug.WriteLine($"Selected Max Time: {SelectedMaxTime}");
@@ -42,7 +42,7 @@ namespace Clicker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Enable capturing mouse events even outside the form
+            // Enable capturing mouse events within drawPanel
             this.Capture = false;
         }
 
@@ -61,8 +61,13 @@ namespace Clicker
                 // Output the position to the debug console
                 Debug.WriteLine($"Mouse clicked at: {captureMouseClickPosition}");
 
-                // Append the captured position to the RichTextBox
-                richTextBoxDisplaySomethingElse.AppendText(captureMouseClickPosition + Environment.NewLine);
+                // Append the captured position to the textBox2
+
+                textBox2.AppendText(captureMouseClickPosition + Environment.NewLine);
+                textBox2.SelectAll();
+                textBox2.TextAlign = HorizontalAlignment.Center;
+                textBox2.DeselectAll();
+
             }
         }
 

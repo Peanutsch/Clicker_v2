@@ -69,7 +69,7 @@ namespace Clicker
         public static int RandomizedCircleSize()
         {
             Random randPixels = new Random();
-            int size = randPixels.Next(10, 75);
+            int size = randPixels.Next(10, 100);
 
             Debug.WriteLine($"pixSize = {size}");
 
@@ -80,7 +80,8 @@ namespace Clicker
         public static Color GetRandomColor()
         {
             List<Color> colors = new List<Color> { Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.LightBlue, 
-                                                   Color.LavenderBlush, Color.Ivory, Color.HotPink 
+                                                   Color.LavenderBlush, Color.Ivory, Color.HotPink, Color.AliceBlue, Color.DarkOrange,
+                                                   Color.OrangeRed, Color.Orchid, Color.Aqua, Color.Cyan
                                                  };
             Random rand = new Random();
             return colors[rand.Next(colors.Count)];
