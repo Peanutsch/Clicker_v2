@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Clicker
+namespace Clicker_v2
 {
     public partial class Clicker : Form
     {
@@ -16,7 +16,7 @@ namespace Clicker
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("5000"); // Set default value
 
             // Capture mouseclick in drawPanel 
-            drawPanel.MouseClick += new MouseEventHandler(CaptureMouseClickPosition);
+            drawPanelBoard.MouseClick += new MouseEventHandler(CaptureMouseClickPosition);
         }
 
         private void comboBoxInterval_SelectedIndexChanged(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace Clicker
                 Debug.WriteLine($"Selected Interval: {SelectedInterval}");
 
                 // Update the Draw class timer interval if necessary
-                Draw.UpdateTimerInterval(SelectedInterval);
+                DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
             }
         }
 

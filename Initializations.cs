@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Clicker
+namespace Clicker_v2
 {
     public class Initializations
     {

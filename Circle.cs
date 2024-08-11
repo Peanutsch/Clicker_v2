@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Clicker
+namespace Clicker_v2
 {
     public class Circle
     {

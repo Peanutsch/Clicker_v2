@@ -1,9 +1,10 @@
-﻿namespace Clicker
+﻿namespace Clicker_v2
 {
     partial class Clicker
     {
         private System.ComponentModel.IContainer components = null;
-        private Draw drawPanel;
+        private DrawPanelBoard drawPanelBoard;
+        private DrawPanelTimerIndicator drawPanelTimerIndicator;
 
         protected override void Dispose(bool disposing)
         {
@@ -17,29 +18,41 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clicker));
-            drawPanel = new Draw();
+            drawPanelBoard = new DrawPanelBoard();
+            drawPanelTimerIndicator = new DrawPanelTimerIndicator();
             comboBoxMaxTime = new ComboBox();
             comboBoxInterval = new ComboBox();
             richTextBoxCountDown = new RichTextBox();
             richTextBoxDisplaySomething = new RichTextBox();
             richTextBoxDisplaySomethingElse = new RichTextBox();
-            richTextBox1 = new RichTextBox();
             richTextBox2 = new RichTextBox();
             pictureBox1 = new PictureBox();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+
+            drawPanelBoard.SuspendLayout();
+            drawPanelTimerIndicator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // drawPanel
+            // drawPanelBoard
             // 
-            drawPanel.BackColor = Color.Black;
-            drawPanel.BorderStyle = BorderStyle.FixedSingle;
-            drawPanel.Location = new Point(236, 128);
-            drawPanel.Margin = new Padding(4, 3, 4, 3);
-            drawPanel.Name = "drawPanel";
-            drawPanel.Size = new Size(1459, 800);
-            drawPanel.TabIndex = 0;
+            drawPanelBoard.BackColor = Color.Black;
+            drawPanelBoard.BorderStyle = BorderStyle.FixedSingle;
+            drawPanelBoard.Location = new Point(236, 128);
+            drawPanelBoard.Margin = new Padding(4, 3, 4, 3);
+            drawPanelBoard.Name = "drawPanelBoard";
+            drawPanelBoard.Size = new Size(1459, 800);
+            drawPanelBoard.TabIndex = 0;
+            // 
+            // drawPanelTimerIndicator
+            // 
+            drawPanelTimerIndicator.BackColor = Color.DarkRed;
+            drawPanelTimerIndicator.BorderStyle = BorderStyle.Fixed3D;
+            drawPanelTimerIndicator.Location = new Point(1035, 12);
+            drawPanelTimerIndicator.Name = "drawPanelTimerIndicator";
+            drawPanelTimerIndicator.Size = new Size(535, 110);
+            drawPanelTimerIndicator.TabIndex = 0;
             // 
             // comboBoxMaxTime
             // 
@@ -96,17 +109,6 @@
             richTextBoxDisplaySomethingElse.TabIndex = 4;
             richTextBoxDisplaySomethingElse.Text = "\n\nDISPLAY SOMETHING ELSE";
             // 
-            // richTextBox1
-            // 
-            richTextBox1.BackColor = SystemColors.Info;
-            richTextBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(1036, 11);
-            richTextBox1.Margin = new Padding(4, 3, 4, 3);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(535, 110);
-            richTextBox1.TabIndex = 5;
-            richTextBox1.Text = "\n\nDISPLAY SOMETHING ELSE";
-            // 
             // richTextBox2
             // 
             richTextBox2.BackColor = SystemColors.Info;
@@ -131,23 +133,23 @@
             // textBox1
             // 
             textBox1.BackColor = SystemColors.Info;
+            textBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(14, 199);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(214, 680);
             textBox1.TabIndex = 8;
-            textBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox1.Text = "SomeThingsHere";
             // 
             // textBox2
             // 
             textBox2.BackColor = SystemColors.Info;
+            textBox2.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox2.Location = new Point(14, 886);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(214, 42);
             textBox2.TabIndex = 9;
-            textBox2.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox2.Text = "BottomMessageStuff";
             // 
             // Clicker
@@ -160,10 +162,10 @@
             Controls.Add(textBox1);
             Controls.Add(pictureBox1);
             Controls.Add(richTextBox2);
-            Controls.Add(richTextBox1);
             Controls.Add(richTextBoxCountDown);
             Controls.Add(richTextBoxDisplaySomethingElse);
-            Controls.Add(drawPanel);
+            Controls.Add(drawPanelBoard);
+            Controls.Add(drawPanelTimerIndicator);
             Controls.Add(richTextBoxDisplaySomething);
             Controls.Add(comboBoxInterval);
             Controls.Add(comboBoxMaxTime);
@@ -185,10 +187,10 @@
         private System.Windows.Forms.RichTextBox richTextBoxDisplaySomethingElse;
         private System.Windows.Forms.RichTextBox richTextBoxDisplaySomething;
         private System.Windows.Forms.RichTextBox richTextBoxCountDown;
-        private RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
         private PictureBox pictureBox1;
         private TextBox textBox1;
         private TextBox textBox2;
+        private DrawPanelBoard drawTimerIndicator;
     }
 }
