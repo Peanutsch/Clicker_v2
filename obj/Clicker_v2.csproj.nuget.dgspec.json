@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mtels\\Source\\Repos\\Clicker_v2\\Clicker_v2.csproj": {}
+    "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mtels\\Source\\Repos\\Clicker_v2\\Clicker_v2.csproj": {
+    "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mtels\\Source\\Repos\\Clicker_v2\\Clicker_v2.csproj",
+        "projectUniqueName": "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
         "projectName": "Clicker_v2",
-        "projectPath": "C:\\Users\\mtels\\Source\\Repos\\Clicker_v2\\Clicker_v2.csproj",
+        "projectPath": "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
         "packagesPath": "C:\\Users\\mtels\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\mtels\\Source\\Repos\\Clicker_v2\\obj\\",
         "projectStyle": "PackageReference",
