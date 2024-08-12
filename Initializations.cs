@@ -10,11 +10,11 @@ namespace Clicker_v2
 {
     public class Initializations
     {
-        private static System.Windows.Forms.Timer _timer;
-        private static Stopwatch _stopwatch;
+        private static System.Windows.Forms.Timer? _timer;
+        private static Stopwatch? _stopwatch;
 
         // Define a static TimerTick event
-        public static event EventHandler TimerTick;
+        public static event EventHandler? TimerTick;
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -60,7 +60,7 @@ namespace Clicker_v2
             int x = randPos.Next(0, maxWidth);
             int y = randPos.Next(0, maxHeight);
 
-            Debug.WriteLine($"Position = ({x}, {y})");
+            //Debug.WriteLine($"Position = ({x}, {y})");
 
             return (x, y);
         }
@@ -71,7 +71,7 @@ namespace Clicker_v2
             Random randPixels = new Random();
             int size = randPixels.Next(10, 100);
 
-            Debug.WriteLine($"pixSize = {size}");
+            //Debug.WriteLine($"pixSize = {size}");
 
             return size;
         }
@@ -94,7 +94,7 @@ namespace Clicker_v2
         {
             _timer = new System.Windows.Forms.Timer();
             _timer.Interval = interval; // Timer interval in milliseconds
-            _timer.Tick += Timer_Tick;
+            _timer.Tick += Timer_Tick!;
 
             _stopwatch = new Stopwatch();
 
@@ -103,11 +103,23 @@ namespace Clicker_v2
             _stopwatch.Start();
         }
 
+        // Seperate function for 1 Tick == 1000 ms
+        public static void InitializeTimerSeconds()
+        {
+            _timer = new System.Windows.Forms.Timer();
+            _timer.Interval = 1000; // 1000 ms = 1 second
+            _timer.Tick += Timer_Tick!;
+
+            // Start the timer
+            _timer.Start();
+        }
+
+
         // Timer Tick event handler
         private static void Timer_Tick(object sender, EventArgs e)
         {
             TimerTick?.Invoke(sender, e);
-            Debug.WriteLine($"Elapsed time: {_stopwatch.Elapsed.TotalSeconds} seconds");
+            //Debug.WriteLine($"Elapsed time: {_stopwatch!.Elapsed.TotalSeconds} seconds");
         }
 
         public static void UpdateTimer(int interval)
@@ -128,7 +140,7 @@ namespace Clicker_v2
             if (_stopwatch != null)
                 _stopwatch.Stop();
 
-            return _stopwatch.Elapsed;
+            return _stopwatch!.Elapsed;
         }
         #endregion
     }

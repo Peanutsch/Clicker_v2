@@ -16,7 +16,7 @@ namespace Clicker_v2
             this.DoubleBuffered = true; // Rendering panel in off-screen buffering to reduce flickering
 
             Initializations.InitializeTimer(Clicker.SelectedInterval);
-            Initializations.TimerTick += OnTimerTick;
+            Initializations.TimerTick += OnTimerTick!;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -65,8 +65,7 @@ namespace Clicker_v2
         // 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            /*
-             * Double Buffering (ChatGPT):
+            /* Double Buffering (ChatGPT):
              * Performance: Double buffering can improve the visual quality but may have a slight performance impact because 
              *              it uses additional memory for the off-screen buffer.
              * Overriding: In some cases, you may need to override OnPaintBackground as well if you want to ensure that background painting 

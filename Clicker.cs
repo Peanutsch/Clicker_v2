@@ -6,8 +6,8 @@ namespace Clicker_v2
 {
     public partial class Clicker : Form
     {
-        public static int SelectedInterval { get; private set; } = 500; // Default interval time 
-        public static int SelectedMaxTime { get; private set; } = 5000; // Default max time
+        public static int SelectedInterval { get; set; } = 500; // Default interval time 
+        public static int SelectedMaxTime { get; set; } = 5000; // Default max time
 
         public Clicker()
         {
@@ -16,9 +16,10 @@ namespace Clicker_v2
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("5000"); // Set default value
 
             // Capture mouseclick in drawPanel 
-            drawPanelBoard.MouseClick += new MouseEventHandler(CaptureMouseClickPosition);
+            drawPanelBoard.MouseClick += new MouseEventHandler(CaptureMouseClickPosition!);
         }
 
+        // Combobox adjustments Interval
         private void comboBoxInterval_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.TryParse(comboBoxInterval.SelectedItem!.ToString()!, out int interval))
@@ -27,10 +28,12 @@ namespace Clicker_v2
                 Debug.WriteLine($"Selected Interval: {SelectedInterval}");
 
                 // Update the Draw class timer interval if necessary
-                DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
+                //DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
+                DrawPanelBoard.UpdateTimerInterval(interval);
             }
         }
 
+        // ComboBox adjustments for max display time circles
         private void comboBoxMaxTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.TryParse(comboBoxMaxTime.SelectedItem!.ToString(), out int maxTime))
@@ -70,6 +73,5 @@ namespace Clicker_v2
 
             }
         }
-
     }
 }

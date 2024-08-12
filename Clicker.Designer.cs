@@ -29,9 +29,6 @@
             pictureBox1 = new PictureBox();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-
-            drawPanelBoard.SuspendLayout();
-            drawPanelTimerIndicator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +44,7 @@
             // 
             // drawPanelTimerIndicator
             // 
-            drawPanelTimerIndicator.BackColor = Color.DarkRed;
+            drawPanelTimerIndicator.BackColor = Color.Green;
             drawPanelTimerIndicator.BorderStyle = BorderStyle.Fixed3D;
             drawPanelTimerIndicator.Location = new Point(1035, 12);
             drawPanelTimerIndicator.Name = "drawPanelTimerIndicator";
@@ -68,7 +65,7 @@
             // comboBoxInterval
             // 
             comboBoxInterval.FormattingEnabled = true;
-            comboBoxInterval.Items.AddRange(new object[] { "50", "75", "100", "250", "500", "750", "1000", "1200", "1500", "1750", "2000" });
+            comboBoxInterval.Items.AddRange(new object[] { "25", "50", "75", "100", "250", "500", "750", "1000", "1200", "1500", "1750", "2000" });
             comboBoxInterval.Location = new Point(14, 128);
             comboBoxInterval.Margin = new Padding(4, 3, 4, 3);
             comboBoxInterval.Name = "comboBoxInterval";
@@ -123,7 +120,7 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.LightGray;
-            pictureBox1.Image = Clicker_v2.Properties.Resources.dotted_circles;
+            pictureBox1.Image = Properties.Resources.dotted_circles;
             pictureBox1.Location = new Point(15, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(214, 110);
@@ -139,7 +136,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(214, 680);
             textBox1.TabIndex = 8;
-            textBox1.Text = "SomeThingsHere";
+            textBox1.Text = "Coords x, y";
             // 
             // textBox2
             // 
@@ -191,6 +188,5 @@
         private PictureBox pictureBox1;
         private TextBox textBox1;
         private TextBox textBox2;
-        private DrawPanelBoard drawTimerIndicator;
     }
 }
