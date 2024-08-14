@@ -1,42 +1,36 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Clicker_v2
 {
     public partial class Clicker : Form
     {
-        public static int SelectedInterval { get; set; } = 500; // Default interval time 
-        public static int SelectedMaxTime { get; set; } = 5000; // Default max time
+        public static int SelectedInterval { get; set; } = 1000;
+        public static int SelectedMaxTime { get; set; } = 2500;
 
         public Clicker()
         {
             InitializeComponent();
-            comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("500"); // Set default value
-            comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("5000"); // Set default value
-
-            // Capture mouseclick in drawPanel 
+            comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("100"); // Set Default Interval Drawing Circles
+            comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500"); // Set Default MaxTime Display Circles
             drawPanelBoard.MouseClick += new MouseEventHandler(CaptureMouseClickPosition!);
         }
 
-        // Combobox adjustments Interval
         private void comboBoxInterval_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(comboBoxInterval.SelectedItem!.ToString()!, out int interval))
+            if (int.TryParse(comboBoxInterval.SelectedItem?.ToString()!, out int interval))
             {
                 SelectedInterval = interval;
                 Debug.WriteLine($"Selected Interval: {SelectedInterval}");
-
-                // Update the Draw class timer interval if necessary
-                //DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
-                DrawPanelBoard.UpdateTimerInterval(interval);
+                DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
             }
         }
 
-        // ComboBox adjustments for max display time circles
         private void comboBoxMaxTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(comboBoxMaxTime.SelectedItem!.ToString(), out int maxTime))
+            if (int.TryParse(comboBoxMaxTime.SelectedItem?.ToString(), out int maxTime))
             {
                 SelectedMaxTime = maxTime;
                 Debug.WriteLine($"Selected Max Time: {SelectedMaxTime}");
@@ -45,7 +39,6 @@ namespace Clicker_v2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Enable capturing mouse events within drawPanel
             this.Capture = false;
         }
 
@@ -53,24 +46,18 @@ namespace Clicker_v2
         {
             if (e.Button == MouseButtons.Left)
             {
-
-                // Ensure the form is activated
                 this.Activate();
-
-                // Capture the mouse position relative to the screen
+                int clickX = e.X;
+                int clickY = e.Y;
                 Point screenPosition = this.PointToScreen(new Point(e.X, e.Y));
                 string captureMouseClickPosition = screenPosition.ToString();
-
-                // Output the position to the debug console
-                Debug.WriteLine($"Mouse clicked at: {captureMouseClickPosition}");
-
-                // Append the captured position to the textBox2
-
+                
+                Debug.WriteLine($"Mouse click at ({clickX}, {clickY})");
                 textBox1.AppendText(captureMouseClickPosition + Environment.NewLine);
                 textBox1.SelectAll();
                 textBox1.TextAlign = HorizontalAlignment.Center;
                 textBox1.DeselectAll();
-
+                // Handle the click event
             }
         }
     }

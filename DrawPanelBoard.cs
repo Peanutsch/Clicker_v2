@@ -13,10 +13,16 @@ namespace Clicker_v2
 
         public DrawPanelBoard()
         {
-            this.DoubleBuffered = true; // Rendering panel in off-screen buffering to reduce flickering
-
-            Initializations.InitializeTimer(Clicker.SelectedInterval);
-            Initializations.TimerTick += OnTimerTick!;
+            /* Double Buffering (ChatGPT):
+             * Performance: Double buffering can improve the visual quality but may have a slight performance impact because 
+             *              it uses additional memory for the off-screen buffer.
+             * Overriding: In some cases, you may need to override OnPaintBackground as well if you want to ensure that background painting 
+             *             is handled properly when double buffering is enabled.
+             */
+            this.DoubleBuffered = true; // Enable double buffering to reduce flickering
+            Initializations.TimerTickBoard -= OnTimerTick!; // Unsubscribe
+            Initializations.InitializeBoardTimer(Clicker.SelectedInterval);
+            Initializations.TimerTickBoard += OnTimerTick!; // Subscribe
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -62,22 +68,15 @@ namespace Clicker_v2
             }
         }
 
-        // 
-        private void OnTimerTick(object sender, EventArgs e)
+        internal void OnTimerTick(object sender, EventArgs e)
         {
-            /* Double Buffering (ChatGPT):
-             * Performance: Double buffering can improve the visual quality but may have a slight performance impact because 
-             *              it uses additional memory for the off-screen buffer.
-             * Overriding: In some cases, you may need to override OnPaintBackground as well if you want to ensure that background painting 
-             *             is handled properly when double buffering is enabled.
-             */
             InitializeCirclePositionSize();
-            this.Invalidate(); // Redraw drawPanel
+            this.Invalidate();
         }
 
         public static void UpdateTimerInterval(int interval)
         {
-            Initializations.UpdateTimer(interval);
+            Initializations.UpdateBoardTimer(interval);
         }
     }
 }

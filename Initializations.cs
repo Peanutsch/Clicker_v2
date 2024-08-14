@@ -10,11 +10,9 @@ namespace Clicker_v2
 {
     public class Initializations
     {
-        private static System.Windows.Forms.Timer? _timer;
+        private static System.Windows.Forms.Timer? _boardTimer;
+        private static System.Windows.Forms.Timer? _indicatorTimer;
         private static Stopwatch? _stopwatch;
-
-        // Define a static TimerTick event
-        public static event EventHandler? TimerTick;
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -87,61 +85,57 @@ namespace Clicker_v2
             return colors[rand.Next(colors.Count)];
         }
         #endregion
-
-        #region TIMER
-        // Initialize timer and stopwatch
-        public static void InitializeTimer(int interval)
+        #region TIMERS
+        #region BOARD TIMER
+        public static void InitializeBoardTimer(int interval)
         {
-            _timer = new System.Windows.Forms.Timer();
-            _timer.Interval = interval; // Timer interval in milliseconds
-            _timer.Tick += Timer_Tick!;
-
+            _boardTimer = new System.Windows.Forms.Timer();
+            _boardTimer.Interval = interval;
+            _boardTimer.Tick += Timer_TickBoard!;
             _stopwatch = new Stopwatch();
-
-            // Start the timer and stopwatch
-            _timer.Start();
+            _boardTimer.Start();
             _stopwatch.Start();
         }
 
-        // Seperate function for 1 Tick == 1000 ms
-        public static void InitializeTimerSeconds()
+        public static event EventHandler? TimerTickBoard;
+        internal static void Timer_TickBoard(object sender, EventArgs e)
         {
-            _timer = new System.Windows.Forms.Timer();
-            _timer.Interval = 1000; // 1000 ms = 1 second
-            _timer.Tick += Timer_Tick!;
-
-            // Start the timer
-            _timer.Start();
+            TimerTickBoard?.Invoke(sender, e);
         }
 
-
-        // Timer Tick event handler
-        private static void Timer_Tick(object sender, EventArgs e)
+        public static void UpdateBoardTimer(int interval)
         {
-            TimerTick?.Invoke(sender, e);
-            //Debug.WriteLine($"Elapsed time: {_stopwatch!.Elapsed.TotalSeconds} seconds");
-        }
-
-        public static void UpdateTimer(int interval)
-        {
-            if (_timer != null)
+            if (_boardTimer != null)
             {
-                _timer.Interval = interval;
-                Debug.WriteLine($"Timer interval updated to: {interval} ms");
+                _boardTimer.Interval = interval;
+                Debug.WriteLine($"Board Timer interval updated to: {interval} ms");
             }
         }
+        #endregion
 
-        // Method to stop the timer and stopwatch
-        public static TimeSpan StopTimer()
+        #region INDICATOR TIMER
+        public static void InitializeIndicatorTimer()
         {
-            if (_timer != null)
-                _timer.Stop();
+            _indicatorTimer = new System.Windows.Forms.Timer();
+            _indicatorTimer.Interval = 1000; // 1 second interval
+            _indicatorTimer.Tick += Timer_TickIndicator!;
+            _indicatorTimer.Start();
+        }
 
-            if (_stopwatch != null)
-                _stopwatch.Stop();
-
-            return _stopwatch!.Elapsed;
+        public static event EventHandler? TimerTickIndicator;
+        internal static void Timer_TickIndicator(object sender, EventArgs e)
+        {
+            TimerTickIndicator?.Invoke(sender, e);
         }
         #endregion
+        #endregion
+
+        public static TimeSpan StopTimer()
+        {
+            _boardTimer?.Stop();
+            _indicatorTimer?.Stop();
+            _stopwatch?.Stop();
+            return _stopwatch!.Elapsed;
+        }
     }
 }
