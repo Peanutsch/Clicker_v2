@@ -9,7 +9,7 @@ namespace Clicker_v2
     public class DrawPanelBoard : Panel
     {
         private bool _isPositionInitialized = false;
-        private List<Circle> _allCircles = new List<Circle>();
+        private List<Circle> _listCircles = new List<Circle>();
 
         public DrawPanelBoard()
         {
@@ -35,7 +35,7 @@ namespace Clicker_v2
                 _isPositionInitialized = true;
             }
 
-            foreach (var circle in _allCircles)
+            foreach (var circle in _listCircles)
             {
                 DrawCircle(e.Graphics, circle.CircleSize, circle.X, circle.Y, circle.Color);
             }
@@ -47,9 +47,10 @@ namespace Clicker_v2
             (int x, int y) = Initializations.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
             Color circleColor = Initializations.GetRandomColor();
-            _allCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
-
-            _allCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
+            _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
+            //Debug.WriteLine($"Total items _listCircles: {_listCircles.Count}");
+            _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
+            //Debug.WriteLine($"Total items _listCircles after deleting circles: {_listCircles.Count}");
         }
 
         // Draw colour filled circle

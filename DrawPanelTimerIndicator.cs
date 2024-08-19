@@ -6,8 +6,8 @@ namespace Clicker_v2
     internal class DrawPanelTimerIndicator : Panel
     {
         private int elapsedSeconds = 0;
-        private const int totalSeconds = 25;
-        private const int colorChangeInterval = 1; // in seconds
+        internal const int totalSeconds = 10;
+        internal const int colorChangeInterval = 1; // in seconds
 
         public DrawPanelTimerIndicator()
         {
@@ -34,6 +34,7 @@ namespace Clicker_v2
             {
                 //Initializations.StopTimer();
                 elapsedSeconds = totalSeconds; // Ensure elapsed time does not exceed total time
+                this.BackColor = Color.Red; // Set the background color to red
                 this.Invalidate(); // Force redraw to show the final state
             }
         }
@@ -69,6 +70,5 @@ namespace Clicker_v2
                 graphics.FillRectangle(redBrush, new Rectangle(startX, 0, filledWidth, this.ClientRectangle.Height));
             }
         }
-
     }
 }

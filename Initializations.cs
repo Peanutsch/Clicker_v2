@@ -111,6 +111,14 @@ namespace Clicker_v2
                 Debug.WriteLine($"Board Timer interval updated to: {interval} ms");
             }
         }
+
+        public static TimeSpan StopTimer()
+        {
+            _boardTimer?.Stop();
+            _indicatorTimer?.Stop();
+            _stopwatch?.Stop();
+            return _stopwatch!.Elapsed;
+        }
         #endregion
 
         #region INDICATOR TIMER
@@ -129,13 +137,5 @@ namespace Clicker_v2
         }
         #endregion
         #endregion
-
-        public static TimeSpan StopTimer()
-        {
-            _boardTimer?.Stop();
-            _indicatorTimer?.Stop();
-            _stopwatch?.Stop();
-            return _stopwatch!.Elapsed;
-        }
     }
 }

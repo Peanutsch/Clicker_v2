@@ -24,11 +24,11 @@
             comboBoxInterval = new ComboBox();
             richTextBoxCountDown = new RichTextBox();
             richTextBoxDisplaySomething = new RichTextBox();
-            richTextBoxDisplaySomethingElse = new RichTextBox();
             richTextBox2 = new RichTextBox();
             pictureBox1 = new PictureBox();
-            textBox1 = new TextBox();
+            textBoxCoords = new TextBox();
             textBox2 = new TextBox();
+            textBoxHitMiss = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -60,7 +60,7 @@
             comboBoxMaxTime.Name = "comboBoxMaxTime";
             comboBoxMaxTime.Size = new Size(214, 23);
             comboBoxMaxTime.TabIndex = 1;
-            comboBoxMaxTime.SelectedIndexChanged += comboBoxMaxTime_SelectedIndexChanged;
+            comboBoxMaxTime.SelectedIndexChanged += ComboBoxMaxTime_SelectedIndexChanged;
             // 
             // comboBoxInterval
             // 
@@ -71,7 +71,7 @@
             comboBoxInterval.Name = "comboBoxInterval";
             comboBoxInterval.Size = new Size(214, 23);
             comboBoxInterval.TabIndex = 0;
-            comboBoxInterval.SelectedIndexChanged += comboBoxInterval_SelectedIndexChanged;
+            comboBoxInterval.SelectedIndexChanged += ComboBoxInterval_SelectedIndexChanged;
             // 
             // richTextBoxCountDown
             // 
@@ -95,17 +95,6 @@
             richTextBoxDisplaySomething.TabIndex = 3;
             richTextBoxDisplaySomething.Text = "\nDISPLAY SOMETHING";
             // 
-            // richTextBoxDisplaySomethingElse
-            // 
-            richTextBoxDisplaySomethingElse.BackColor = SystemColors.Info;
-            richTextBoxDisplaySomethingElse.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            richTextBoxDisplaySomethingElse.Location = new Point(359, 12);
-            richTextBoxDisplaySomethingElse.Margin = new Padding(4, 3, 4, 3);
-            richTextBoxDisplaySomethingElse.Name = "richTextBoxDisplaySomethingElse";
-            richTextBoxDisplaySomethingElse.Size = new Size(545, 110);
-            richTextBoxDisplaySomethingElse.TabIndex = 4;
-            richTextBoxDisplaySomethingElse.Text = "\n\nDISPLAY SOMETHING ELSE";
-            // 
             // richTextBox2
             // 
             richTextBox2.BackColor = SystemColors.Info;
@@ -127,16 +116,17 @@
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             // 
-            // textBox1
+            // textBoxCoords
             // 
-            textBox1.BackColor = SystemColors.Info;
-            textBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(14, 199);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(214, 680);
-            textBox1.TabIndex = 8;
-            textBox1.Text = "Coords x, y";
+            textBoxCoords.BackColor = SystemColors.Info;
+            textBoxCoords.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxCoords.Location = new Point(14, 199);
+            textBoxCoords.Multiline = true;
+            textBoxCoords.Name = "textBoxCoords";
+            textBoxCoords.Size = new Size(214, 680);
+            textBoxCoords.TabIndex = 8;
+            textBoxCoords.Text = "";
+            textBoxCoords.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox2
             // 
@@ -149,20 +139,32 @@
             textBox2.TabIndex = 9;
             textBox2.Text = "BottomMessageStuff";
             // 
+            // textBoxHitMiss
+            // 
+            textBoxHitMiss.BackColor = SystemColors.Info;
+            textBoxHitMiss.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxHitMiss.Location = new Point(359, 12);
+            textBoxHitMiss.Multiline = true;
+            textBoxHitMiss.Name = "textBoxHitMiss";
+            textBoxHitMiss.Size = new Size(546, 110);
+            textBoxHitMiss.TabIndex = 10;
+            textBoxHitMiss.Text = "Display Something TextBox";
+            textBoxHitMiss.TextAlign = HorizontalAlignment.Center;
+            // 
             // Clicker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1484, 811);
+            Controls.Add(drawPanelBoard);
+            Controls.Add(drawPanelTimerIndicator);
+            Controls.Add(textBoxHitMiss);
             Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(textBoxCoords);
             Controls.Add(pictureBox1);
             Controls.Add(richTextBox2);
             Controls.Add(richTextBoxCountDown);
-            Controls.Add(richTextBoxDisplaySomethingElse);
-            Controls.Add(drawPanelBoard);
-            Controls.Add(drawPanelTimerIndicator);
             Controls.Add(richTextBoxDisplaySomething);
             Controls.Add(comboBoxInterval);
             Controls.Add(comboBoxMaxTime);
@@ -181,12 +183,12 @@
 
         private System.Windows.Forms.ComboBox comboBoxInterval;
         private System.Windows.Forms.ComboBox comboBoxMaxTime;
-        private System.Windows.Forms.RichTextBox richTextBoxDisplaySomethingElse;
         private System.Windows.Forms.RichTextBox richTextBoxDisplaySomething;
         private System.Windows.Forms.RichTextBox richTextBoxCountDown;
         private RichTextBox richTextBox2;
         private PictureBox pictureBox1;
-        private TextBox textBox1;
+        private TextBox textBoxCoords;
         private TextBox textBox2;
+        private TextBox textBoxHitMiss;
     }
 }
