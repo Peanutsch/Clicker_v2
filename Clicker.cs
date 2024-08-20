@@ -9,7 +9,7 @@ namespace Clicker_v2
     public partial class Clicker : Form
     {
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
-        private DrawPanelTimerIndicator _drawPanelTimerIndicator;
+        //private DrawPanelTimerIndicator _drawPanelTimerIndicator;
 
         private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
         private GameElements _gameElements;
