@@ -12,11 +12,11 @@ namespace Clicker_v2
         //private DrawPanelTimerIndicator _drawPanelTimerIndicator;
 
         private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
-        private GameElements _gameElements;
+        private ClickManager _gameElements;
         private List<Circle> _listCircles; // Declare the List<Circle>
 
         private int _elapsedSeconds = 0;
-        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds;
+        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // value from DrawPanelTimerIndicator.totalSeconds
 
         public static int SelectedInterval { get; set; } = 1000;
         public static int SelectedMaxTime { get; set; } = 2500;
@@ -32,14 +32,12 @@ namespace Clicker_v2
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
             // Initialize GameElements with the necessary dependencies
-            _gameElements = new GameElements(_dictColorsAndCoords, textBoxHitMiss, _listCircles);
-
-            // Assuming drawPanelTimerIndicator is initialized elsewhere
+            _gameElements = new ClickManager(_dictColorsAndCoords, textBoxHitMiss, _listCircles);
+            // Mouseclick Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
             // Initialize the timer with a 1-second interval
             Initializations.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
-            Initializations.InitializeIndicatorTimer();
             Initializations.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
         }
 
@@ -63,7 +61,7 @@ namespace Clicker_v2
             if (_elapsedSeconds >= _totalSeconds)
             {
                 Initializations.StopTimer(); // Stop the timer if the total time has elapsed
-                richTextBoxCountDown.Text = $"Countdown completed";
+                richTextBoxCountDown.Text = $"Countdown complete";
             }
         }
 

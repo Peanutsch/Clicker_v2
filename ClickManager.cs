@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    internal class GameElements
+    internal class ClickManager
     {
         private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
 
         // Constructor to initialize dependencies
-        public GameElements(Dictionary<Color, (int x, int y)> dictColorsAndCoords, TextBox textBoxHitMiss, List<Circle> listCircles)
+        public ClickManager(Dictionary<Color, (int x, int y)> dictColorsAndCoords, TextBox textBoxHitMiss, List<Circle> listCircles)
         {
             _dictColorsAndCoords = dictColorsAndCoords;
             _textBoxHitMiss = textBoxHitMiss;

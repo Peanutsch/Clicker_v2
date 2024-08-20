@@ -6,7 +6,7 @@ namespace Clicker_v2
     internal class DrawPanelTimerIndicator : Panel
     {
         private int elapsedSeconds = 0;
-        internal const int totalSeconds = 100;
+        internal const int totalSeconds = 26;
         internal const int colorChangeInterval = 1; // in seconds
 
         public DrawPanelTimerIndicator()
