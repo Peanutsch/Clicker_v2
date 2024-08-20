@@ -11,6 +11,9 @@ namespace Clicker_v2
         private bool _isPositionInitialized = false;
         private List<Circle> _listCircles = new List<Circle>();
 
+        // Public property to access circles
+        public List<Circle> Circles => _listCircles;
+
         public DrawPanelBoard()
         {
             /* Double Buffering (ChatGPT):

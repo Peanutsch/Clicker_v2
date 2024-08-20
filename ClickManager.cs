@@ -18,7 +18,7 @@ namespace Clicker_v2
         {
             _dictColorsAndCoords = dictColorsAndCoords;
             _textBoxHitMiss = textBoxHitMiss;
-            _listCircles = listCircles; // Correctly assign the parameter
+            _listCircles = listCircles;
         }
 
         // Method to display and return coordinates
@@ -54,35 +54,46 @@ namespace Clicker_v2
          * If it is, a "Hit" is registered, and a message is displayed in the textBoxCoords.
          * If no circle is hit, a "Miss!" message is displayed.
          */
-        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords)
+        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel)
         {
             Debug.WriteLine("Start function ClickInCircleRadius");
             bool isHit = false;
 
+            if (_listCircles.Count == 0)
+            {
+                Debug.WriteLine("_listCircles is empty");
+            }
+
             foreach (var circle in _listCircles)
             {
-                Debug.WriteLine($"Circle: {_listCircles}");
+                Debug.WriteLine($"Checking circle at [X={circle.X}, Y={circle.Y}, Size={circle.CircleSize}]");
 
-                // Use the new IsPointInCircle method to determine if the point is within the circle
+                // Gebruik de nieuwe IsPointInCircle methode om te bepalen of het punt binnen de cirkel ligt
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
                     textBoxCoords.AppendText($"Hit with {circle.Color}" + Environment.NewLine);
                     textBoxCoords.TextAlign = HorizontalAlignment.Center;
 
+                    // Change colour and delete circle from list
+                    circle.Color = Color.White;
+                    circle.Color = Color.Black; // Optioneel: Kleur veranderen
+                    drawPanel.Circles.Remove(circle); // Cirkel uit DrawPanelBoard verwijderen
+
                     Debug.WriteLine("End function ClickInCircleRadius with hit");
-                    break;  // Stop the loop if a hit is found
+                    break;  // Stop loop when hit
                 }
             }
 
             if (!isHit)
             {
-                // No hit
+                // Geen hit
                 textBoxCoords.AppendText("Miss!" + Environment.NewLine);
                 textBoxCoords.TextAlign = HorizontalAlignment.Center;
 
                 Debug.WriteLine("End function ClickInCircleRadius with No Hit");
             }
         }
+
     }
 }

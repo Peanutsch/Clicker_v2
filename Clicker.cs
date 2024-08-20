@@ -11,12 +11,17 @@ namespace Clicker_v2
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
         //private DrawPanelTimerIndicator _drawPanelTimerIndicator;
 
+        private DrawPanelBoard _drawPanelBoard;
+        private ClickManager _clickManager;
+
         private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
         private ClickManager _gameElements;
         private List<Circle> _listCircles; // Declare the List<Circle>
 
         private int _elapsedSeconds = 0;
         private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // value from DrawPanelTimerIndicator.totalSeconds
+
+        bool gameActive = false;
 
         public static int SelectedInterval { get; set; } = 1000;
         public static int SelectedMaxTime { get; set; } = 2500;
@@ -27,6 +32,12 @@ namespace Clicker_v2
 
             comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("100");
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500");
+
+            _drawPanelBoard = new DrawPanelBoard(); // Zorg ervoor dat deze instantie correct is
+            _clickManager = new ClickManager(new Dictionary<Color, (int x, int y)>(), textBoxHitMiss, _drawPanelBoard.Circles);
+
+            var dictColorsAndCoords = new Dictionary<Color, (int x, int y)>();
+
 
             _dictColorsAndCoords = new Dictionary<Color, (int x, int y)>();
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
@@ -39,6 +50,8 @@ namespace Clicker_v2
             // Initialize the timer with a 1-second interval
             Initializations.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
             Initializations.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
+
+            gameActive = true;
         }
 
         public void DisposeTimer(FormClosedEventArgs e)
@@ -62,6 +75,7 @@ namespace Clicker_v2
             {
                 Initializations.StopTimer(); // Stop the timer if the total time has elapsed
                 richTextBoxCountDown.Text = $"Countdown complete";
+                gameActive = false;
             }
         }
 
@@ -101,6 +115,10 @@ namespace Clicker_v2
 
         internal void CaptureMouseClickPosition(object sender, MouseEventArgs e)
         {
+            // Block register mouseclicks
+            if (!gameActive)
+                return;
+
             if (e.Button == MouseButtons.Left)
             {
                 this.Activate();
@@ -109,7 +127,7 @@ namespace Clicker_v2
 
                 // Pass the coordinates to the GameElements method
                 _gameElements.DisplayClickCoords(clickX, clickY, textBoxCoords);
-                _gameElements.ClickInCircleRadius(clickX, clickY, textBoxCoords);
+                _gameElements.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
             }
         }
     }
