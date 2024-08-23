@@ -60,6 +60,7 @@ namespace Clicker_v2
             using (var redBrush = new SolidBrush(redColor))
             {
                 // Draw the red filled section from right to left
+
                 // Calculate the starting x position for the filled rectangle
                 int startX = totalWidth - filledWidth;
 
