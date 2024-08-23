@@ -9,7 +9,6 @@ namespace Clicker_v2
     public partial class Clicker : Form
     {
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
-        //private DrawPanelTimerIndicator _drawPanelTimerIndicator;
 
         private DrawPanelBoard _drawPanelBoard;
         private ClickManager _clickManager;
@@ -41,7 +40,7 @@ namespace Clicker_v2
             _dictColorsAndCoords = new Dictionary<Color, (int x, int y)>();
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
-            // Initialize GameElements with the necessary dependencies
+            // Initialize ClickManager with the necessary dependencies
             _clickManager = new ClickManager(_dictColorsAndCoords, textBoxHitMiss, _listCircles);
             // Mouseclick Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
@@ -57,7 +56,7 @@ namespace Clicker_v2
         {
             if (_indicatorTimer != null)
             {
-                // Stop en dispose de timer
+                // Stop and dispose timer
                 _indicatorTimer?.Stop();
                 _indicatorTimer?.Dispose();
 

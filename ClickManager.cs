@@ -14,9 +14,6 @@ namespace Clicker_v2
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
 
-        // Public property to access circles
-        //public List<Circle> Circles => _listCircles;
-
         // Constructor to initialize dependencies
         public ClickManager(Dictionary<Color, (int x, int y)> dictColorsAndCoords, TextBox textBoxHitMiss, List<Circle> listCircles)
         {
@@ -26,6 +23,12 @@ namespace Clicker_v2
         }
 
         // Method to display and return coordinates in textBoxCoords
+        /// <summary>
+        /// Method to display and return coordinates in textBoxCoords
+        /// </summary>
+        /// <param name="clickX">x-as from CaptureMouseClickPosition</param>
+        /// <param name="clickY">y-as from CaptureMouseClickPosition</param>
+        /// <param name="textBoxCoords"></param>
         public void DisplayClickCoords(int clickX, int clickY, TextBox textBoxCoords)
         {
             string coords = $"({clickX}, {clickY})";
@@ -74,12 +77,11 @@ namespace Clicker_v2
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
-                    textBoxCoords.AppendText($"Hit with {circle.Color}" + Environment.NewLine);
+                    textBoxCoords.AppendText($"{circle.Color}" + Environment.NewLine);
+                    textBoxCoords.AppendText($"Size: {circle.CircleSize}");
                     textBoxCoords.TextAlign = HorizontalAlignment.Center;
 
-                    // Change colour and delete circle from list
-                    circle.Color = Color.White;
-                    circle.Color = Color.Black; 
+                    // Delete circle from list
                     drawPanel.Circles.Remove(circle); // Cirkel uit DrawPanelBoard verwijderen
 
                     Debug.WriteLine("End function ClickInCircleRadius with hit");

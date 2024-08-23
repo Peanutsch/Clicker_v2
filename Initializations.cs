@@ -8,8 +8,7 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    public class Initializations
-    {
+    public class Initializations {
         private static System.Windows.Forms.Timer? _boardTimer;
         private static System.Windows.Forms.Timer? _indicatorTimer;
         private static Stopwatch? _stopwatch;
@@ -50,6 +49,22 @@ namespace Clicker_v2
         }
         */
 
+        #region SET POINTS
+        public static int ValidateSizeAndPoints(int size) 
+        {
+            if (size in Range(int 10, int 20)
+            {
+                return 50;
+            }
+                20 - 30: 40
+                30 - 50: 30
+                50 - 75: 20
+                75 - 100: 10
+        }
+
+
+        #endregion
+
         #region RANDOMIZERS
         // Return randomized coords (x, y) for circle
         public static (int, int) RandomizerPositions(int maxWidth, int maxHeight)
@@ -57,8 +72,6 @@ namespace Clicker_v2
             Random randPos = new Random();
             int x = randPos.Next(0, maxWidth);
             int y = randPos.Next(0, maxHeight);
-
-            //Debug.WriteLine($"Position = ({x}, {y})");
 
             return (x, y);
         }
@@ -68,8 +81,6 @@ namespace Clicker_v2
         {
             Random randPixels = new Random();
             int size = randPixels.Next(10, 100);
-
-            //Debug.WriteLine($"pixSize = {size}");
 
             return size;
         }
@@ -85,8 +96,12 @@ namespace Clicker_v2
             return colors[rand.Next(colors.Count)];
         }
         #endregion
-        #region TIMERS
+        #region SET TIMERS
         #region BOARD TIMER
+        /// <summary>
+        /// Init board timer and stopwatch and start timers
+        /// </summary>
+        /// <param name="interval">Interval is set in Clickers.SelectedInterval</param>
         public static void InitializeBoardTimer(int interval)
         {
             _boardTimer = new System.Windows.Forms.Timer();
@@ -103,6 +118,10 @@ namespace Clicker_v2
             TimerTickBoard?.Invoke(sender, e);
         }
 
+        /// <summary>
+        /// Init board timer and stopwatch and start timers
+        /// </summary>
+        /// <param name="interval">Interval is set in Clickers.SelectedInterval</param>
         public static void UpdateBoardTimer(int interval)
         {
             if (_boardTimer != null)

@@ -14,7 +14,7 @@ namespace Clicker_v2
         private bool _isPositionInitialized = false;
         private List<Circle> _listCircles = new List<Circle>();
 
-        // Public property to access circles
+        // Public property to access Circles
         public List<Circle> Circles => _listCircles;
 
         public DrawPanelBoard()
@@ -54,19 +54,11 @@ namespace Clicker_v2
 
             Color circleColor = Initializations.GetRandomColor();
             _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
-            //Debug.WriteLine($"Total items _listCircles: {_listCircles.Count}");
             _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
-            //Debug.WriteLine($"Total items _listCircles after deleting circles: {_listCircles.Count}");
             
         }
 
         // Draw colour filled circle
-        /// <summary>
-        /// <param name="graphics"></param>
-        /// <param name="size"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="color"></param>
         private void DrawCircle(Graphics graphics, int size, int x, int y, Color color)
         {
             // If negative sizes or outside the panel bounds
