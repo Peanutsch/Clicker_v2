@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clicker_v2;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -13,15 +14,18 @@ namespace Clicker_v2
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
 
+        // Public property to access circles
+        //public List<Circle> Circles => _listCircles;
+
         // Constructor to initialize dependencies
         public ClickManager(Dictionary<Color, (int x, int y)> dictColorsAndCoords, TextBox textBoxHitMiss, List<Circle> listCircles)
         {
-            _dictColorsAndCoords = dictColorsAndCoords;
             _textBoxHitMiss = textBoxHitMiss;
+            _dictColorsAndCoords = dictColorsAndCoords;
             _listCircles = listCircles;
         }
 
-        // Method to display and return coordinates
+        // Method to display and return coordinates in textBoxCoords
         public void DisplayClickCoords(int clickX, int clickY, TextBox textBoxCoords)
         {
             string coords = $"({clickX}, {clickY})";
@@ -29,9 +33,7 @@ namespace Clicker_v2
 
             // Update TextBox directly without selecting all text
             textBoxCoords.AppendText(coords + Environment.NewLine);
-            //textBoxCoords.SelectAll();
             textBoxCoords.TextAlign = HorizontalAlignment.Center;
-            //textBoxCoords.DeselectAll();
         }
 
         /* ChatGPT:
@@ -48,23 +50,23 @@ namespace Clicker_v2
             }
         }
 
+
+        // Method verify if x, y of mouseclick is in circle radius, colours circle first white, then black and removes circle from board
         /* ChatGPT:
          * This method iterates through all circles in the _listCircles list and checks
          * using the IsPointInCircle method if the click point is within any of the circles.
          * If it is, a "Hit" is registered, and a message is displayed in the textBoxCoords.
          * If no circle is hit, a "Miss!" message is displayed.
          */
-        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel)
-        {
+        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel) {
             Debug.WriteLine("Start function ClickInCircleRadius");
             bool isHit = false;
 
-            if (_listCircles.Count == 0)
-            {
+            if (drawPanel.Circles.Count == 0) {
                 Debug.WriteLine("_listCircles is empty");
             }
 
-            foreach (var circle in _listCircles)
+            foreach (var circle in drawPanel.Circles)
             {
                 Debug.WriteLine($"Checking circle at [X={circle.X}, Y={circle.Y}, Size={circle.CircleSize}]");
 
@@ -77,7 +79,7 @@ namespace Clicker_v2
 
                     // Change colour and delete circle from list
                     circle.Color = Color.White;
-                    circle.Color = Color.Black; // Optioneel: Kleur veranderen
+                    circle.Color = Color.Black; 
                     drawPanel.Circles.Remove(circle); // Cirkel uit DrawPanelBoard verwijderen
 
                     Debug.WriteLine("End function ClickInCircleRadius with hit");

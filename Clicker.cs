@@ -15,7 +15,6 @@ namespace Clicker_v2
         private ClickManager _clickManager;
 
         private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
-        private ClickManager _gameElements;
         private List<Circle> _listCircles; // Declare the List<Circle>
 
         private int _elapsedSeconds = 0;
@@ -43,7 +42,7 @@ namespace Clicker_v2
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
             // Initialize GameElements with the necessary dependencies
-            _gameElements = new ClickManager(_dictColorsAndCoords, textBoxHitMiss, _listCircles);
+            _clickManager = new ClickManager(_dictColorsAndCoords, textBoxHitMiss, _listCircles);
             // Mouseclick Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
@@ -126,8 +125,8 @@ namespace Clicker_v2
                 int clickY = e.Y;
 
                 // Pass the coordinates to the GameElements method
-                _gameElements.DisplayClickCoords(clickX, clickY, textBoxCoords);
-                _gameElements.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
+                _clickManager.DisplayClickCoords(clickX, clickY, textBoxCoords);
+                _clickManager.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
             }
         }
     }
