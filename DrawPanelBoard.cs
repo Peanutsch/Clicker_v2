@@ -26,9 +26,9 @@ namespace Clicker_v2
              *             is handled properly when double buffering is enabled.
              */
             this.DoubleBuffered = true; // Enable double buffering to reduce flickering
-            Initializations.TimerTickBoard -= OnTimerTick!; // Unsubscribe
-            Initializations.InitializeBoardTimer(Clicker.SelectedInterval);
-            Initializations.TimerTickBoard += OnTimerTick!; // Subscribe
+            RandomizersTimers.TimerTickBoard -= OnTimerTick!; // Unsubscribe
+            RandomizersTimers.InitializeBoardTimer(Clicker.SelectedInterval);
+            RandomizersTimers.TimerTickBoard += OnTimerTick!; // Subscribe
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -49,10 +49,10 @@ namespace Clicker_v2
 
         private void InitializeCirclePositionSize()
         {
-            int circleSize = Initializations.RandomizedCircleSize();
-            (int x, int y) = Initializations.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
+            int circleSize = RandomizersTimers.RandomizedCircleSize();
+            (int x, int y) = RandomizersTimers.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
-            Color circleColor = Initializations.GetRandomColor();
+            Color circleColor = RandomizersTimers.GetRandomColor();
             _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
             _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
             
@@ -82,7 +82,7 @@ namespace Clicker_v2
 
         public static void UpdateTimerInterval(int interval)
         {
-            Initializations.UpdateBoardTimer(interval);
+            RandomizersTimers.UpdateBoardTimer(interval);
         }
     }
 }

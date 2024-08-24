@@ -20,22 +20,22 @@ namespace Clicker_v2
             this.DoubleBuffered = true; // Enable double buffering to reduce flickering
 
             // Initialize and start the timer with a 1-second interval
-            Initializations.TimerTickIndicator -= OnTimerTick!; // Unsubscribe
-            Initializations.InitializeIndicatorTimer();
-            Initializations.TimerTickIndicator += OnTimerTick!; // Subscribe
+            RandomizersTimers.TimerTickIndicator -= OnTimerTick!; // Unsubscribe
+            RandomizersTimers.InitializeIndicatorTimer();
+            RandomizersTimers.TimerTickIndicator += OnTimerTick!; // Subscribe
         }
 
         internal void OnTimerTick(object sender, EventArgs e)
         {
             elapsedSeconds += colorChangeInterval;
-            this.Invalidate(); // Request to redraw the panel
+            this.Invalidate(); // Redraw the panel
 
             if (elapsedSeconds >= totalSeconds)
             {
                 //Initializations.StopTimer();
                 elapsedSeconds = totalSeconds; // Ensure elapsed time does not exceed total time
                 this.BackColor = Color.Red; // Set the background color to red
-                this.Invalidate(); // Force redraw to show the final state
+                this.Invalidate(); // Redraw to show the final state in red
             }
         }
 

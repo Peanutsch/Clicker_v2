@@ -10,16 +10,14 @@ namespace Clicker_v2
 {
     internal class ClickManager
     {
-        private Dictionary<Color, (int x, int y)> _dictColorsAndCoords;
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
 
         // Constructor to initialize dependencies
-        public ClickManager(Dictionary<Color, (int x, int y)> dictColorsAndCoords, TextBox textBoxHitMiss, List<Circle> listCircles)
+        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles)
         {
             _textBoxHitMiss = textBoxHitMiss;
-            _dictColorsAndCoords = dictColorsAndCoords;
-            _listCircles = listCircles;
+            _listCircles = circles;
         }
 
         // Method to display and return coordinates in textBoxCoords
@@ -35,8 +33,8 @@ namespace Clicker_v2
             Debug.WriteLine($"Mouse click at {coords}");
 
             // Update TextBox directly without selecting all text
-            textBoxCoords.AppendText(coords + Environment.NewLine);
-            textBoxCoords.TextAlign = HorizontalAlignment.Center;
+            // textBoxCoords.AppendText(coords + Environment.NewLine);
+            // textBoxCoords.TextAlign = HorizontalAlignment.Center;
         }
 
         /* ChatGPT:
@@ -61,24 +59,30 @@ namespace Clicker_v2
          * If it is, a "Hit" is registered, and a message is displayed in the textBoxCoords.
          * If no circle is hit, a "Miss!" message is displayed.
          */
-        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel) {
-            Debug.WriteLine("Start function ClickInCircleRadius");
+        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel) 
+        {
             bool isHit = false;
 
-            if (drawPanel.Circles.Count == 0) {
+            if (drawPanel.Circles.Count == 0) 
+            {
                 Debug.WriteLine("_listCircles is empty");
+                return;
             }
 
             foreach (var circle in drawPanel.Circles)
             {
                 Debug.WriteLine($"Checking circle at [X={circle.X}, Y={circle.Y}, Size={circle.CircleSize}]");
 
-                // Gebruik de nieuwe IsPointInCircle methode om te bepalen of het punt binnen de cirkel ligt
+                // Validation if clickX, clickY in circle radius in IsPointInCircle()
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
-                    textBoxCoords.AppendText($"{circle.Color}" + Environment.NewLine);
-                    textBoxCoords.AppendText($"Size: {circle.CircleSize}");
+
+                    int points = PointsAndDisplays.ValidateSizeAndPoints(circle.CircleSize);
+
+                    textBoxCoords.AppendText(Environment.NewLine + $"{circle.Color}");
+                    textBoxCoords.AppendText(Environment.NewLine + $"Size: {circle.CircleSize}");
+                    textBoxCoords.AppendText(Environment.NewLine + $"{points} points" + Environment.NewLine);
                     textBoxCoords.TextAlign = HorizontalAlignment.Center;
 
                     // Delete circle from list
@@ -92,7 +96,7 @@ namespace Clicker_v2
             if (!isHit)
             {
                 // Geen hit
-                textBoxCoords.AppendText("Miss!" + Environment.NewLine);
+                textBoxCoords.AppendText(Environment.NewLine + "Miss!" + Environment.NewLine);
                 textBoxCoords.TextAlign = HorizontalAlignment.Center;
 
                 Debug.WriteLine("End function ClickInCircleRadius with No Hit");
