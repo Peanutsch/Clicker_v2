@@ -1,4 +1,6 @@
-﻿namespace Clicker_v2
+﻿using static System.Formats.Asn1.AsnWriter;
+
+namespace Clicker_v2
 {
     partial class Clicker
     {
@@ -145,10 +147,11 @@
             textBoxDisplayScore.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBoxDisplayScore.Location = new Point(913, 12);
             textBoxDisplayScore.Multiline = true;
+            textBoxDisplayScore.Enabled = true;
             textBoxDisplayScore.Name = "textBoxDisplayScore";
             textBoxDisplayScore.Size = new Size(116, 110);
             textBoxDisplayScore.TabIndex = 0;
-            textBoxDisplayScore.Text = "\r\n\r\nS C O R E ";
+            textBoxDisplayScore.Text = "\r\n\r\nYOUR SCORE\r\n[0]";
             textBoxDisplayScore.TextAlign = HorizontalAlignment.Center;
             // 
             // Clicker

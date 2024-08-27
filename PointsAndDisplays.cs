@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,14 +8,15 @@ namespace Clicker_v2
 {
     internal class PointsAndDisplays
     {
-        //private int _elapsedSeconds = 0;
         private int _totalSeconds;
         private List<int> listScore = new List<int>();
+        public int CurrentScore => listScore.Sum(); // The total score
+
 
         private DrawPanelTimerIndicator _drawPanelTimerIndicator;
         private RichTextBox _richTextBoxCountDown;
-        
-        // Constructor initialize _totalSeconds en GUI components
+
+        // Constructor to initialize _totalSeconds, _drawPanelTimerIndicator, _richTextBoxCountDown
         public PointsAndDisplays(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
         {
             _totalSeconds = totalSeconds;
@@ -37,7 +39,7 @@ namespace Clicker_v2
                 >= 30 and < 50 => 30, // Size between 30 - 50: return 30 points
                 >= 50 and < 75 => 20, // Size between 50 - 75: return 20 points
                 >= 75 and <= 100 => 10, // Size between 75 - 100: return 10 points
-                _ => 0 // Default: return 0 points if outside expected range
+                _ => -5 // Default: return -5 points if outside expected range (miss circle)
             };
         }
 
@@ -49,7 +51,9 @@ namespace Clicker_v2
         public int CatchScore(int points)
         {
             listScore.Add(points); // Add points to listScore
-            return listScore.Sum(); // Calculate and return sum listScore
+            Debug.WriteLine($"Added points: {points}");
+
+            return listScore.Sum(); // Calculate and return sum of listScore
         }
         #endregion
 
@@ -62,8 +66,10 @@ namespace Clicker_v2
         public void DisplayScore(TextBox textBoxDisplayScore, int score)
         {
             textBoxDisplayScore.DeselectAll();
-            textBoxDisplayScore.Text = score.ToString(); // Display score as string
-            textBoxDisplayScore.Refresh(); // Ververs de TextBox
+            textBoxDisplayScore.Text = $"\r\n\r\nYOUR SCORE\r\n[{score.ToString()}]"; // Display score as string
+            textBoxDisplayScore.Refresh(); // Refresh the TextBox
+
+            //Debug.WriteLine($"listScore: {score}");
         }
 
         /// <summary>

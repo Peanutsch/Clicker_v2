@@ -17,7 +17,7 @@ namespace Clicker_v2
         private List<Circle> _listCircles; // Declare the List<Circle>
 
         private int _elapsedSeconds = 0;
-        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // value from DrawPanelTimerIndicator.totalSeconds
+        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Value from DrawPanelTimerIndicator.totalSeconds
 
         bool gameActive = false;
 
@@ -25,28 +25,27 @@ namespace Clicker_v2
         public static int SelectedMaxTime { get; set; } = 2500;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Clicker"/> class.
-        /// Sets up GUI components, initializes managers, and sets event handlers.
+        /// Initializes a new instance of the Clicker class.
+        /// Sets up the game environment, including UI components and event handlers.
         /// </summary>
         public Clicker()
         {
             InitializeComponent();
 
+            // Set default values for combo boxes
             comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("100");
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500");
 
-            _drawPanelBoard = new DrawPanelBoard(); // Zorg ervoor dat deze instantie correct is
-            _clickManager = new ClickManager(textBoxHitMiss, _drawPanelBoard.Circles);
-
+            _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
-
-            // Initialize ClickManager with the necessary dependencies
-            _clickManager = new ClickManager(textBoxHitMiss, _listCircles);
 
             // Initialize PointsAndDisplays
             _pointsAndDisplays = new PointsAndDisplays(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
-            // Mouseclick Handler
+            // Initialize ClickManager with the necessary dependencies
+            _clickManager = new ClickManager(textBoxHitMiss, _listCircles, _pointsAndDisplays, textBoxDisplayScore);
+
+            // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
             // Initialize the timer with a 1-second interval
@@ -118,6 +117,7 @@ namespace Clicker_v2
 
         /// <summary>
         /// Handles the button click event to stop capturing clicks.
+        /// Sets the form's capture state to false.
         /// </summary>
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -132,17 +132,17 @@ namespace Clicker_v2
         /// <param name="e">The mouse event arguments.</param>
         internal void CaptureMouseClickPosition(object sender, MouseEventArgs e)
         {
-            // Block register mouseclicks
+            // Block register mouse clicks if the game is not active
             if (!gameActive)
                 return;
 
             if (e.Button == MouseButtons.Left)
             {
-                this.Activate();
+                this.Activate(); // Ensure the form is active
                 int clickX = e.X;
                 int clickY = e.Y;
 
-                // Pass the coordinates to the GameElements method
+                // Pass the coordinates to the ClickManager method
                 //_clickManager.DisplayClickCoords(clickX, clickY, textBoxCoords);
                 _clickManager.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
             }

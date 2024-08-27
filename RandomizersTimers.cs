@@ -9,9 +9,9 @@ using System.Windows.Forms;
 namespace Clicker_v2
 {
     public class RandomizersTimers {
-        private static System.Windows.Forms.Timer? _boardTimer;
-        private static System.Windows.Forms.Timer? _indicatorTimer;
-        private static Stopwatch? _stopwatch;
+        private static System.Windows.Forms.Timer? _boardTimer; // Timer for the game board
+        private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
+        private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -50,7 +50,13 @@ namespace Clicker_v2
         */
 
         #region RANDOMIZERS
-        // Return randomized coords (x, y) for circle
+
+        /// <summary>
+        /// Returns randomized coordinates (x, y) for a circle within the specified maximum width and height.
+        /// </summary>
+        /// <param name="maxWidth">The maximum width for the random x-coordinate.</param>
+        /// <param name="maxHeight">The maximum height for the random y-coordinate.</param>
+        /// <returns>A tuple containing the randomized x and y coordinates.</returns>
         public static (int, int) RandomizerPositions(int maxWidth, int maxHeight)
         {
             Random randPos = new Random();
@@ -60,32 +66,44 @@ namespace Clicker_v2
             return (x, y);
         }
 
-        // Return randomized size circle
+        /// <summary>
+        /// Returns a randomized size for a circle within a specified range.
+        /// </summary>
+        /// <returns>A random integer representing the size of the circle.</returns>
         public static int RandomizedCircleSize()
         {
             Random randPixels = new Random();
-            int size = randPixels.Next(10, 100);
+            int size = randPixels.Next(10, 100); // Size range between 10 and 100 pixels
 
             return size;
         }
 
-        // Return randomized circle colour
+        /// <summary>
+        /// Returns a random color from a predefined list of colors.
+        /// </summary>
+        /// <returns>A Color object representing a randomized color.</returns>
         public static Color GetRandomColor()
         {
-            List<Color> colors = new List<Color> { Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.LightBlue, 
-                                                   Color.LavenderBlush, Color.Ivory, Color.HotPink, Color.AliceBlue, Color.DarkOrange,
-                                                   Color.OrangeRed, Color.Orchid, Color.Aqua, Color.Cyan
-                                                 };
+            List<Color> colors = new List<Color>
+            {
+                Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.LightBlue,
+                Color.LavenderBlush, Color.Ivory, Color.HotPink, Color.AliceBlue,
+                Color.DarkOrange, Color.OrangeRed, Color.Orchid, Color.Aqua, Color.Cyan
+            };
             Random rand = new Random();
             return colors[rand.Next(colors.Count)];
         }
+
         #endregion
+
         #region SET TIMERS
+
         #region BOARD TIMER
+
         /// <summary>
-        /// Init board timer and stopwatch and start timers
+        /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
         /// </summary>
-        /// <param name="interval">Interval is set in Clickers.SelectedInterval</param>
+        /// <param name="interval">The interval in milliseconds to set for the board timer.</param>
         public static void InitializeBoardTimer(int interval)
         {
             _boardTimer = new System.Windows.Forms.Timer();
@@ -96,16 +114,25 @@ namespace Clicker_v2
             _stopwatch.Start();
         }
 
+        /// <summary>
+        /// An event that is triggered on each tick of the board timer.
+        /// </summary>
         public static event EventHandler? TimerTickBoard;
+
+        /// <summary>
+        /// Invokes the TimerTickBoard event on each tick of the board timer.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">Event arguments for the tick event.</param>
         internal static void Timer_TickBoard(object sender, EventArgs e)
         {
             TimerTickBoard?.Invoke(sender, e);
         }
 
         /// <summary>
-        /// Init board timer and stopwatch and start timers
+        /// Updates the interval of the board timer.
         /// </summary>
-        /// <param name="interval">Interval is set in Clickers.SelectedInterval</param>
+        /// <param name="interval">The new interval in milliseconds for the board timer.</param>
         public static void UpdateBoardTimer(int interval)
         {
             if (_boardTimer != null)
@@ -115,6 +142,10 @@ namespace Clicker_v2
             }
         }
 
+        /// <summary>
+        /// Stops both the board timer and the indicator timer, and the stopwatch.
+        /// </summary>
+        /// <returns>The elapsed time from the stopwatch when stopped.</returns>
         public static TimeSpan StopTimer()
         {
             _boardTimer?.Stop();
@@ -122,9 +153,14 @@ namespace Clicker_v2
             _stopwatch?.Stop();
             return _stopwatch!.Elapsed;
         }
+
         #endregion
 
         #region INDICATOR TIMER
+
+        /// <summary>
+        /// Initializes the indicator timer with a 1-second interval and starts it.
+        /// </summary>
         public static void InitializeIndicatorTimer()
         {
             _indicatorTimer = new System.Windows.Forms.Timer();
@@ -133,12 +169,23 @@ namespace Clicker_v2
             _indicatorTimer.Start();
         }
 
+        /// <summary>
+        /// An event that is triggered on each tick of the indicator timer.
+        /// </summary>
         public static event EventHandler? TimerTickIndicator;
+
+        /// <summary>
+        /// Invokes the TimerTickIndicator event on each tick of the indicator timer.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">Event arguments for the tick event.</param>
         internal static void Timer_TickIndicator(object sender, EventArgs e)
         {
             TimerTickIndicator?.Invoke(sender, e);
         }
+
         #endregion
+
         #endregion
     }
 }
