@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Clicker_v2
@@ -11,7 +12,6 @@ namespace Clicker_v2
         private int _totalSeconds;
         private List<int> listScore = new List<int>();
         public int CurrentScore => listScore.Sum(); // The total score
-
 
         private DrawPanelTimerIndicator _drawPanelTimerIndicator;
         private RichTextBox _richTextBoxCountDown;
@@ -25,6 +25,7 @@ namespace Clicker_v2
         }
 
         #region SET POINTS
+
         /// <summary>
         /// Returns points based on the provided size.
         /// </summary>
@@ -44,6 +45,33 @@ namespace Clicker_v2
         }
 
         /// <summary>
+        /// Penalty when click is miss:
+        /// Default: minus 10 points from score
+        /// </summary>
+        /// <param name="textBoxDisplayScore">Textbox where display the score</param>
+        public void PenaltyPoints(TextBox textBoxDisplayScore)
+        {
+            // Default penalty points: -10
+            int penaltyPoints = -10;
+
+            // Check the current total score before applying the penalty
+            int currentScore = CurrentScore;
+
+            if (currentScore >= 10)
+            {
+                // Apply the penalty of -10 points for missing all circles
+                int totalScore = CatchScore(penaltyPoints);
+                DisplayScore(textBoxDisplayScore, totalScore);
+
+                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty applied");
+            }
+            else
+            {
+                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty not applied");
+            }
+        }
+
+        /// <summary>
         /// Adds the points to the score list and returns the total score.
         /// </summary>
         /// <param name="points">Points to add.</param>
@@ -55,9 +83,80 @@ namespace Clicker_v2
 
             return listScore.Sum(); // Calculate and return sum of listScore
         }
+
         #endregion
 
         #region DISPLAY BOXES
+
+        /// <summary>
+        /// Displays the coordinates of a mouse click in the specified TextBox.
+        /// </summary>
+        /// <param name="clickX">The x-coordinate of the mouse click.</param>
+        /// <param name="clickY">The y-coordinate of the mouse click.</param>
+        /// <param name="textBoxCoords">The TextBox to update with coordinates.</param>
+        public void DisplayClickCoords(int clickX, int clickY, TextBox textBoxCoords)
+        {
+            string coords = $"({clickX}, {clickY})";
+            Debug.WriteLine($"Mouse click at {coords}");
+
+            textBoxCoords.AppendText(coords + Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Handles displaying the hit information and updating the score.
+        /// </summary>
+        /// <param name="circle">The circle that was hit.</param>
+        /// <param name="points">The points awarded for hitting the circle.</param>
+        /// <param name="textBoxCoords">The TextBox used to display the hit details (color, size, and points).</param>
+        /// <param name="drawPanel">The panel containing the circles. The hit circle will be removed from this panel.</param>
+        /// <param name="textBoxDisplayScore">The TextBox where the updated total score will be displayed.</param>
+        public void DisplayHitAndScores(Circle circle, int points, TextBox textBoxCoords, DrawPanelBoard drawPanel, TextBox textBoxDisplayScore)
+        {
+            // Handle the valid case (hit)
+            textBoxCoords.AppendText(Environment.NewLine + $"{circle.Color}");
+            textBoxCoords.AppendText(Environment.NewLine + $"Size: {circle.CircleSize}");
+            textBoxCoords.AppendText(Environment.NewLine + $"{points} points" + Environment.NewLine);
+            textBoxCoords.TextAlign = HorizontalAlignment.Center;
+
+            // Update the total score by adding the valid points
+            int totalScore = CatchScore(points);
+            DisplayScore(textBoxDisplayScore, totalScore);
+
+            // Remove the hit circle from the board
+            drawPanel.Circles.Remove(circle);
+
+            Debug.WriteLine("End function ClickInCircleRadius with hit");
+        }
+
+        /// <summary>
+        /// Handles the case where no circle is hit:
+        /// Adjusts the text color for the message and applies a penalty to the score if applicable.
+        /// </summary>
+        /// <param name="textBoxCoords">The TextBox used to display the "Miss!" message.</param>
+        /// <param name="textBoxDisplayScore">The TextBox where the updated total score will be displayed.</param>
+        public void DisplayNoHitAndScores(TextBox textBoxCoords, TextBox textBoxDisplayScore)
+        {
+            int currentScore = CurrentScore;
+
+            if (currentScore >= 5)
+            {
+                textBoxCoords.ForeColor = Color.DarkRed;
+                textBoxCoords.AppendText(Environment.NewLine + "Miss!\r\nPenalty 10 points" + Environment.NewLine);
+                textBoxCoords.TextAlign = HorizontalAlignment.Center;
+                textBoxCoords.ForeColor = Color.Black;
+
+                // Apply penalty to score
+                PenaltyPoints(textBoxDisplayScore);
+            }
+            else
+            {
+                textBoxCoords.ForeColor = Color.DarkRed;
+                textBoxCoords.AppendText(Environment.NewLine + "Miss!" + Environment.NewLine);
+                textBoxCoords.TextAlign = HorizontalAlignment.Center;
+                textBoxCoords.ForeColor = Color.Black;
+            }
+        }
+
         /// <summary>
         /// Displays the score in the given TextBox.
         /// </summary>
@@ -66,10 +165,8 @@ namespace Clicker_v2
         public void DisplayScore(TextBox textBoxDisplayScore, int score)
         {
             textBoxDisplayScore.DeselectAll();
-            textBoxDisplayScore.Text = $"\r\n\r\nYOUR SCORE\r\n[{score.ToString()}]"; // Display score as string
+            textBoxDisplayScore.Text = $"\r\n\r\nYOUR SCORE\r\n[{score}]"; // Display score as string
             textBoxDisplayScore.Refresh(); // Refresh the TextBox
-
-            //Debug.WriteLine($"listScore: {score}");
         }
 
         /// <summary>
