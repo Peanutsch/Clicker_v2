@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    internal class PointsAndDisplays
+    internal class ScoreManager
     {
         private int _totalSeconds;
         private List<int> listScore = new List<int>();
@@ -18,7 +18,7 @@ namespace Clicker_v2
         private RichTextBox _richTextBoxCountDown;
 
         // Constructor to initialize _totalSeconds, _drawPanelTimerIndicator, _richTextBoxCountDown
-        public PointsAndDisplays(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
+        public ScoreManager(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
         {
             _totalSeconds = totalSeconds;
             _drawPanelTimerIndicator = drawPanelTimerIndicator;
@@ -53,28 +53,24 @@ namespace Clicker_v2
         public void PenaltyPoints(TextBox textBoxDisplayScore)
         {
             // Default penalty points: 10
-            int penaltyPoints = 10;
+            int penaltyPoints = -10;
 
             // Validate the current total score before applying the penalty
             int currentScore = CurrentScore;
 
             // Simulate applying the penalty to check if score becomes negative
-            int validateScore = currentScore - penaltyPoints;
+            int validateScore = currentScore + penaltyPoints;
 
             if (validateScore < 0) // If score is negative, set it to zero
             {
-                listScore.Clear();  // Clear the score list to reflect zero total
-                DisplayScore(textBoxDisplayScore, 0);
-
-                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty not applied because score is zero.");
+                listScore.Clear();  // Clear the score list, total score is zero
+                DisplayScore(textBoxDisplayScore, 0); // Display total score = zero
             }
             else
             {
                 // Apply the penalty
                 int totalScore = CatchScore(penaltyPoints);  // Add the negative penaltyPoints
                 DisplayScore(textBoxDisplayScore, totalScore);
-
-                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty applied.");
             }
         }
 
@@ -118,7 +114,7 @@ namespace Clicker_v2
         /// <param name="textBoxCoords">The TextBox used to display the hit details (color, size, and points).</param>
         /// <param name="drawPanel">The panel containing the circles. The hit circle will be removed from this panel.</param>
         /// <param name="textBoxDisplayScore">The TextBox where the updated total score will be displayed.</param>
-        public void DisplayHitAndScores(Circle circle, int points, TextBox textBoxCoords, DrawPanelBoard drawPanel, TextBox textBoxDisplayScore)
+        public void HandleMissAndScores(Circle circle, int points, TextBox textBoxCoords, DrawPanelBoard drawPanel, TextBox textBoxDisplayScore)
         {
             // Handle the valid case (hit)
             textBoxCoords.AppendText(Environment.NewLine + $"{circle.Color}");
@@ -143,7 +139,7 @@ namespace Clicker_v2
         /// </summary>
         /// <param name="textBoxCoords">The TextBox used to display the "Miss!" message.</param>
         /// <param name="textBoxDisplayScore">The TextBox where the updated total score will be displayed.</param>
-        public void DisplayNoHitAndScores(TextBox textBoxCoords, TextBox textBoxDisplayScore)
+        public void HandleMissAndScores(TextBox textBoxCoords, TextBox textBoxDisplayScore)
         {
             int currentScore = CurrentScore;
 
@@ -173,8 +169,7 @@ namespace Clicker_v2
         /// <param name="score">The score to display.</param>
         public void DisplayScore(TextBox textBoxDisplayScore, int score)
         {
-            textBoxDisplayScore.DeselectAll();
-            textBoxDisplayScore.Text = $"YOUR SCORE\n[{score}]"; // Display score as string
+            textBoxDisplayScore.Text = $"YOUR SCORE\r\n[{score}]"; // Display score as string
             textBoxDisplayScore.Refresh(); // Refresh the TextBox
         }
 
@@ -188,6 +183,7 @@ namespace Clicker_v2
 
             // Update the richTextBoxCountdown with the remaining time
             int remainingSeconds = totalSeconds - elapsedSeconds;
+            _richTextBoxCountDown.SelectionAlignment = HorizontalAlignment.Center;
             _richTextBoxCountDown.Text = $"Time left: {remainingSeconds} seconds";
         }
         #endregion

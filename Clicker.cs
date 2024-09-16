@@ -12,7 +12,7 @@ namespace Clicker_v2
 
         private DrawPanelBoard _drawPanelBoard;
         private ClickManager _clickManager;
-        private PointsAndDisplays _pointsAndDisplays;
+        private ScoreManager _pointsAndDisplays;
         private TextBox textBoxHitMiss;
 
         private List<Circle> _listCircles; // Declare the List<Circle>
@@ -54,7 +54,7 @@ namespace Clicker_v2
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
             // Initialize PointsAndDisplays
-            _pointsAndDisplays = new PointsAndDisplays(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
+            _pointsAndDisplays = new ScoreManager(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
             // Initialize ClickManager with the necessary dependencies
             _clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _pointsAndDisplays, textBoxDisplayScore);
@@ -63,8 +63,8 @@ namespace Clicker_v2
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
             // Initialize the timer with a 1-second interval
-            InitRandomizersTimers.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
-            InitRandomizersTimers.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
+            Inits.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
+            Inits.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
 
             gameActive = true;
         }
@@ -96,7 +96,7 @@ namespace Clicker_v2
 
             if (_elapsedSeconds >= _totalSeconds)
             {
-                InitRandomizersTimers.StopTimer(); // Stop the timer if the total time has elapsed
+                Inits.StopTimer(); // Stop the timer if the total time has elapsed
                 richTextBoxCountDown.Text = $"Countdown complete";
                 gameActive = false;
             }

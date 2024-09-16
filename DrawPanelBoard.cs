@@ -28,11 +28,11 @@ namespace Clicker_v2
             this.DoubleBuffered = true;
 
             // Unsubscribe from the timer event to avoid duplicate subscriptions
-            InitRandomizersTimers.TimerTickBoard -= OnTimerTick!;
+            Inits.TimerTickBoard -= OnTimerTick!;
             // Initialize board timer with the selected interval
-            InitRandomizersTimers.InitializeBoardTimer(Clicker.SelectedInterval);
+            Inits.InitializeBoardTimer(Clicker.SelectedInterval);
             // Subscribe to the timer tick event
-            InitRandomizersTimers.TimerTickBoard += OnTimerTick!;
+            Inits.TimerTickBoard += OnTimerTick!;
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace Clicker_v2
         /// </summary>
         private void InitializeCirclePositionSize()
         {
-            Color circleColor = InitRandomizersTimers.RandomizerColor();
-            int circleSize = InitRandomizersTimers.RandomizerCircleSize();
-            (int x, int y) = InitRandomizersTimers.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
+            Color circleColor = Inits.RandomizerColor();
+            int circleSize = Inits.RandomizerCircleSize();
+            (int x, int y) = Inits.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
             _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
             // Remove circles that have exceeded their maximum time
@@ -114,7 +114,7 @@ namespace Clicker_v2
         /// <param name="interval">The new timer interval in milliseconds.</param>
         public static void UpdateTimerInterval(int interval)
         {
-            InitRandomizersTimers.UpdateBoardTimer(interval); // Update the timer with the new interval
+            Inits.UpdateBoardTimer(interval); // Update the timer with the new interval
         }
     }
 }

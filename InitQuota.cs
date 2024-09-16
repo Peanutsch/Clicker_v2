@@ -14,7 +14,7 @@ namespace Clicker_v2
 
         bool isStartQuota;
 
-        Color CircleColor = InitRandomizersTimers.RandomizerColor();
+        Color CircleColor = Inits.RandomizerColor();
 
         public InitQuota(bool isStartQuota)
             {
@@ -51,7 +51,7 @@ namespace Clicker_v2
         public void DisplayQuotaPoints(TextBox textBoxQuota, int currentQuota) // Voeg currentQuota toe als parameter
         {
             // Display quota in TextBox
-            textBoxQuota.Text = $"QUOTA:\n{currentQuota}";
+            textBoxQuota.Text = $"QUOTA:\r\n{currentQuota}";
         }
 
         public static void InitCircleQuota()

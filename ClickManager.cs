@@ -10,10 +10,10 @@ namespace Clicker_v2
     {
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
-        private PointsAndDisplays _pointsAndDisplays;
+        private ScoreManager _pointsAndDisplays;
         private TextBox _textBoxDisplayScore;
 
-        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, PointsAndDisplays pointsAndDisplays, TextBox textBoxDisplayScore)
+        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager pointsAndDisplays, TextBox textBoxDisplayScore)
         {
             _textBoxHitMiss = textBoxHitMiss;
             _listCircles = circles;
@@ -62,25 +62,17 @@ namespace Clicker_v2
                 {
                     isHit = true;
                     // Validate points based on the size of the circle
-                    int points = PointsAndDisplays.ValidateSizeAndPoints(circle.CircleSize);
+                    int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
 
-                    if (points == -5)
+                    if (points == 0)
                     {
                         // Handle the invalid circle size case
                         isHit = false;
                     }
                     else
                     {
-                        // Display hit information and update score
-                        _pointsAndDisplays.DisplayHitAndScores(circle, points, textBoxCoords, drawPanel, _textBoxDisplayScore);
-
-                        Color circleColor = Color.Black;
-
-                        // Redraw the panel to reflect the color change
-                        drawPanel.Invalidate();  // This will cause the panel to be redrawn
-
-                        // Remove the hit circle from the board
-                        drawPanel.Circles.Remove(circle);
+                        // Handle when hit
+                        _pointsAndDisplays.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, _textBoxDisplayScore);
                     }
                     break;  // Stop loop when a hit is detected
                 }
@@ -88,8 +80,8 @@ namespace Clicker_v2
 
             if (!isHit)
             {
-                // Handle the case where no circle is hit
-                _pointsAndDisplays.DisplayNoHitAndScores(textBoxCoords, _textBoxDisplayScore);
+                // Handle when miss
+                _pointsAndDisplays.HandleMissAndScores(textBoxCoords, _textBoxDisplayScore);
             }
         }
     }

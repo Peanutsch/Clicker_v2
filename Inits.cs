@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    public class InitRandomizersTimers 
+    public class Inits 
     {
         private static System.Windows.Forms.Timer? _boardTimer; // Timer for the game board
         private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
@@ -187,6 +187,13 @@ namespace Clicker_v2
 
         #endregion
 
+        #endregion
+
+        #region SETLEVELS
+        public void InitLevels()
+        {
+            // level and quota
+        }
         #endregion
     }
 }

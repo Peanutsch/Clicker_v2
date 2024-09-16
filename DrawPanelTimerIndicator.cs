@@ -10,7 +10,7 @@ namespace Clicker_v2
     internal class DrawPanelTimerIndicator : Panel
     {
         private int elapsedSeconds = 0; // Keeps track of the elapsed seconds
-        internal const int totalSeconds = 500; // Total duration of the timer in seconds
+        internal const int totalSeconds = 10; // Total duration of the timer in seconds
         internal const int colorChangeInterval = 1; // Interval for color change in seconds
 
         /// <summary>
@@ -23,9 +23,9 @@ namespace Clicker_v2
             this.DoubleBuffered = true;
 
             // Initialize and start the timer with a 1-second interval
-            InitRandomizersTimers.TimerTickIndicator -= OnTimerTick!; // Unsubscribe to avoid duplicate subscriptions
-            InitRandomizersTimers.InitializeIndicatorTimer(); // Initialize the timer
-            InitRandomizersTimers.TimerTickIndicator += OnTimerTick!; // Subscribe to the timer tick event
+            Inits.TimerTickIndicator -= OnTimerTick!; // Unsubscribe to avoid duplicate subscriptions
+            Inits.InitializeIndicatorTimer(); // Initialize the timer
+            Inits.TimerTickIndicator += OnTimerTick!; // Subscribe to the timer tick event
         }
 
         /// <summary>
