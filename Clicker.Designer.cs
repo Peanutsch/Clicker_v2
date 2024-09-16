@@ -34,6 +34,7 @@ namespace Clicker_v2
             this.pictureBox2 = new PictureBox();
             this.pictureBox3 = new PictureBox();
             this.textBox1 = new TextBox();
+            this.textBoxQuota = new TextBox();
             ((System.ComponentModel.ISupportInitialize)this.pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.pictureBox3).BeginInit();
@@ -141,7 +142,7 @@ namespace Clicker_v2
             this.textBoxHitMiss.Location = new Point(359, 12);
             this.textBoxHitMiss.Multiline = true;
             this.textBoxHitMiss.Name = "textBoxHitMiss";
-            this.textBoxHitMiss.Size = new Size(546, 110);
+            this.textBoxHitMiss.Size = new Size(520, 110);
             this.textBoxHitMiss.TabIndex = 10;
             this.textBoxHitMiss.Text = "Display Something TextBox";
             this.textBoxHitMiss.TextAlign = HorizontalAlignment.Center;
@@ -150,12 +151,12 @@ namespace Clicker_v2
             // 
             this.textBoxDisplayScore.BackColor = SystemColors.Info;
             this.textBoxDisplayScore.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBoxDisplayScore.Location = new Point(913, 12);
+            this.textBoxDisplayScore.Location = new Point(885, 71);
             this.textBoxDisplayScore.Multiline = true;
             this.textBoxDisplayScore.Name = "textBoxDisplayScore";
-            this.textBoxDisplayScore.Size = new Size(116, 110);
+            this.textBoxDisplayScore.Size = new Size(142, 50);
             this.textBoxDisplayScore.TabIndex = 0;
-            this.textBoxDisplayScore.Text = "\r\n\r\nYOUR SCORE\r\n[0]";
+            this.textBoxDisplayScore.Text = "YOUR SCORE\r\n[0]";
             this.textBoxDisplayScore.TextAlign = HorizontalAlignment.Center;
             // 
             // pictureBox2
@@ -188,12 +189,25 @@ namespace Clicker_v2
             this.textBox1.Text = "Version\r\n0.0.0.1";
             this.textBox1.TextAlign = HorizontalAlignment.Center;
             // 
+            // textBoxQuota
+            // 
+            this.textBoxQuota.BackColor = SystemColors.Info;
+            this.textBoxQuota.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            this.textBoxQuota.Location = new Point(885, 12);
+            this.textBoxQuota.Multiline = true;
+            this.textBoxQuota.Name = "textBoxQuota";
+            this.textBoxQuota.Size = new Size(142, 50);
+            this.textBoxQuota.TabIndex = 1;
+            this.textBoxQuota.Text = "QUOTA";
+            this.textBoxQuota.TextAlign = HorizontalAlignment.Center;
+            // 
             // Clicker
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.BackColor = Color.Black;
             this.ClientSize = new Size(1928, 943);
+            this.Controls.Add(this.textBoxQuota);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -235,5 +249,6 @@ namespace Clicker_v2
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private TextBox textBox1;
+        private TextBox textBoxQuota;
     }
 }

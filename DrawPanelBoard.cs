@@ -64,10 +64,10 @@ namespace Clicker_v2
         /// </summary>
         private void InitializeCirclePositionSize()
         {
-            int circleSize = RandomizersTimers.RandomizedCircleSize();
+            int circleSize = RandomizersTimers.RandomizerCircleSize();
             (int x, int y) = RandomizersTimers.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
-            Color circleColor = RandomizersTimers.GetRandomColor();
+            Color circleColor = RandomizersTimers.RandomizerColor();
             _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
             // Remove circles that have exceeded their maximum time
             _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);

@@ -70,7 +70,7 @@ namespace Clicker_v2
         /// Returns a randomized size for a circle within a specified range.
         /// </summary>
         /// <returns>A random integer representing the size of the circle.</returns>
-        public static int RandomizedCircleSize()
+        public static int RandomizerCircleSize()
         {
             Random randPixels = new Random();
             int size = randPixels.Next(10, 100); // Size range between 10 and 100 pixels
@@ -82,7 +82,7 @@ namespace Clicker_v2
         /// Returns a random color from a predefined list of colors.
         /// </summary>
         /// <returns>A Color object representing a randomized color.</returns>
-        public static Color GetRandomColor()
+        public static Color RandomizerColor()
         {
             List<Color> colors = new List<Color>
             {

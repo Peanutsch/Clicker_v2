@@ -124,6 +124,7 @@ namespace Clicker_v2
 
             // Remove the hit circle from the board
             drawPanel.Circles.Remove(circle);
+            drawPanel.Refresh();
 
             Debug.WriteLine("End function ClickInCircleRadius with hit");
         }
@@ -165,7 +166,7 @@ namespace Clicker_v2
         public void DisplayScore(TextBox textBoxDisplayScore, int score)
         {
             textBoxDisplayScore.DeselectAll();
-            textBoxDisplayScore.Text = $"\r\n\r\nYOUR SCORE\r\n[{score}]"; // Display score as string
+            textBoxDisplayScore.Text = $"YOUR SCORE\n[{score}]"; // Display score as string
             textBoxDisplayScore.Refresh(); // Refresh the TextBox
         }
 

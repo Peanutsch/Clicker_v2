@@ -19,7 +19,10 @@ namespace Clicker_v2
         private int _elapsedSeconds = 0;
         private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Value from DrawPanelTimerIndicator.totalSeconds
 
+        int startQuota = 100;
+
         bool gameActive = false;
+        bool isStartQuota = true;
 
         public static int SelectedInterval { get; set; } = 2000;
         public static int SelectedMaxTime { get; set; } = 2500;
@@ -31,6 +34,10 @@ namespace Clicker_v2
         public Clicker()
         {
             InitializeComponent();
+
+            // Display startQuota in textBoxQuota
+            TextBox textBoxQuota = new TextBox();
+            textBoxQuota.Text = $"Quota:\n{startQuota}";
 
             // Set default values for combo boxes
             comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("2000");
