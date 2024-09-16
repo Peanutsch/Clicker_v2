@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {}
+    "C:\\Users\\Visie Groep\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {
+    "C:\\Users\\Visie Groep\\source\\repos\\Clicker_v2\\Clicker_v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
+        "projectUniqueName": "C:\\Users\\Visie Groep\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
         "projectName": "Clicker_v2",
-        "projectPath": "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
-        "packagesPath": "C:\\Users\\mtels\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mtels\\source\\repos\\Clicker_v2\\obj\\",
+        "projectPath": "C:\\Users\\Visie Groep\\source\\repos\\Clicker_v2\\Clicker_v2.csproj",
+        "packagesPath": "C:\\Users\\Visie Groep\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Visie Groep\\source\\repos\\Clicker_v2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\mtels\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Visie Groep\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

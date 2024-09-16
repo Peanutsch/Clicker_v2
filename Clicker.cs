@@ -21,7 +21,7 @@ namespace Clicker_v2
 
         bool gameActive = false;
 
-        public static int SelectedInterval { get; set; } = 1000;
+        public static int SelectedInterval { get; set; } = 2000;
         public static int SelectedMaxTime { get; set; } = 2500;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Clicker_v2
             InitializeComponent();
 
             // Set default values for combo boxes
-            comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("100");
+            comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("2000");
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500");
 
             _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
