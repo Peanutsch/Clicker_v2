@@ -57,15 +57,13 @@ namespace Clicker_v2
 
             foreach (var circle in drawPanel.Circles)
             {
-                //Debug.WriteLine($"Checking circle at [X={circle.X}, Y={circle.Y}, Size={circle.CircleSize}]");
-
                 // Check if the click is within any circle
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
-
                     // Validate points based on the size of the circle
                     int points = PointsAndDisplays.ValidateSizeAndPoints(circle.CircleSize);
+
                     if (points == -5)
                     {
                         // Handle the invalid circle size case
@@ -75,6 +73,14 @@ namespace Clicker_v2
                     {
                         // Display hit information and update score
                         _pointsAndDisplays.DisplayHitAndScores(circle, points, textBoxCoords, drawPanel, _textBoxDisplayScore);
+
+                        Color circleColor = Color.Black;
+
+                        // Redraw the panel to reflect the color change
+                        drawPanel.Invalidate();  // This will cause the panel to be redrawn
+
+                        // Remove the hit circle from the board
+                        drawPanel.Circles.Remove(circle);
                     }
                     break;  // Stop loop when a hit is detected
                 }

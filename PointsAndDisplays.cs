@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Numerics;
 using System.Windows.Forms;
 
 namespace Clicker_v2
@@ -35,39 +36,45 @@ namespace Clicker_v2
         {
             return size switch
             {
-                >= 10 and < 20 => 50, // Size between 10 - 20: return 50 points
-                >= 20 and < 30 => 40, // Size between 20 - 30: return 40 points
-                >= 30 and < 50 => 30, // Size between 30 - 50: return 30 points
-                >= 50 and < 75 => 20, // Size between 50 - 75: return 20 points
-                >= 75 and <= 100 => 10, // Size between 75 - 100: return 10 points
-                _ => -5 // Default: return -5 points if outside expected range (miss circle)
+                >= 10 and < 20 => 25, // Size between 10 - 20: return 25 points
+                >= 20 and < 30 => 10, // Size between 20 - 30: return 10 points
+                >= 30 and < 50 => 5, // Size between 30 - 50: return 5 points
+                >= 50 and < 75 => 4, // Size between 50 - 75: return 4 points
+                >= 75 and <= 100 => 2, // Size between 75 - 100: return 2 points
+                _ => 0 // Default: return -5 points if outside expected range (miss circle)
             };
         }
 
         /// <summary>
-        /// Penalty when click is miss:
+        /// Penalty when miss click:
         /// Default: minus 10 points from score
         /// </summary>
         /// <param name="textBoxDisplayScore">Textbox where display the score</param>
         public void PenaltyPoints(TextBox textBoxDisplayScore)
         {
-            // Default penalty points: -10
-            int penaltyPoints = -10;
+            // Default penalty points: 10
+            int penaltyPoints = 10;
 
-            // Check the current total score before applying the penalty
+            // Validate the current total score before applying the penalty
             int currentScore = CurrentScore;
 
-            if (currentScore >= 10)
-            {
-                // Apply the penalty of -10 points for missing all circles
-                int totalScore = CatchScore(penaltyPoints);
-                DisplayScore(textBoxDisplayScore, totalScore);
+            // Simulate applying the penalty to check if score becomes negative
+            int validateScore = currentScore - penaltyPoints;
 
-                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty applied");
+            if (validateScore < 0) // If score is negative, set it to zero
+            {
+                listScore.Clear();  // Clear the score list to reflect zero total
+                DisplayScore(textBoxDisplayScore, 0);
+
+                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty not applied because score is zero.");
             }
             else
             {
-                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty not applied");
+                // Apply the penalty
+                int totalScore = CatchScore(penaltyPoints);  // Add the negative penaltyPoints
+                DisplayScore(textBoxDisplayScore, totalScore);
+
+                Debug.WriteLine("End function ClickInCircleRadius with No Hit, penalty applied.");
             }
         }
 
@@ -78,11 +85,12 @@ namespace Clicker_v2
         /// <returns>The cumulative total score.</returns>
         public int CatchScore(int points)
         {
-            listScore.Add(points); // Add points to listScore
+            listScore.Add(points); // Add points (which could be negative) to listScore
             Debug.WriteLine($"Added points: {points}");
 
             return listScore.Sum(); // Calculate and return sum of listScore
         }
+
 
         #endregion
 
@@ -139,7 +147,7 @@ namespace Clicker_v2
         {
             int currentScore = CurrentScore;
 
-            if (currentScore >= 5)
+            if (currentScore > 0)
             {
                 textBoxCoords.ForeColor = Color.DarkRed;
                 textBoxCoords.AppendText(Environment.NewLine + "Miss!\r\nPenalty 10 points" + Environment.NewLine);

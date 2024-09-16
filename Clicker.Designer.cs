@@ -20,235 +20,233 @@ namespace Clicker_v2
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Clicker));
-            this.drawPanelBoard = new DrawPanelBoard();
-            this.drawPanelTimerIndicator = new DrawPanelTimerIndicator();
-            this.comboBoxMaxTime = new ComboBox();
-            this.comboBoxInterval = new ComboBox();
-            this.richTextBoxCountDown = new RichTextBox();
-            this.richTextBoxDisplaySomething = new RichTextBox();
-            this.pictureBox1 = new PictureBox();
-            this.textBoxCoords = new TextBox();
-            this.textBox2 = new TextBox();
-            this.textBoxHitMiss = new TextBox();
-            this.textBoxDisplayScore = new TextBox();
-            this.pictureBox2 = new PictureBox();
-            this.pictureBox3 = new PictureBox();
-            this.textBox1 = new TextBox();
-            this.textBoxQuota = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox3).BeginInit();
-            this.SuspendLayout();
+            drawPanelBoard = new DrawPanelBoard();
+            drawPanelTimerIndicator = new DrawPanelTimerIndicator();
+            comboBoxMaxTime = new ComboBox();
+            comboBoxInterval = new ComboBox();
+            richTextBoxCountDown = new RichTextBox();
+            richTextBoxDisplaySomething = new RichTextBox();
+            pictureBoxTopLeft = new PictureBox();
+            textBoxCoords = new TextBox();
+            textBox2 = new TextBox();
+            textBoxDisplayScore = new TextBox();
+            pictureBoxRightSide = new PictureBox();
+            pictureBoxBottomSide = new PictureBox();
+            textBox1 = new TextBox();
+            textBoxQuota = new TextBox();
+            DrawPanelListCircles = new Panel();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxTopLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRightSide).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBottomSide).BeginInit();
+            SuspendLayout();
             // 
             // drawPanelBoard
             // 
-            this.drawPanelBoard.BackColor = Color.Black;
-            this.drawPanelBoard.BorderStyle = BorderStyle.FixedSingle;
-            this.drawPanelBoard.Location = new Point(236, 128);
-            this.drawPanelBoard.Margin = new Padding(4, 3, 4, 3);
-            this.drawPanelBoard.Name = "drawPanelBoard";
-            this.drawPanelBoard.Size = new Size(1334, 751);
-            this.drawPanelBoard.TabIndex = 0;
+            drawPanelBoard.BackColor = Color.Black;
+            drawPanelBoard.BorderStyle = BorderStyle.FixedSingle;
+            drawPanelBoard.Location = new Point(236, 128);
+            drawPanelBoard.Margin = new Padding(4, 3, 4, 3);
+            drawPanelBoard.Name = "drawPanelBoard";
+            drawPanelBoard.Size = new Size(1334, 751);
+            drawPanelBoard.TabIndex = 0;
             // 
             // drawPanelTimerIndicator
             // 
-            this.drawPanelTimerIndicator.BackColor = Color.Green;
-            this.drawPanelTimerIndicator.BorderStyle = BorderStyle.Fixed3D;
-            this.drawPanelTimerIndicator.Location = new Point(1035, 12);
-            this.drawPanelTimerIndicator.Name = "drawPanelTimerIndicator";
-            this.drawPanelTimerIndicator.Size = new Size(535, 110);
-            this.drawPanelTimerIndicator.TabIndex = 0;
+            drawPanelTimerIndicator.BackColor = Color.Green;
+            drawPanelTimerIndicator.BorderStyle = BorderStyle.Fixed3D;
+            drawPanelTimerIndicator.Location = new Point(1035, 12);
+            drawPanelTimerIndicator.Name = "drawPanelTimerIndicator";
+            drawPanelTimerIndicator.Size = new Size(535, 110);
+            drawPanelTimerIndicator.TabIndex = 0;
             // 
             // comboBoxMaxTime
             // 
-            this.comboBoxMaxTime.FormattingEnabled = true;
-            this.comboBoxMaxTime.Items.AddRange(new object[] { "1000", "2500", "5000", "7500", "10000", "12500", "15000", "17500", "20000" });
-            this.comboBoxMaxTime.Location = new Point(14, 167);
-            this.comboBoxMaxTime.Margin = new Padding(4, 3, 4, 3);
-            this.comboBoxMaxTime.Name = "comboBoxMaxTime";
-            this.comboBoxMaxTime.Size = new Size(214, 23);
-            this.comboBoxMaxTime.TabIndex = 1;
-            this.comboBoxMaxTime.SelectedIndexChanged += this.ComboBoxMaxTime_SelectedIndexChanged;
+            comboBoxMaxTime.FormattingEnabled = true;
+            comboBoxMaxTime.Items.AddRange(new object[] { "1000", "2500", "5000", "7500", "10000", "12500", "15000", "17500", "20000" });
+            comboBoxMaxTime.Location = new Point(14, 167);
+            comboBoxMaxTime.Margin = new Padding(4, 3, 4, 3);
+            comboBoxMaxTime.Name = "comboBoxMaxTime";
+            comboBoxMaxTime.Size = new Size(214, 23);
+            comboBoxMaxTime.TabIndex = 1;
+            comboBoxMaxTime.SelectedIndexChanged += ComboBoxMaxTime_SelectedIndexChanged;
             // 
             // comboBoxInterval
             // 
-            this.comboBoxInterval.FormattingEnabled = true;
-            this.comboBoxInterval.Items.AddRange(new object[] { "25", "50", "75", "100", "250", "500", "750", "1000", "1200", "1500", "1750", "2000" });
-            this.comboBoxInterval.Location = new Point(14, 128);
-            this.comboBoxInterval.Margin = new Padding(4, 3, 4, 3);
-            this.comboBoxInterval.Name = "comboBoxInterval";
-            this.comboBoxInterval.Size = new Size(214, 23);
-            this.comboBoxInterval.TabIndex = 0;
-            this.comboBoxInterval.SelectedIndexChanged += this.ComboBoxInterval_SelectedIndexChanged;
+            comboBoxInterval.FormattingEnabled = true;
+            comboBoxInterval.Items.AddRange(new object[] { "25", "50", "75", "100", "250", "500", "750", "1000", "1200", "1500", "1750", "2000" });
+            comboBoxInterval.Location = new Point(14, 128);
+            comboBoxInterval.Margin = new Padding(4, 3, 4, 3);
+            comboBoxInterval.Name = "comboBoxInterval";
+            comboBoxInterval.Size = new Size(214, 23);
+            comboBoxInterval.TabIndex = 0;
+            comboBoxInterval.SelectedIndexChanged += ComboBoxInterval_SelectedIndexChanged;
             // 
             // richTextBoxCountDown
             // 
-            this.richTextBoxCountDown.BackColor = SystemColors.Info;
-            this.richTextBoxCountDown.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.richTextBoxCountDown.Location = new Point(1579, 11);
-            this.richTextBoxCountDown.Margin = new Padding(4, 3, 4, 3);
-            this.richTextBoxCountDown.Name = "richTextBoxCountDown";
-            this.richTextBoxCountDown.Size = new Size(214, 110);
-            this.richTextBoxCountDown.TabIndex = 2;
-            this.richTextBoxCountDown.Text = "\n\nCOUNTDOWN";
+            richTextBoxCountDown.BackColor = SystemColors.Info;
+            richTextBoxCountDown.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            richTextBoxCountDown.Location = new Point(1579, 11);
+            richTextBoxCountDown.Margin = new Padding(4, 3, 4, 3);
+            richTextBoxCountDown.Name = "richTextBoxCountDown";
+            richTextBoxCountDown.Size = new Size(214, 110);
+            richTextBoxCountDown.TabIndex = 2;
+            richTextBoxCountDown.Text = "\n\nCOUNTDOWN";
             // 
             // richTextBoxDisplaySomething
             // 
-            this.richTextBoxDisplaySomething.BackColor = SystemColors.Info;
-            this.richTextBoxDisplaySomething.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.richTextBoxDisplaySomething.Location = new Point(236, 12);
-            this.richTextBoxDisplaySomething.Margin = new Padding(4, 3, 4, 3);
-            this.richTextBoxDisplaySomething.Name = "richTextBoxDisplaySomething";
-            this.richTextBoxDisplaySomething.Size = new Size(116, 110);
-            this.richTextBoxDisplaySomething.TabIndex = 3;
-            this.richTextBoxDisplaySomething.Text = "\nDISPLAY SOMETHING";
+            richTextBoxDisplaySomething.BackColor = SystemColors.Info;
+            richTextBoxDisplaySomething.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            richTextBoxDisplaySomething.Location = new Point(236, 12);
+            richTextBoxDisplaySomething.Margin = new Padding(4, 3, 4, 3);
+            richTextBoxDisplaySomething.Name = "richTextBoxDisplaySomething";
+            richTextBoxDisplaySomething.Size = new Size(116, 110);
+            richTextBoxDisplaySomething.TabIndex = 3;
+            richTextBoxDisplaySomething.Text = "\nDISPLAY SOMETHING";
             // 
-            // pictureBox1
+            // pictureBoxTopLeft
             // 
-            this.pictureBox1.BackColor = Color.LightGray;
-            this.pictureBox1.Image = Properties.Resources.dotted_circles;
-            this.pictureBox1.Location = new Point(15, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new Size(214, 110);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            pictureBoxTopLeft.BackColor = Color.LightGray;
+            pictureBoxTopLeft.Image = Properties.Resources.dotted_circles;
+            pictureBoxTopLeft.Location = new Point(15, 12);
+            pictureBoxTopLeft.Name = "pictureBoxTopLeft";
+            pictureBoxTopLeft.Size = new Size(214, 110);
+            pictureBoxTopLeft.TabIndex = 7;
+            pictureBoxTopLeft.TabStop = false;
             // 
             // textBoxCoords
             // 
-            this.textBoxCoords.BackColor = SystemColors.Info;
-            this.textBoxCoords.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBoxCoords.Location = new Point(14, 199);
-            this.textBoxCoords.Multiline = true;
-            this.textBoxCoords.Name = "textBoxCoords";
-            this.textBoxCoords.Size = new Size(214, 680);
-            this.textBoxCoords.TabIndex = 8;
-            this.textBoxCoords.TextAlign = HorizontalAlignment.Center;
+            textBoxCoords.BackColor = SystemColors.Info;
+            textBoxCoords.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxCoords.Location = new Point(14, 199);
+            textBoxCoords.Multiline = true;
+            textBoxCoords.Name = "textBoxCoords";
+            textBoxCoords.Size = new Size(214, 680);
+            textBoxCoords.TabIndex = 8;
+            textBoxCoords.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = SystemColors.Info;
-            this.textBox2.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBox2.Location = new Point(14, 886);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new Size(214, 42);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Text = "BottomMessageStuff";
-            // 
-            // textBoxHitMiss
-            // 
-            this.textBoxHitMiss.BackColor = SystemColors.Info;
-            this.textBoxHitMiss.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBoxHitMiss.Location = new Point(359, 12);
-            this.textBoxHitMiss.Multiline = true;
-            this.textBoxHitMiss.Name = "textBoxHitMiss";
-            this.textBoxHitMiss.Size = new Size(520, 110);
-            this.textBoxHitMiss.TabIndex = 10;
-            this.textBoxHitMiss.Text = "Display Something TextBox";
-            this.textBoxHitMiss.TextAlign = HorizontalAlignment.Center;
+            textBox2.BackColor = SystemColors.Info;
+            textBox2.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox2.Location = new Point(14, 886);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(214, 42);
+            textBox2.TabIndex = 9;
+            textBox2.Text = "BottomMessageStuff";
             // 
             // textBoxDisplayScore
             // 
-            this.textBoxDisplayScore.BackColor = SystemColors.Info;
-            this.textBoxDisplayScore.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBoxDisplayScore.Location = new Point(885, 71);
-            this.textBoxDisplayScore.Multiline = true;
-            this.textBoxDisplayScore.Name = "textBoxDisplayScore";
-            this.textBoxDisplayScore.Size = new Size(142, 50);
-            this.textBoxDisplayScore.TabIndex = 0;
-            this.textBoxDisplayScore.Text = "YOUR SCORE\r\n[0]";
-            this.textBoxDisplayScore.TextAlign = HorizontalAlignment.Center;
+            textBoxDisplayScore.BackColor = SystemColors.Info;
+            textBoxDisplayScore.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxDisplayScore.Location = new Point(885, 71);
+            textBoxDisplayScore.Multiline = true;
+            textBoxDisplayScore.Name = "textBoxDisplayScore";
+            textBoxDisplayScore.Size = new Size(142, 50);
+            textBoxDisplayScore.TabIndex = 0;
+            textBoxDisplayScore.Text = "YOUR SCORE\r\n[0]";
+            textBoxDisplayScore.TextAlign = HorizontalAlignment.Center;
             // 
-            // pictureBox2
+            // pictureBoxRightSide
             // 
-            this.pictureBox2.BackColor = SystemColors.Info;
-            this.pictureBox2.Location = new Point(1577, 128);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new Size(214, 751);
-            this.pictureBox2.TabIndex = 11;
-            this.pictureBox2.TabStop = false;
+            pictureBoxRightSide.BackColor = SystemColors.Info;
+            pictureBoxRightSide.Location = new Point(1577, 128);
+            pictureBoxRightSide.Name = "pictureBoxRightSide";
+            pictureBoxRightSide.Size = new Size(214, 751);
+            pictureBoxRightSide.TabIndex = 11;
+            pictureBoxRightSide.TabStop = false;
             // 
-            // pictureBox3
+            // pictureBoxBottomSide
             // 
-            this.pictureBox3.BackColor = SystemColors.Info;
-            this.pictureBox3.Location = new Point(236, 886);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new Size(1334, 42);
-            this.pictureBox3.TabIndex = 12;
-            this.pictureBox3.TabStop = false;
+            pictureBoxBottomSide.BackColor = SystemColors.Info;
+            pictureBoxBottomSide.Location = new Point(236, 886);
+            pictureBoxBottomSide.Name = "pictureBoxBottomSide";
+            pictureBoxBottomSide.Size = new Size(1334, 42);
+            pictureBoxBottomSide.TabIndex = 12;
+            pictureBoxBottomSide.TabStop = false;
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = SystemColors.Info;
-            this.textBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBox1.Location = new Point(1577, 886);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new Size(214, 42);
-            this.textBox1.TabIndex = 13;
-            this.textBox1.Text = "Version\r\n0.0.0.1";
-            this.textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.BackColor = SystemColors.Info;
+            textBox1.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(1577, 886);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(214, 42);
+            textBox1.TabIndex = 13;
+            textBox1.Text = "Version\r\n0.0.0.1";
+            textBox1.TextAlign = HorizontalAlignment.Center;
             // 
             // textBoxQuota
             // 
-            this.textBoxQuota.BackColor = SystemColors.Info;
-            this.textBoxQuota.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.textBoxQuota.Location = new Point(885, 12);
-            this.textBoxQuota.Multiline = true;
-            this.textBoxQuota.Name = "textBoxQuota";
-            this.textBoxQuota.Size = new Size(142, 50);
-            this.textBoxQuota.TabIndex = 1;
-            this.textBoxQuota.Text = "QUOTA";
-            this.textBoxQuota.TextAlign = HorizontalAlignment.Center;
+            textBoxQuota.BackColor = SystemColors.Info;
+            textBoxQuota.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxQuota.Location = new Point(885, 12);
+            textBoxQuota.Multiline = true;
+            textBoxQuota.Name = "textBoxQuota";
+            textBoxQuota.Size = new Size(142, 50);
+            textBoxQuota.TabIndex = 1;
+            textBoxQuota.Text = "QUOTA";
+            textBoxQuota.TextAlign = HorizontalAlignment.Center;
+            // 
+            // DrawPanelListCircles
+            // 
+            DrawPanelListCircles.BackColor = SystemColors.Info;
+            DrawPanelListCircles.BorderStyle = BorderStyle.Fixed3D;
+            DrawPanelListCircles.Font = new Font("Courier New", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DrawPanelListCircles.Location = new Point(359, 12);
+            DrawPanelListCircles.Name = "DrawPanelListCircles";
+            DrawPanelListCircles.Size = new Size(520, 110);
+            DrawPanelListCircles.TabIndex = 14;
             // 
             // Clicker
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.BackColor = Color.Black;
-            this.ClientSize = new Size(1928, 943);
-            this.Controls.Add(this.textBoxQuota);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.textBoxDisplayScore);
-            this.Controls.Add(this.drawPanelBoard);
-            this.Controls.Add(this.drawPanelTimerIndicator);
-            this.Controls.Add(this.textBoxHitMiss);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBoxCoords);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.richTextBoxCountDown);
-            this.Controls.Add(this.richTextBoxDisplaySomething);
-            this.Controls.Add(this.comboBoxInterval);
-            this.Controls.Add(this.comboBoxMaxTime);
-            this.Icon = (Icon)resources.GetObject("$this.Icon");
-            this.Margin = new Padding(4, 3, 4, 3);
-            this.MinimizeBox = false;
-            this.Name = "Clicker";
-            this.Padding = new Padding(50);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Clicker";
-            this.WindowState = FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.pictureBox3).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(1928, 943);
+            Controls.Add(DrawPanelListCircles);
+            Controls.Add(textBoxQuota);
+            Controls.Add(textBox1);
+            Controls.Add(pictureBoxBottomSide);
+            Controls.Add(pictureBoxRightSide);
+            Controls.Add(textBoxDisplayScore);
+            Controls.Add(drawPanelBoard);
+            Controls.Add(drawPanelTimerIndicator);
+            Controls.Add(textBox2);
+            Controls.Add(textBoxCoords);
+            Controls.Add(pictureBoxTopLeft);
+            Controls.Add(richTextBoxCountDown);
+            Controls.Add(richTextBoxDisplaySomething);
+            Controls.Add(comboBoxInterval);
+            Controls.Add(comboBoxMaxTime);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            MinimizeBox = false;
+            Name = "Clicker";
+            Padding = new Padding(50);
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Clicker";
+            WindowState = FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)pictureBoxTopLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRightSide).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBottomSide).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private System.Windows.Forms.ComboBox comboBoxInterval;
         private System.Windows.Forms.ComboBox comboBoxMaxTime;
         private System.Windows.Forms.RichTextBox richTextBoxDisplaySomething;
         private System.Windows.Forms.RichTextBox richTextBoxCountDown;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxTopLeft;
         private TextBox textBoxCoords;
         private TextBox textBox2;
-        private TextBox textBoxHitMiss;
         private TextBox textBoxDisplayScore;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
+        private PictureBox pictureBoxRightSide;
+        private PictureBox pictureBoxBottomSide;
         private TextBox textBox1;
         private TextBox textBoxQuota;
+        private Panel DrawPanelListCircles;
     }
 }

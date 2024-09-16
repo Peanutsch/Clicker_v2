@@ -14,7 +14,7 @@ namespace Clicker_v2
 
         bool isStartQuota;
 
-        Color CircleColor = RandomizersTimers.RandomizerColor();
+        Color CircleColor = InitRandomizersTimers.RandomizerColor();
 
         public InitQuota(bool isStartQuota)
             {
@@ -31,10 +31,10 @@ namespace Clicker_v2
 
             if (!isStartQuota)
             {
-                // Verhoog startQuota met 10%
+                // Increase Quota with 10%
                 double increasedQuota = startQuota * 1.10;
 
-                // Rond naar boven af
+                // Round up
                 currentQuota = (int)Math.Ceiling(increasedQuota);
             }
             else
@@ -42,7 +42,7 @@ namespace Clicker_v2
                 currentQuota = startQuota;
             }
 
-            // Update de quota in de TextBox
+            // Update Quota in textBoxQuota
             DisplayQuotaPoints(textBoxQuota, currentQuota); // Geef de TextBox en currentQuota door
 
             return currentQuota; // Geef de huidige quota terug

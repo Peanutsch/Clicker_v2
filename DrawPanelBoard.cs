@@ -28,11 +28,11 @@ namespace Clicker_v2
             this.DoubleBuffered = true;
 
             // Unsubscribe from the timer event to avoid duplicate subscriptions
-            RandomizersTimers.TimerTickBoard -= OnTimerTick!;
+            InitRandomizersTimers.TimerTickBoard -= OnTimerTick!;
             // Initialize board timer with the selected interval
-            RandomizersTimers.InitializeBoardTimer(Clicker.SelectedInterval);
+            InitRandomizersTimers.InitializeBoardTimer(Clicker.SelectedInterval);
             // Subscribe to the timer tick event
-            RandomizersTimers.TimerTickBoard += OnTimerTick!;
+            InitRandomizersTimers.TimerTickBoard += OnTimerTick!;
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace Clicker_v2
         /// </summary>
         private void InitializeCirclePositionSize()
         {
-            int circleSize = RandomizersTimers.RandomizerCircleSize();
-            (int x, int y) = RandomizersTimers.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
+            Color circleColor = InitRandomizersTimers.RandomizerColor();
+            int circleSize = InitRandomizersTimers.RandomizerCircleSize();
+            (int x, int y) = InitRandomizersTimers.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
-            Color circleColor = RandomizersTimers.RandomizerColor();
             _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
             // Remove circles that have exceeded their maximum time
             _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
@@ -114,7 +114,7 @@ namespace Clicker_v2
         /// <param name="interval">The new timer interval in milliseconds.</param>
         public static void UpdateTimerInterval(int interval)
         {
-            RandomizersTimers.UpdateBoardTimer(interval); // Update the timer with the new interval
+            InitRandomizersTimers.UpdateBoardTimer(interval); // Update the timer with the new interval
         }
     }
 }

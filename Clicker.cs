@@ -13,6 +13,7 @@ namespace Clicker_v2
         private DrawPanelBoard _drawPanelBoard;
         private ClickManager _clickManager;
         private PointsAndDisplays _pointsAndDisplays;
+        private TextBox textBoxHitMiss;
 
         private List<Circle> _listCircles; // Declare the List<Circle>
 
@@ -26,8 +27,8 @@ namespace Clicker_v2
         bool gameActive = false;
         bool isStartQuota = true;
 
-        public static int SelectedInterval { get; set; } = 2000;
-        public static int SelectedMaxTime { get; set; } = 2500;
+        public static int SelectedInterval { get; set; } = 1000;
+        public static int SelectedMaxTime { get; set; } = 5000;
 
         /// <summary>
         /// Initializes a new instance of the Clicker class.
@@ -38,15 +39,16 @@ namespace Clicker_v2
             InitializeComponent();
 
             // Initialize InitQuota with the TextBox
-            _initQuota = new InitQuota(isStartQuota); // Geef de TextBox door aan InitQuota
+            _initQuota = new InitQuota(isStartQuota);
 
             // Display startQuota in textBoxQuota
-            _initQuota.NewPointsQuota(textBoxQuota); // Dit moet nu werken
+            _initQuota.NewPointsQuota(textBoxQuota);
 
 
             // Set default values for combo boxes
             comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("2000");
             comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500");
+
 
             _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
@@ -55,14 +57,14 @@ namespace Clicker_v2
             _pointsAndDisplays = new PointsAndDisplays(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
             // Initialize ClickManager with the necessary dependencies
-            _clickManager = new ClickManager(textBoxHitMiss, _listCircles, _pointsAndDisplays, textBoxDisplayScore);
+            _clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _pointsAndDisplays, textBoxDisplayScore);
 
             // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
             // Initialize the timer with a 1-second interval
-            RandomizersTimers.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
-            RandomizersTimers.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
+            InitRandomizersTimers.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
+            InitRandomizersTimers.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
 
             gameActive = true;
         }
@@ -94,7 +96,7 @@ namespace Clicker_v2
 
             if (_elapsedSeconds >= _totalSeconds)
             {
-                RandomizersTimers.StopTimer(); // Stop the timer if the total time has elapsed
+                InitRandomizersTimers.StopTimer(); // Stop the timer if the total time has elapsed
                 richTextBoxCountDown.Text = $"Countdown complete";
                 gameActive = false;
             }

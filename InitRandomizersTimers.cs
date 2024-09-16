@@ -8,7 +8,8 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    public class RandomizersTimers {
+    public class InitRandomizersTimers 
+    {
         private static System.Windows.Forms.Timer? _boardTimer; // Timer for the game board
         private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
         private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time

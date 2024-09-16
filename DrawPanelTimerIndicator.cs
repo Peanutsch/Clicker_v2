@@ -23,9 +23,9 @@ namespace Clicker_v2
             this.DoubleBuffered = true;
 
             // Initialize and start the timer with a 1-second interval
-            RandomizersTimers.TimerTickIndicator -= OnTimerTick!; // Unsubscribe to avoid duplicate subscriptions
-            RandomizersTimers.InitializeIndicatorTimer(); // Initialize the timer
-            RandomizersTimers.TimerTickIndicator += OnTimerTick!; // Subscribe to the timer tick event
+            InitRandomizersTimers.TimerTickIndicator -= OnTimerTick!; // Unsubscribe to avoid duplicate subscriptions
+            InitRandomizersTimers.InitializeIndicatorTimer(); // Initialize the timer
+            InitRandomizersTimers.TimerTickIndicator += OnTimerTick!; // Subscribe to the timer tick event
         }
 
         /// <summary>
