@@ -25,33 +25,40 @@ namespace Clicker_v2
 
         #region QUOTA
 
-        public int NewPointsQuota()
+        public int NewPointsQuota(TextBox textBoxQuota) // Voeg de TextBox toe als parameter
         {
+            int currentQuota;
+
             if (!isStartQuota)
             {
-                // Verhoog de startQuota met 10%
+                // Verhoog startQuota met 10%
                 double increasedQuota = startQuota * 1.10;
 
                 // Rond naar boven af
-                return (int)Math.Ceiling(increasedQuota);
+                currentQuota = (int)Math.Ceiling(increasedQuota);
             }
             else
             {
-                return startQuota;
+                currentQuota = startQuota;
             }
+
+            // Update de quota in de TextBox
+            DisplayQuotaPoints(textBoxQuota, currentQuota); // Geef de TextBox en currentQuota door
+
+            return currentQuota; // Geef de huidige quota terug
+        }
+
+        public void DisplayQuotaPoints(TextBox textBoxQuota, int currentQuota) // Voeg currentQuota toe als parameter
+        {
+            // Display quota in TextBox
+            textBoxQuota.Text = $"QUOTA:\n{currentQuota}";
         }
 
         public static void InitCircleQuota()
         {
-            
+            // Logica voor het initialiseren van cirkelquota
         }
 
-        public void DisplayQuotaPoints(TextBox textBoxQuota)
-        {
-            int currentQuota = NewPointsQuota();
-
-            textBoxQuota.Text = $"Quota:\n{currentQuota}";
-        }
 
         #endregion
     }

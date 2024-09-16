@@ -16,6 +16,8 @@ namespace Clicker_v2
 
         private List<Circle> _listCircles; // Declare the List<Circle>
 
+        private InitQuota _initQuota;
+
         private int _elapsedSeconds = 0;
         private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Value from DrawPanelTimerIndicator.totalSeconds
 
@@ -35,9 +37,12 @@ namespace Clicker_v2
         {
             InitializeComponent();
 
+            // Initialize InitQuota with the TextBox
+            _initQuota = new InitQuota(isStartQuota); // Geef de TextBox door aan InitQuota
+
             // Display startQuota in textBoxQuota
-            TextBox textBoxQuota = new TextBox();
-            textBoxQuota.Text = $"Quota:\n{startQuota}";
+            _initQuota.NewPointsQuota(textBoxQuota); // Dit moet nu werken
+
 
             // Set default values for combo boxes
             comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("2000");
