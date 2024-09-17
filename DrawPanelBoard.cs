@@ -107,14 +107,5 @@ namespace Clicker_v2
             InitializeCirclePositionSize(); // Initialize new circle
             this.Invalidate(); // Refresh the panel to trigger a repaint
         }
-
-        /// <summary>
-        /// Updates the timer interval for the board timer.
-        /// </summary>
-        /// <param name="interval">The new timer interval in milliseconds.</param>
-        public static void UpdateTimerInterval(int interval)
-        {
-            Inits.UpdateBoardTimer(interval); // Update the timer with the new interval
-        }
     }
 }

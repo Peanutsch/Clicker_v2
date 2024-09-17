@@ -45,11 +45,6 @@ namespace Clicker_v2
             _initQuota.NewPointsQuota(textBoxQuota);
 
 
-            // Set default values for combo boxes
-            comboBoxInterval.SelectedIndex = comboBoxInterval.Items.IndexOf("2000");
-            comboBoxMaxTime.SelectedIndex = comboBoxMaxTime.Items.IndexOf("2500");
-
-
             _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
@@ -97,35 +92,9 @@ namespace Clicker_v2
             if (_elapsedSeconds >= _totalSeconds)
             {
                 Inits.StopTimer(); // Stop the timer if the total time has elapsed
+
                 richTextBoxCountDown.Text = $"Countdown complete";
                 gameActive = false;
-            }
-        }
-
-        /// <summary>
-        /// Handles changes in the interval selection combo box.
-        /// Updates the selected interval and adjusts the timer accordingly.
-        /// </summary>
-        private void ComboBoxInterval_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (int.TryParse(comboBoxInterval.SelectedItem?.ToString(), out int interval))
-            {
-                SelectedInterval = interval;
-                Debug.WriteLine($"Selected Interval: {SelectedInterval}");
-                DrawPanelBoard.UpdateTimerInterval(SelectedInterval);
-            }
-        }
-
-        /// <summary>
-        /// Handles changes in the maximum time selection combo box.
-        /// Updates the selected maximum time.
-        /// </summary>
-        private void ComboBoxMaxTime_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (int.TryParse(comboBoxMaxTime.SelectedItem?.ToString(), out int maxTime))
-            {
-                SelectedMaxTime = maxTime;
-                Debug.WriteLine($"Selected Max Time: {SelectedMaxTime}");
             }
         }
 

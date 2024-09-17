@@ -97,9 +97,7 @@ namespace Clicker_v2
 
         #endregion
 
-        #region SET TIMERS
-
-        #region BOARD TIMER
+        #region TIMER DRAWPANELBOARD
 
         /// <summary>
         /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
@@ -131,19 +129,6 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Updates the interval of the board timer.
-        /// </summary>
-        /// <param name="interval">The new interval in milliseconds for the board timer.</param>
-        public static void UpdateBoardTimer(int interval)
-        {
-            if (_boardTimer != null)
-            {
-                _boardTimer.Interval = interval;
-                Debug.WriteLine($"Board Timer interval updated to: {interval} ms");
-            }
-        }
-
-        /// <summary>
         /// Stops both the board timer and the indicator timer, and the stopwatch.
         /// </summary>
         /// <returns>The elapsed time from the stopwatch when stopped.</returns>
@@ -157,7 +142,7 @@ namespace Clicker_v2
 
         #endregion
 
-        #region INDICATOR TIMER
+        #region TIMER DRAWPANELTIMERINDICATOR
 
         /// <summary>
         /// Initializes the indicator timer with a 1-second interval and starts it.
@@ -184,8 +169,6 @@ namespace Clicker_v2
         {
             TimerTickIndicator?.Invoke(sender, e);
         }
-
-        #endregion
 
         #endregion
 
