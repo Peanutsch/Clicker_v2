@@ -10,14 +10,14 @@ namespace Clicker_v2
     {
         private TextBox _textBoxHitMiss;
         private List<Circle> _listCircles;
-        private ScoreManager _pointsAndDisplays;
+        private ScoreManager _scoreManager;
         private TextBox _textBoxDisplayScore;
 
-        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager pointsAndDisplays, TextBox textBoxDisplayScore)
+        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore)
         {
             _textBoxHitMiss = textBoxHitMiss;
             _listCircles = circles;
-            _pointsAndDisplays = pointsAndDisplays;
+            _scoreManager = scoreManager;
             _textBoxDisplayScore = textBoxDisplayScore;
         }
 
@@ -72,7 +72,7 @@ namespace Clicker_v2
                     else
                     {
                         // Handle when hit
-                        _pointsAndDisplays.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, _textBoxDisplayScore);
+                        _scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, _textBoxDisplayScore);
                     }
                     break;  // Stop loop when a hit is detected
                 }
@@ -81,7 +81,7 @@ namespace Clicker_v2
             if (!isHit)
             {
                 // Handle when miss
-                _pointsAndDisplays.HandleMissAndScores(textBoxCoords, _textBoxDisplayScore);
+                _scoreManager.HandleMissAndScores(textBoxCoords, _textBoxDisplayScore);
             }
         }
     }

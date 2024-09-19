@@ -30,7 +30,7 @@ namespace Clicker_v2
             // Unsubscribe from the timer event to avoid duplicate subscriptions
             Inits.TimerTickBoard -= OnTimerTick!;
             // Initialize board timer with the selected interval
-            Inits.InitializeBoardTimer(Clicker.SelectedInterval);
+            Inits.InitializeBoardTimer(ClickerForms.SelectedInterval);
             // Subscribe to the timer tick event
             Inits.TimerTickBoard += OnTimerTick!;
         }
@@ -68,9 +68,9 @@ namespace Clicker_v2
             int circleSize = Inits.RandomizerCircleSize();
             (int x, int y) = Inits.RandomizerPositions(this.Width - circleSize, this.Height - circleSize);
 
-            _listCircles.Add(new Circle(x, y, circleSize, circleColor, Clicker.SelectedMaxTime));
+            _listCircles.Add(new Circle(x, y, circleSize, circleColor, ClickerForms.SelectedMaxTime));
             // Remove circles that have exceeded their maximum time
-            _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > Clicker.SelectedMaxTime);
+            _listCircles.RemoveAll(c => (DateTime.UtcNow - c.InitTime).TotalMilliseconds > ClickerForms.SelectedMaxTime);
         }
 
         /// <summary>
