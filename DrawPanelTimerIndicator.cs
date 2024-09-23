@@ -10,7 +10,7 @@ namespace Clicker_v2
     internal class DrawPanelTimerIndicator : Panel
     {
         // SET TOTAL SECONDS TIMER //
-        internal const int totalSeconds = 6; // Total duration of the timer in seconds
+        internal const int totalSeconds = 30; // Total duration of the timer in seconds
 
         private int elapsedSeconds = 0; // Keeps track of the elapsed seconds
         internal const int colorChangeInterval = 1; // Interval for color change in seconds

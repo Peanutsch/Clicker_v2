@@ -63,6 +63,7 @@ namespace Clicker_v2
                     isHit = true;
                     // Validate points based on the size of the circle
                     int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
+                    //AdjustTimer(1);
 
                     if (points == 0)
                     {
@@ -83,6 +84,16 @@ namespace Clicker_v2
                 // Handle when miss
                 scoreManager.HandleMissAndScores(textBoxCoords, textBoxDisplayScore);
             }
+        }
+
+        public void AdjustTimer(int timeadjustment)
+        {
+            // if (isHit)
+            // {
+            // totalSeconds++
+            // timerIndicator ++ green
+            // countdownBox++ 
+            // }
         }
     }
 }
