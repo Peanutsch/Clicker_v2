@@ -17,10 +17,10 @@ namespace Clicker_v2
         {
             X = x;
             Y = y;
-            CircleSize = circleSize;
-            InitTime = DateTime.UtcNow;
-            MaxTimeDrawn = maxTimeDrawn;
-            Color = color;
+            this.CircleSize = circleSize;
+            this.InitTime = DateTime.UtcNow;
+            this.MaxTimeDrawn = maxTimeDrawn;
+            this.Color = color;
         }
     }
 }

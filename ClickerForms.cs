@@ -75,7 +75,7 @@ namespace Clicker_v2
                 // Stop and dispose timer
                 _indicatorTimer?.Stop();
                 _indicatorTimer?.Dispose();
-
+                
                 base.Dispose();
             }
         }
@@ -91,7 +91,7 @@ namespace Clicker_v2
 
             if (_elapsedSeconds >= _totalSeconds)
             {
-                Inits.StopTimer(); // Stop the timer if the total time has elapsed
+                Inits.StopTimer(drawPanelBoard); // Stop the timer if the total time has elapsed
 
                 richTextBoxCountDown.Text = $"Countdown complete";
                 gameActive = false;

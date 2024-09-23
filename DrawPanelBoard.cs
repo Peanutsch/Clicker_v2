@@ -19,7 +19,7 @@ namespace Clicker_v2
         public List<Circle> Circles => _listCircles;
 
         /// <summary>
-        /// Initializes a new instance of the DrawPanelBoard class.
+        /// Constructor. Initializes a new instance of the DrawPanelBoard class.
         /// Sets up double buffering to reduce flickering and initializes the timer for circle updates.
         /// </summary>
         public DrawPanelBoard()

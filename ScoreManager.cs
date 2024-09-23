@@ -10,22 +10,22 @@ namespace Clicker_v2
 {
     internal class ScoreManager
     {
-        private int _totalSeconds;
+        private int totalSeconds;
         private List<int> listScore = new List<int>();
         public int CurrentScore => listScore.Sum(); // The total score
 
-        private DrawPanelTimerIndicator _drawPanelTimerIndicator;
-        private RichTextBox _richTextBoxCountDown;
+        private DrawPanelTimerIndicator drawPanelTimerIndicator;
+        private RichTextBox richTextBoxCountDown;
 
         // Constructor to initialize _totalSeconds, _drawPanelTimerIndicator, _richTextBoxCountDown
         public ScoreManager(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
         {
-            _totalSeconds = totalSeconds;
-            _drawPanelTimerIndicator = drawPanelTimerIndicator;
-            _richTextBoxCountDown = richTextBoxCountDown;
+            this.totalSeconds = totalSeconds;
+            this.drawPanelTimerIndicator = drawPanelTimerIndicator;
+            this.richTextBoxCountDown = richTextBoxCountDown;
         }
 
-        #region SET POINTS
+        #region SCORE METHODS
 
         /// <summary>
         /// Returns points based on the provided size.
@@ -72,6 +72,11 @@ namespace Clicker_v2
                 int totalScore = CatchScore(penaltyPoints);  // Add the negative penaltyPoints
                 DisplayScore(textBoxDisplayScore, totalScore);
             }
+        }
+
+        public void ManageTime()
+        {
+            // When valid hit, time ++ 
         }
 
         /// <summary>
@@ -163,7 +168,7 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Displays the score in the given TextBox.
+        /// Displays the score in textBoxDisplayScore.
         /// </summary>
         /// <param name="textBoxDisplayScore">The TextBox where the score will be displayed.</param>
         /// <param name="score">The score to display.</param>
@@ -179,12 +184,12 @@ namespace Clicker_v2
         public void DisplayCountdown(int elapsedSeconds, int totalSeconds)
         {
             // Update the drawPanelTimerIndicator
-            _drawPanelTimerIndicator.Invalidate();
+            drawPanelTimerIndicator.Invalidate();
 
             // Update the richTextBoxCountdown with the remaining time
             int remainingSeconds = totalSeconds - elapsedSeconds;
-            _richTextBoxCountDown.SelectionAlignment = HorizontalAlignment.Center;
-            _richTextBoxCountDown.Text = $"Time left: {remainingSeconds} seconds";
+            richTextBoxCountDown.SelectionAlignment = HorizontalAlignment.Center;
+            richTextBoxCountDown.Text = $"Time left: {remainingSeconds} seconds";
         }
         #endregion
     }
