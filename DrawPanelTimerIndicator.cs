@@ -9,11 +9,13 @@ namespace Clicker_v2
     /// </summary>
     internal class DrawPanelTimerIndicator : Panel
     {
-        // SET TOTAL SECONDS TIMER //
-        internal const int totalSeconds = 30; // Total duration of the timer in seconds
-
+        // SET TIMER VALUES //
+        internal const int totalSeconds = 31; // Total duration of the timer in seconds
         private int elapsedSeconds = 0; // Keeps track of the elapsed seconds
         internal const int colorChangeInterval = 1; // Interval for color change in seconds
+
+        // Add a property to track if bonus time needs to be added
+        public bool AddBonusTime { get; private set; } = false;
 
         /// <summary>
         /// Initializes a new instance of the DrawPanelTimerIndicator class.
@@ -31,8 +33,7 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Handles the timer tick event.
-        /// Updates the elapsed time and redraws the panel.
+        /// Handles the timer tick event. Updates the elapsed time and redraws the panel.
         /// If the total time is reached, changes the background color to red.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

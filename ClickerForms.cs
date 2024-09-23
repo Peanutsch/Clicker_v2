@@ -86,17 +86,23 @@ namespace Clicker_v2
         /// </summary>
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
+            if (_clickManager.AddBonusTime) // Check if bonus time should be added
+            {
+                _totalSeconds += 2; // Add extra time
+                _clickManager.AddBonusTime = false; // Reset the flag after adding the bonus
+            }
+
             _elapsedSeconds++;
-            _scoreManager.DisplayCountdown(_elapsedSeconds, _totalSeconds); // Call the new DisplayCountdown method
+            _scoreManager.DisplayCountdown(_elapsedSeconds, _totalSeconds);
 
             if (_elapsedSeconds >= _totalSeconds)
             {
                 Inits.StopTimer(drawPanelBoard); // Stop the timer if the total time has elapsed
-
-                richTextBoxCountDown.Text = $"Countdown complete";
+                richTextBoxCountDown.Text = "Countdown complete";
                 gameActive = false;
             }
         }
+
 
         /// <summary>
         /// Handles the button click event to stop capturing clicks.

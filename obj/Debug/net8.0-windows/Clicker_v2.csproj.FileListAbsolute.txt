@@ -18,7 +18,6 @@ C:\Users\mtels\source\repos\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.deps.
 C:\Users\mtels\source\repos\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.runtimeconfig.json
 C:\Users\mtels\source\repos\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.dll
 C:\Users\mtels\source\repos\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.pdb
-C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.Clicker.resources
 C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.Properties.Resources.resources
 C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.csproj.GenerateResource.cache
 C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.GeneratedMSBuildEditorConfig.editorconfig
@@ -52,3 +51,4 @@ C:\Users\Gebruiker\Documents\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.pdb
 C:\Users\Gebruiker\Documents\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.genruntimeconfig.cache
 C:\Users\Gebruiker\Documents\Clicker_v2\obj\Debug\net8.0-windows\ref\Clicker_v2.dll
 C:\Users\Visie Groep\Source\Repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.ClickerForms.resources
+C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.ClickerForms.resources

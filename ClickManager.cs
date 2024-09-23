@@ -13,6 +13,8 @@ namespace Clicker_v2
         private ScoreManager scoreManager;
         private TextBox textBoxDisplayScore;
 
+        public bool AddBonusTime { get; set; } = false; // New flag to indicate bonus time
+
         public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore)
         {
             this.textBoxHitMiss = textBoxHitMiss;
@@ -49,51 +51,23 @@ namespace Clicker_v2
         {
             bool isHit = false;
 
-            if (drawPanel.Circles.Count == 0)
-            {
-                Debug.WriteLine("_listCircles is empty");
-                return;
-            }
-
             foreach (var circle in drawPanel.Circles)
             {
-                // Check if the click is within any circle
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
-                    // Validate points based on the size of the circle
+                    AddBonusTime = true; // Set bonus time flag when hit
                     int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
-                    //AdjustTimer(1);
-
-                    if (points == 0)
-                    {
-                        // Handle the invalid circle size case
-                        isHit = false;
-                    }
-                    else
-                    {
-                        // Handle when hit
-                        scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, textBoxDisplayScore);
-                    }
-                    break;  // Stop loop when a hit is detected
+                    scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, textBoxDisplayScore);
+                    break;
                 }
             }
 
             if (!isHit)
             {
-                // Handle when miss
+                AddBonusTime = false; // Reset the flag when missed
                 scoreManager.HandleMissAndScores(textBoxCoords, textBoxDisplayScore);
             }
-        }
-
-        public void AdjustTimer(int timeadjustment)
-        {
-            // if (isHit)
-            // {
-            // totalSeconds++
-            // timerIndicator ++ green
-            // countdownBox++ 
-            // }
         }
     }
 }
