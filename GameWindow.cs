@@ -6,11 +6,12 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    public partial class ClickerForms : Form
+    public partial class GameWindow : Form
     {
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
 
         private DrawPanelBoard _drawPanelBoard;
+        private DrawPanelTimerIndicator _drawPanelTimerIndicator;
         private ClickManager _clickManager;
         private ScoreManager _scoreManager;
         private TextBox? textBoxHitMiss;
@@ -34,7 +35,7 @@ namespace Clicker_v2
         /// Initializes a new instance of the Clicker class.
         /// Sets up the game environment, including UI components and event handlers.
         /// </summary>
-        public ClickerForms()
+        public GameWindow()
         {
             InitializeComponent();
 
@@ -48,11 +49,14 @@ namespace Clicker_v2
             _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
-            // Initialize _scoreManager
+            // Create ScoreManager instance
             _scoreManager = new ScoreManager(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
-            // Initialize ClickManager with the necessary dependencies
+            // Create the ClickManager instance
             _clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _scoreManager, textBoxDisplayScore);
+
+            // Pass the ClickManager instance to the DrawPanelTimerIndicator constructor
+            _drawPanelTimerIndicator = new DrawPanelTimerIndicator(_clickManager); // Initialize timer indicator
 
             // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
@@ -86,7 +90,8 @@ namespace Clicker_v2
         /// </summary>
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
-            if (_clickManager.plusTime) // Check if bonus time should be added
+            // Check if bonus time should be added
+            if (_clickManager.plusTime) 
             {
                 _totalSeconds += 2; // Add extra time
                 _clickManager.plusTime = false; // Reset the flag after adding the bonus

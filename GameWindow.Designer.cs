@@ -2,7 +2,7 @@
 
 namespace Clicker_v2
 {
-    partial class ClickerForms
+    partial class GameWindow
     {
         private System.ComponentModel.IContainer components = null;
         private DrawPanelBoard drawPanelBoard;
@@ -19,7 +19,7 @@ namespace Clicker_v2
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClickerForms));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
             this.drawPanelBoard = new DrawPanelBoard();
             this.drawPanelTimerIndicator = new DrawPanelTimerIndicator(_clickManager);
             this.richTextBoxCountDown = new RichTextBox();
@@ -65,6 +65,7 @@ namespace Clicker_v2
             this.richTextBoxCountDown.Name = "richTextBoxCountDown";
             this.richTextBoxCountDown.Size = new Size(214, 110);
             this.richTextBoxCountDown.TabIndex = 2;
+            this.richTextBoxCountDown.SelectionAlignment = HorizontalAlignment.Center;
             this.richTextBoxCountDown.Text = "\n\nCOUNTDOWN";
             // 
             // pictureBoxTopLeft

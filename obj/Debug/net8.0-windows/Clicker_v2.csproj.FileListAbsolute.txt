@@ -52,3 +52,22 @@ C:\Users\Gebruiker\Documents\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.genr
 C:\Users\Gebruiker\Documents\Clicker_v2\obj\Debug\net8.0-windows\ref\Clicker_v2.dll
 C:\Users\Visie Groep\Source\Repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.ClickerForms.resources
 C:\Users\mtels\source\repos\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.ClickerForms.resources
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.ClickerForms.resources
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.GameWindow.resources
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.Properties.Resources.resources
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.csproj.GenerateResource.cache
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.AssemblyInfoInputs.cache
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.AssemblyInfo.cs
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.csproj.CoreCompileInputs.cache
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.sourcelink.json
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.dll
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\refint\Clicker_v2.dll
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.pdb
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.exe
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.deps.json
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.runtimeconfig.json
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.dll
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\bin\Debug\net8.0-windows\Clicker_v2.pdb
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\Clicker_v2.genruntimeconfig.cache
+C:\Users\Visie Groep\source\repos\Peanutsch\Clicker_v2\obj\Debug\net8.0-windows\ref\Clicker_v2.dll

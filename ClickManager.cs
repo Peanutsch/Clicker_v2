@@ -13,7 +13,7 @@ namespace Clicker_v2
         private ScoreManager scoreManager;
         private TextBox textBoxDisplayScore;
 
-        public bool AddBonusTime { get; set; } = false; // New flag to indicate bonus time
+        public bool plusTime { get; set; } = false; // New flag to indicate bonus time
 
         public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore)
         {
@@ -56,7 +56,7 @@ namespace Clicker_v2
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
                     isHit = true;
-                    AddBonusTime = true; // Set bonus time flag when hit
+                    plusTime = true; // Set bonus time flag when hit
                     int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
                     scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, textBoxDisplayScore);
                     break;
@@ -65,7 +65,7 @@ namespace Clicker_v2
 
             if (!isHit)
             {
-                AddBonusTime = false; // Reset the flag when missed
+                plusTime = false; // Reset the flag when missed
                 scoreManager.HandleMissAndScores(textBoxCoords, textBoxDisplayScore);
             }
         }
