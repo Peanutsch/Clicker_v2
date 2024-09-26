@@ -6,33 +6,37 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
+    /// <summary>
+    /// Represents the main game window for the Clicker game.
+    /// Initializes the game environment, manages game state, and handles user interactions.
+    /// </summary>
     public partial class GameWindow : Form
     {
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
 
-        private DrawPanelBoard _drawPanelBoard;
-        private DrawPanelTimerIndicator _drawPanelTimerIndicator;
-        private ClickManager _clickManager;
-        private ScoreManager _scoreManager;
-        private TextBox? textBoxHitMiss;
+        private DrawPanelBoard _drawPanelBoard; // The drawing board for the game
+        private DrawPanelTimerIndicator _drawPanelTimerIndicator; // Timer indicator to display time remaining
+        private ClickManager _clickManager; // Manages click interactions
+        private ScoreManager _scoreManager; // Manages scoring and countdown display
+        private TextBox? textBoxHitMiss; // Displays hit/miss status
 
-        private List<Circle> _listCircles; // Declare the List<Circle>
+        private List<Circle> _listCircles; // List to hold the circles in the game
 
-        private InitQuota _initQuota;
+        private InitQuota _initQuota; // Manages initial quotas for the game
 
-        private int _elapsedSeconds = 0;
-        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Value from DrawPanelTimerIndicator.totalSeconds
+        private int _elapsedSeconds = 0; // Track elapsed seconds of the game
+        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Total time for the game
 
-        int startQuota = 100;
+        int startQuota = 100; // Starting quota for the game
 
-        bool gameActive = false;
-        bool isStartQuota = true;
+        bool gameActive = false; // Indicates if the game is currently active
+        bool isStartQuota = true; // Indicates if the starting quota is in effect
 
-        public static int SelectedInterval { get; set; } = 1000;
-        public static int SelectedMaxTime { get; set; } = 5000;
+        public static int SelectedInterval { get; set; } = 1000; // Selected interval for the timer
+        public static int SelectedMaxTime { get; set; } = 5000; // Maximum time for the game
 
         /// <summary>
-        /// Initializes a new instance of the Clicker class.
+        /// Initializes a new instance of the <see cref="GameWindow"/> class.
         /// Sets up the game environment, including UI components and event handlers.
         /// </summary>
         public GameWindow()
@@ -44,7 +48,6 @@ namespace Clicker_v2
 
             // Display startQuota in textBoxQuota
             _initQuota.NewPointsQuota(textBoxQuota);
-
 
             _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
@@ -65,7 +68,7 @@ namespace Clicker_v2
             Inits.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
             Inits.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
 
-            gameActive = true;
+            gameActive = true; // Set the game as active
         }
 
         /// <summary>
@@ -79,7 +82,7 @@ namespace Clicker_v2
                 // Stop and dispose timer
                 _indicatorTimer?.Stop();
                 _indicatorTimer?.Dispose();
-                
+
                 base.Dispose();
             }
         }
@@ -91,23 +94,22 @@ namespace Clicker_v2
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
             // Check if bonus time should be added
-            if (_clickManager.plusTime) 
+            if (_clickManager.plusTime)
             {
                 _totalSeconds += 2; // Add extra time
                 _clickManager.plusTime = false; // Reset the flag after adding the bonus
             }
 
             _elapsedSeconds++;
-            _scoreManager.DisplayCountdown(_elapsedSeconds, _totalSeconds);
+            _scoreManager.DisplayCountdown(_elapsedSeconds, _totalSeconds); // Update countdown display
 
             if (_elapsedSeconds >= _totalSeconds)
             {
                 Inits.StopTimer(drawPanelBoard); // Stop the timer if the total time has elapsed
-                richTextBoxCountDown.Text = "Countdown complete";
-                gameActive = false;
+                richTextBoxCountDown.Text = "Countdown complete"; // Notify the user that the countdown is complete
+                gameActive = false; // Set the game as inactive
             }
         }
-
 
         /// <summary>
         /// Handles the button click event to stop capturing clicks.
@@ -115,7 +117,7 @@ namespace Clicker_v2
         /// </summary>
         private void Button1_Click(object sender, EventArgs e)
         {
-            this.Capture = false;
+            this.Capture = false; // Release the form capture
         }
 
         /// <summary>
@@ -137,7 +139,6 @@ namespace Clicker_v2
                 int clickY = e.Y;
 
                 // Pass the coordinates to the ClickManager method
-                //_clickManager.DisplayClickCoords(clickX, clickY, textBoxCoords);
                 _clickManager.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
             }
         }

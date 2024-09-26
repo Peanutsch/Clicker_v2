@@ -8,6 +8,10 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
+    /// <summary>
+    /// Manages the score and timer for the Clicker game.
+    /// Tracks scores, applies penalties for missed clicks, and updates the UI elements accordingly.
+    /// </summary>
     internal class ScoreManager
     {
         private int totalSeconds;
@@ -17,7 +21,12 @@ namespace Clicker_v2
         private DrawPanelTimerIndicator drawPanelTimerIndicator;
         private RichTextBox richTextBoxCountDown;
 
-        // Constructor to initialize _totalSeconds, _drawPanelTimerIndicator, _richTextBoxCountDown
+        /// <summary>
+        /// Constructor to initialize the ScoreManager with total time and UI components.
+        /// </summary>
+        /// <param name="totalSeconds">Total seconds for the game timer.</param>
+        /// <param name="drawPanelTimerIndicator">The indicator for the timer display.</param>
+        /// <param name="richTextBoxCountDown">The RichTextBox for countdown display.</param>
         public ScoreManager(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
         {
             this.totalSeconds = totalSeconds;
@@ -41,15 +50,15 @@ namespace Clicker_v2
                 >= 30 and < 50 => 5, // Size between 30 - 50: return 5 points
                 >= 50 and < 75 => 4, // Size between 50 - 75: return 4 points
                 >= 75 and <= 100 => 2, // Size between 75 - 100: return 2 points
-                _ => 0 // Default: return -5 points if outside expected range (miss circle)
+                _ => 0 // Default: return 0 points if outside expected range (miss circle)
             };
         }
 
         /// <summary>
-        /// Penalty when miss click:
-        /// Default: minus 10 points from score
+        /// Applies a penalty when a click misses a target.
+        /// Default penalty: minus 10 points from the score.
         /// </summary>
-        /// <param name="textBoxDisplayScore">Textbox where display the score</param>
+        /// <param name="textBoxDisplayScore">Textbox where the score is displayed.</param>
         public void PenaltyPoints(TextBox textBoxDisplayScore)
         {
             // Default penalty points: 10
@@ -74,6 +83,9 @@ namespace Clicker_v2
             }
         }
 
+        /// <summary>
+        /// Increments the time when a valid hit occurs. (Method currently unimplemented)
+        /// </summary>
         public void ManageTime()
         {
             // When valid hit, time ++ 
@@ -91,7 +103,6 @@ namespace Clicker_v2
 
             return listScore.Sum(); // Calculate and return sum of listScore
         }
-
 
         #endregion
 
@@ -112,7 +123,7 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Handles displaying the hit information and updating the score.
+        /// Handles displaying the hit information and updating the score for a valid hit.
         /// </summary>
         /// <param name="circle">The circle that was hit.</param>
         /// <param name="points">The points awarded for hitting the circle.</param>
@@ -168,7 +179,7 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Displays the score in textBoxDisplayScore.
+        /// Displays the current score in the specified TextBox.
         /// </summary>
         /// <param name="textBoxDisplayScore">The TextBox where the score will be displayed.</param>
         /// <param name="score">The score to display.</param>
@@ -179,8 +190,10 @@ namespace Clicker_v2
         }
 
         /// <summary>
-        /// Updates the countdown timer display.
+        /// Updates the countdown timer display in the UI.
         /// </summary>
+        /// <param name="elapsedSeconds">The number of seconds that have elapsed.</param>
+        /// <param name="totalSeconds">The total number of seconds for the countdown.</param>
         public void DisplayCountdown(int elapsedSeconds, int totalSeconds)
         {
             // Update the drawPanelTimerIndicator

@@ -8,18 +8,17 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
-    public class Inits 
+    /// <summary>
+    /// Contains initialization methods and utility functions for the Clicker game.
+    /// Handles timers, randomizers, and path initialization.
+    /// </summary>
+    public class Inits
     {
         private static System.Windows.Forms.Timer? _boardTimer; // Timer for the game board
         private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
         private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time
 
         private static DrawPanelBoard? drawPanelBoard;
-
-        public Inits(DrawPanelBoard drawWPanelBoard)
-        {
-            //this.drawPanelBoard = new DrawPanelBoard();
-        }
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -184,6 +183,9 @@ namespace Clicker_v2
         #endregion
 
         #region SETLEVELS
+        /// <summary>
+        /// Initializes game levels and quotas. (Currently not implemented)
+        /// </summary>
         public void InitLevels()
         {
             // level and quota

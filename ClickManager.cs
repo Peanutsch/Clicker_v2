@@ -6,15 +6,27 @@ using System.Windows.Forms;
 
 namespace Clicker_v2
 {
+    /// <summary>
+    /// Manages click interactions in the Clicker game.
+    /// Handles the detection of clicks on circles and updates the score based on hits or misses.
+    /// </summary>
     internal class ClickManager
     {
-        private TextBox textBoxHitMiss;
-        private List<Circle> listCircles;
-        private ScoreManager scoreManager;
-        private TextBox textBoxDisplayScore;
+        private TextBox textBoxHitMiss; // TextBox to display hit/miss results
+        private List<Circle> listCircles; // List of circles in the game
+        private ScoreManager scoreManager; // Manages scoring in the game
+        private TextBox textBoxDisplayScore; // TextBox to display the current score
 
         public bool plusTime { get; set; } = false; // New flag to indicate bonus time
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClickManager"/> class.
+        /// Sets up the necessary components to handle clicks in the game.
+        /// </summary>
+        /// <param name="textBoxHitMiss">TextBox for displaying hit/miss results.</param>
+        /// <param name="circles">List of circles that can be clicked.</param>
+        /// <param name="scoreManager">ScoreManager instance for handling scores.</param>
+        /// <param name="textBoxDisplayScore">TextBox for displaying the score.</param>
         public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore)
         {
             this.textBoxHitMiss = textBoxHitMiss;
