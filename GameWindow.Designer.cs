@@ -5,8 +5,8 @@ namespace Clicker_v2
     partial class GameWindow
     {
         private System.ComponentModel.IContainer components = null;
-        private DrawPanelBoard drawPanelBoard;
-        private DrawPanelTimerIndicator drawPanelTimerIndicator;
+        private PanelBoardCircles drawPanelBoard;
+        private PanelTimerIndicator drawPanelTimerIndicator;
 
         protected override void Dispose(bool disposing)
         {
@@ -20,8 +20,8 @@ namespace Clicker_v2
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
-            this.drawPanelBoard = new DrawPanelBoard();
-            this.drawPanelTimerIndicator = new DrawPanelTimerIndicator(_clickManager);
+            this.drawPanelBoard = new PanelBoardCircles();
+            this.drawPanelTimerIndicator = new PanelTimerIndicator(_clickManager);
             this.richTextBoxCountDown = new RichTextBox();
             this.pictureBoxTopLeft = new PictureBox();
             this.textBoxCoords = new TextBox();

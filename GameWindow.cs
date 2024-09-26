@@ -14,8 +14,8 @@ namespace Clicker_v2
     {
         private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
 
-        private DrawPanelBoard _drawPanelBoard; // The drawing board for the game
-        private DrawPanelTimerIndicator _drawPanelTimerIndicator; // Timer indicator to display time remaining
+        private PanelBoardCircles _drawPanelBoard; // The drawing board for the game
+        private PanelTimerIndicator _drawPanelTimerIndicator; // Timer indicator to display time remaining
         private ClickManager _clickManager; // Manages click interactions
         private ScoreManager _scoreManager; // Manages scoring and countdown display
         private TextBox? textBoxHitMiss; // Displays hit/miss status
@@ -25,7 +25,7 @@ namespace Clicker_v2
         private InitQuota _initQuota; // Manages initial quotas for the game
 
         private int _elapsedSeconds = 0; // Track elapsed seconds of the game
-        private int _totalSeconds = DrawPanelTimerIndicator.totalSeconds; // Total time for the game
+        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time for the game
 
         int startQuota = 100; // Starting quota for the game
 
@@ -49,7 +49,7 @@ namespace Clicker_v2
             // Display startQuota in textBoxQuota
             _initQuota.NewPointsQuota(textBoxQuota);
 
-            _drawPanelBoard = new DrawPanelBoard(); // Ensure this instance is correctly initialized
+            _drawPanelBoard = new PanelBoardCircles(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
             // Create ScoreManager instance
@@ -59,7 +59,7 @@ namespace Clicker_v2
             _clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _scoreManager, textBoxDisplayScore);
 
             // Pass the ClickManager instance to the DrawPanelTimerIndicator constructor
-            _drawPanelTimerIndicator = new DrawPanelTimerIndicator(_clickManager); // Initialize timer indicator
+            _drawPanelTimerIndicator = new PanelTimerIndicator(_clickManager); // Initialize timer indicator
 
             // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;

@@ -8,9 +8,10 @@ namespace Clicker_v2
     /// The panel changes color and fills from right to left as time progresses.
     /// It also supports bonus time that modifies the visual representation.
     /// </summary>
-    internal class DrawPanelTimerIndicator : Panel
+    internal class PanelTimerIndicator : Panel
     {
-        internal const int totalSeconds = 31; // Total duration of the timer in seconds
+        // TIMER VALUES //
+        internal const int totalSeconds = 30; // Total duration of the timer in seconds
         private int elapsedSeconds = 0; // Keeps track of the elapsed seconds
         private int bonusSeconds = 0; // Track bonus seconds
         private bool isBonusActive = false; // Track if the bonus time is active
@@ -20,11 +21,11 @@ namespace Clicker_v2
         internal const int colorChangeInterval = 1; // Interval for color change in seconds
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DrawPanelTimerIndicator"/> class.
+        /// Initializes a new instance of the <see cref="PanelTimerIndicator"/> class.
         /// Sets up double buffering to reduce flickering and initializes the timer for updates.
         /// </summary>
         /// <param name="clickManager">The <see cref="ClickManager"/> instance used to manage click events and bonus time.</param>
-        public DrawPanelTimerIndicator(ClickManager clickManager)
+        public PanelTimerIndicator(ClickManager clickManager)
         {
             _clickManager = clickManager;
 
@@ -47,9 +48,10 @@ namespace Clicker_v2
             // Check if we need to add bonus time
             if (_clickManager != null && _clickManager.plusTime && !isBonusActive)
             {
-                bonusSeconds += 2; // Add 2 bonus seconds
+                bonusSeconds += 2; // Add 2 seconds: 1 for TimerTick, 1 for bonus
                 isBonusActive = true; // Set bonus active
                 this.BackColor = Color.Green; // Change color to green during bonus time
+                //this.Invalidate();
             }
 
             elapsedSeconds += colorChangeInterval; // Increment elapsed seconds

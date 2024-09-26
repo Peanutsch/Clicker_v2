@@ -10,7 +10,7 @@ namespace Clicker_v2
     /// Represents a drawing panel that displays circles on the screen.
     /// It handles the drawing of circles, their positions, and colors.
     /// </summary>
-    public class DrawPanelBoard : Panel
+    public class PanelBoardCircles : Panel
     {
         private bool _isPositionInitialized = false; // Flag to check if circle positions are initialized
         private List<Circle> _listCircles = new List<Circle>(); // List to hold circles
@@ -22,7 +22,7 @@ namespace Clicker_v2
         /// Constructor. Initializes a new instance of the DrawPanelBoard class.
         /// Sets up double buffering to reduce flickering and initializes the timer for circle updates.
         /// </summary>
-        public DrawPanelBoard()
+        public PanelBoardCircles()
         {
             // Enable double buffering to reduce flickering
             this.DoubleBuffered = true;

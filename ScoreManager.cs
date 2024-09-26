@@ -18,7 +18,7 @@ namespace Clicker_v2
         private List<int> listScore = new List<int>();
         public int CurrentScore => listScore.Sum(); // The total score
 
-        private DrawPanelTimerIndicator drawPanelTimerIndicator;
+        private PanelTimerIndicator drawPanelTimerIndicator;
         private RichTextBox richTextBoxCountDown;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Clicker_v2
         /// <param name="totalSeconds">Total seconds for the game timer.</param>
         /// <param name="drawPanelTimerIndicator">The indicator for the timer display.</param>
         /// <param name="richTextBoxCountDown">The RichTextBox for countdown display.</param>
-        public ScoreManager(int totalSeconds, DrawPanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
+        public ScoreManager(int totalSeconds, PanelTimerIndicator drawPanelTimerIndicator, RichTextBox richTextBoxCountDown)
         {
             this.totalSeconds = totalSeconds;
             this.drawPanelTimerIndicator = drawPanelTimerIndicator;
@@ -86,7 +86,7 @@ namespace Clicker_v2
         /// <summary>
         /// Increments the time when a valid hit occurs. (Method currently unimplemented)
         /// </summary>
-        public void ManageTime()
+        public void ManageTime(int time)
         {
             // When valid hit, time ++ 
         }
@@ -130,7 +130,7 @@ namespace Clicker_v2
         /// <param name="textBoxCoords">The TextBox used to display the hit details (color, size, and points).</param>
         /// <param name="drawPanel">The panel containing the circles. The hit circle will be removed from this panel.</param>
         /// <param name="textBoxDisplayScore">The TextBox where the updated total score will be displayed.</param>
-        public void HandleMissAndScores(Circle circle, int points, TextBox textBoxCoords, DrawPanelBoard drawPanel, TextBox textBoxDisplayScore)
+        public void HandleMissAndScores(Circle circle, int points, TextBox textBoxCoords, PanelBoardCircles drawPanel, TextBox textBoxDisplayScore)
         {
             // Handle the valid case (hit)
             textBoxCoords.AppendText(Environment.NewLine + $"{circle.Color}");
@@ -202,7 +202,7 @@ namespace Clicker_v2
             // Update the richTextBoxCountdown with the remaining time
             int remainingSeconds = totalSeconds - elapsedSeconds;
             richTextBoxCountDown.SelectionAlignment = HorizontalAlignment.Center;
-            richTextBoxCountDown.Text = $"Time left: {remainingSeconds} seconds";
+            richTextBoxCountDown.Text = $"Time left: {remainingSeconds}";
         }
         #endregion
     }

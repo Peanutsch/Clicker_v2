@@ -18,7 +18,7 @@ namespace Clicker_v2
         private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
         private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time
 
-        private static DrawPanelBoard? drawPanelBoard;
+        private static PanelBoardCircles? drawPanelBoard;
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -103,7 +103,7 @@ namespace Clicker_v2
 
         #endregion
 
-        #region TIMER DRAWPANELBOARD
+        #region TIMER PANELBOARDCIRCLES
 
         /// <summary>
         /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
@@ -138,7 +138,7 @@ namespace Clicker_v2
         /// Stops both the board timer and the indicator timer, and the stopwatch.
         /// </summary>
         /// <returns>The elapsed time from the stopwatch when stopped.</returns>
-        public static TimeSpan StopTimer(DrawPanelBoard drawPanelBoard)
+        public static TimeSpan StopTimer(PanelBoardCircles drawPanelBoard)
         {
             _boardTimer?.Stop();
             _indicatorTimer?.Stop();
@@ -152,7 +152,7 @@ namespace Clicker_v2
 
         #endregion
 
-        #region TIMER DRAWPANELTIMERINDICATOR
+        #region TIMER PANELTIMERINDICATOR
 
         /// <summary>
         /// Initializes the indicator timer with a 1-second interval and starts it.

@@ -59,7 +59,7 @@ namespace Clicker_v2
         /// <param name="clickY">The y-coordinate of the mouse click.</param>
         /// <param name="textBoxCoords">The TextBox to display the results.</param>
         /// <param name="drawPanel">The panel that contains the circles.</param>
-        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, DrawPanelBoard drawPanel)
+        public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, PanelBoardCircles drawPanel)
         {
             bool isHit = false;
 
