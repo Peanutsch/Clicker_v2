@@ -99,18 +99,22 @@ namespace Clicker_v2
             int normalWidth = Math.Min(elapsedSeconds, totalSeconds) * sectionWidth;
             int bonusWidth = Math.Min(bonusSeconds, totalSeconds - elapsedSeconds) * sectionWidth;
 
-            // Draw the normal time section (red)
-            using (var redBrush = new SolidBrush(Color.Red))
+            if (!isBonusActive)
             {
-                Debug.WriteLine($"[RED BRUSH] Elapsed Seconds: {elapsedSeconds}");
+                // Draw the normal time section (red)
+                using (var redBrush = new SolidBrush(Color.Red))
+                {
+                    Debug.WriteLine($"[RED BRUSH] Elapsed Seconds: {elapsedSeconds}");
 
-                int startX = totalWidth - normalWidth; // Start position for the red section
-                startX = Math.Max(startX, 0); // Ensure startX is not less than 0
-                graphics.FillRectangle(redBrush, new Rectangle(startX, 0, normalWidth, this.ClientRectangle.Height)); // Draw the red rectangle
+                    int startX = totalWidth - normalWidth; // Start position for the red section
+                    startX = Math.Max(startX, 0); // Ensure startX is not less than 0
+                    graphics.FillRectangle(redBrush, new Rectangle(startX, 0, normalWidth, this.ClientRectangle.Height)); // Draw the red rectangle
+                }
             }
 
             // Draw the bonus time section (yellow) if active
-            if (isBonusActive && bonusSeconds > 0)
+            //if (isBonusActive && bonusSeconds > 0)
+            else
             {
                 Debug.WriteLine($"[YEWLLOWBRUSH] Elapsed Seconds: {elapsedSeconds}, isBonus: {isBonusActive}, Bonus Seconds: {bonusSeconds}");
 
