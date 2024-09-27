@@ -1,106 +1,127 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Clicker_v2
 {
     /// <summary>
-    /// Represents a timer indicator panel that visually indicates elapsed time.
-    /// The panel changes color and fills from right to left as time progresses.
-    /// It also supports bonus time that modifies the visual representation.
+    /// Represents a panel that visually indicates the progress of a timer, including a bonus time feature.
+    /// The panel fills from right to left and changes color based on the active bonus time.
     /// </summary>
     internal class PanelTimerIndicator : Panel
     {
-        // TIMER VALUES //
-        internal const int totalSeconds = 30; // Total duration of the timer in seconds
-        private int elapsedSeconds = 0; // Keeps track of the elapsed seconds
-        private int bonusSeconds = 0; // Track bonus seconds
-        private bool isBonusActive = false; // Track if the bonus time is active
+        #region TIMER VALUES
+        internal const int totalSeconds = 30; // Total duration of the timer in seconds\
+        private int bonusSeconds = 0; // Bonus time in seconds
+        private int elapsedSeconds = 0; // Elapsed time in seconds
+        internal const int colorChangeInterval = 1; // The interval for color change in seconds
+        #endregion
 
-        private readonly ClickManager _clickManager; // Reference to the ClickManager
-
-        internal const int colorChangeInterval = 1; // Interval for color change in seconds
+        private bool isBonusActive = false; // Indicates if bonus time is active
+        private readonly ClickManager _clickManager; // Reference to ClickManager for managing clicks and bonus time
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PanelTimerIndicator"/> class.
         /// Sets up double buffering to reduce flickering and initializes the timer for updates.
         /// </summary>
-        /// <param name="clickManager">The <see cref="ClickManager"/> instance used to manage click events and bonus time.</param>
+        /// <param name="clickManager">Reference to the <see cref="ClickManager"/> to manage bonus time events.</param>
         public PanelTimerIndicator(ClickManager clickManager)
         {
             _clickManager = clickManager;
-
             this.DoubleBuffered = true;
 
-            Inits.TimerTickIndicator -= OnTimerTick!; // Unsubscribe to avoid duplicate subscriptions
-            Inits.InitializeIndicatorTimer(); // Initialize the timer
-            Inits.TimerTickIndicator += OnTimerTick!; // Subscribe to the timer tick event
+            // Subscribe and initialize the timer for regular updates
+            Inits.TimerTickIndicator -= OnTimerTick!;
+            Inits.InitializeIndicatorTimer();
+            Inits.TimerTickIndicator += OnTimerTick!;
         }
 
         /// <summary>
-        /// Handles the timer tick event. Updates the elapsed time and redraws the panel.
-        /// If bonus time is activated, changes the background color to green during bonus time.
-        /// Resets the bonus after the defined duration.
+        /// Handles the timer tick event to update the elapsed time and redraw the panel.
+        /// Manages the activation and deactivation of bonus time and updates the panel's background color.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">Event arguments for the timer tick event.</param>
         internal void OnTimerTick(object sender, EventArgs e)
         {
-            // Check if we need to add bonus time
-            if (_clickManager != null && _clickManager.plusTime && !isBonusActive)
-            {
-                bonusSeconds += 2; // Add 2 seconds: 1 for TimerTick, 1 for bonus
-                isBonusActive = true; // Set bonus active
-                this.BackColor = Color.Green; // Change color to green during bonus time
-                //this.Invalidate();
-            }
-
-            elapsedSeconds += colorChangeInterval; // Increment elapsed seconds
+            elapsedSeconds += colorChangeInterval; // Increment the elapsed time by the interval
             this.Invalidate(); // Redraw the panel
 
-            // Reset the bonus after 2 seconds of green
-            if (isBonusActive && bonusSeconds <= 0)
+            // Activate bonus time if conditions are met
+            if (_clickManager != null && _clickManager.plusTime && !isBonusActive)
             {
-                isBonusActive = false;
-                this.BackColor = Color.Red; // Revert color back to red
+                bonusSeconds += 50; // Add bonus seconds
+                isBonusActive = true;
+                this.BackColor = Color.White; // Change background to green during bonus time
+                
+                Debug.WriteLine($"Bonus Activated: Bonus Seconds: {bonusSeconds}, Elapsed Time: {elapsedSeconds}");
             }
 
-            // Decrease bonusSeconds only when active
+            // Manage bonus time countdown and deactivation
             if (isBonusActive)
             {
-                bonusSeconds--;
+                //bonusSeconds--; // Decrease bonus time
+                if (bonusSeconds <= 0)
+                {
+                    isBonusActive = false; // Deactivate bonus
+                    this.BackColor = Color.Red; // Revert background to red
+                }
             }
 
-            // Cap elapsed time to total seconds
+            // Cap elapsed time to total time and handle end state
             if (elapsedSeconds >= totalSeconds)
             {
-                elapsedSeconds = totalSeconds; // Ensure elapsed time does not exceed total
+                elapsedSeconds = totalSeconds;
                 this.BackColor = Color.Red; // Final red color when time is up
-                this.Invalidate(); // Redraw to show the final state in red
             }
+
+            Debug.WriteLine($"End OnTimerTick: Is Bonus Active: {isBonusActive}");
+
+            this.Invalidate(); // Request redraw of the panel
         }
 
         /// <summary>
-        /// Overrides the OnPaint method to draw the timer indicator.
-        /// Fills the panel from right to left based on elapsed time and bonus time.
+        /// Overrides the OnPaint method to visually represent the timer's progress.
+        /// The panel is filled from right to left, with sections colored red for normal time and green for bonus time.
         /// </summary>
-        /// <param name="e">The PaintEventArgs that contains data for the paint event.</param>
+        /// <param name="e">PaintEventArgs that contains data for the paint event.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Debug.WriteLine($"[OnPaint called] isBonus: {isBonusActive}, Elapsed Seconds: {elapsedSeconds}");
+
             Graphics graphics = e.Graphics;
 
             int totalWidth = this.ClientRectangle.Width; // Total width of the panel
-            int sectionWidth = totalWidth / totalSeconds; // Calculate the width of each section
+            int sectionWidth = totalWidth / totalSeconds; // Width of each section based on total time
 
-            // Calculate width based on total elapsed + bonus seconds
-            int filledWidth = Math.Min(elapsedSeconds + bonusSeconds, totalSeconds) * sectionWidth;
+            // Calculate filled width for normal time and bonus time
+            int normalWidth = Math.Min(elapsedSeconds, totalSeconds) * sectionWidth;
+            int bonusWidth = Math.Min(bonusSeconds, totalSeconds - elapsedSeconds) * sectionWidth;
 
-            Color fillColor = isBonusActive ? Color.Green : Color.Red; // Choose color based on bonus time
-            using (var brush = new SolidBrush(fillColor))
+            // Draw the normal time section (red)
+            using (var redBrush = new SolidBrush(Color.Red))
             {
-                int startX = totalWidth - filledWidth; // Calculate the starting x position for the filled rectangle
-                startX = Math.Max(startX, 0); // Ensure the starting x position is not less than 0
-                graphics.FillRectangle(brush, new Rectangle(startX, 0, filledWidth, this.ClientRectangle.Height)); // Draw the filled rectangle
+                Debug.WriteLine($"[RED BRUSH] Elapsed Seconds: {elapsedSeconds}");
+
+                int startX = totalWidth - normalWidth; // Start position for the red section
+                startX = Math.Max(startX, 0); // Ensure startX is not less than 0
+                graphics.FillRectangle(redBrush, new Rectangle(startX, 0, normalWidth, this.ClientRectangle.Height)); // Draw the red rectangle
+            }
+
+            // Draw the bonus time section (yellow) if active
+            if (isBonusActive && bonusSeconds > 0)
+            {
+                Debug.WriteLine($"[YEWLLOWBRUSH] Elapsed Seconds: {elapsedSeconds}, isBonus: {isBonusActive}, Bonus Seconds: {bonusSeconds}");
+
+                using (var yellowBrush = new SolidBrush(Color.Yellow))
+                {
+                    Debug.WriteLine("YellowBrush active");
+
+                    int bonusStartX = totalWidth - normalWidth - bonusWidth; // Start position for the green section
+                    bonusStartX = Math.Max(bonusStartX, 0); // Ensure bonusStartX is not less than 0
+                    graphics.FillRectangle(yellowBrush, new Rectangle(bonusStartX, 0, bonusWidth, this.ClientRectangle.Height)); // Draw the green rectangle
+                }
             }
         }
     }

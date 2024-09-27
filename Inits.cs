@@ -153,16 +153,15 @@ namespace Clicker_v2
         #endregion
 
         #region TIMER PANELTIMERINDICATOR
-
         /// <summary>
         /// Initializes the indicator timer with a 1-second interval and starts it.
         /// </summary>
         public static void InitializeIndicatorTimer()
         {
             _indicatorTimer = new System.Windows.Forms.Timer();
+            _indicatorTimer.Start();
             _indicatorTimer.Interval = 1000; // 1 second interval
             _indicatorTimer.Tick += Timer_TickIndicator!;
-            _indicatorTimer.Start();
         }
 
         /// <summary>
@@ -179,7 +178,6 @@ namespace Clicker_v2
         {
             TimerTickIndicator?.Invoke(sender, e);
         }
-
         #endregion
 
         #region SETLEVELS

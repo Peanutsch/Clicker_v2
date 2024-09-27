@@ -99,7 +99,8 @@ namespace Clicker_v2
         public int CatchScore(int points)
         {
             listScore.Add(points); // Add points (which could be negative) to listScore
-            Debug.WriteLine($"Added points: {points}");
+            
+            //Debug.WriteLine($"Added points: {points}");
 
             return listScore.Sum(); // Calculate and return sum of listScore
         }
@@ -145,8 +146,6 @@ namespace Clicker_v2
             // Remove the hit circle from the board
             drawPanel.Circles.Remove(circle);
             drawPanel.Refresh();
-
-            Debug.WriteLine("End function ClickInCircleRadius with hit");
         }
 
         /// <summary>

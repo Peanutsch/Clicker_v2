@@ -27,12 +27,9 @@ namespace Clicker_v2
             // Enable double buffering to reduce flickering
             this.DoubleBuffered = true;
 
-            // Unsubscribe from the timer event to avoid duplicate subscriptions
-            Inits.TimerTickBoard -= OnTimerTick!;
-            // Initialize board timer with the selected interval
-            Inits.InitializeBoardTimer(GameWindow.SelectedInterval);
-            // Subscribe to the timer tick event
-            Inits.TimerTickBoard += OnTimerTick!;
+            Inits.TimerTickBoard -= OnTimerTick!; // Unsubscribe from the timer event to avoid duplicate subscriptions
+            Inits.InitializeBoardTimer(GameWindow.SelectedInterval); // Initialize board timer with the selected interval
+            Inits.TimerTickBoard += OnTimerTick!; // Subscribe to the timer tick event
         }
 
         /// <summary>

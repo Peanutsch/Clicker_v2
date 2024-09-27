@@ -69,6 +69,9 @@ namespace Clicker_v2
                 {
                     isHit = true;
                     plusTime = true; // Set bonus time flag when hit
+
+                    Debug.WriteLine("isHit");
+
                     int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
                     scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, textBoxDisplayScore);
                     break;

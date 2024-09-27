@@ -25,15 +25,15 @@ namespace Clicker_v2
         private InitQuota _initQuota; // Manages initial quotas for the game
 
         private int _elapsedSeconds = 0; // Track elapsed seconds of the game
-        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time for the game
+        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time Countdown from Timer Values PanelTimerIndicator
 
         int startQuota = 100; // Starting quota for the game
 
         bool gameActive = false; // Indicates if the game is currently active
         bool isStartQuota = true; // Indicates if the starting quota is in effect
 
-        public static int SelectedInterval { get; set; } = 1000; // Selected interval for the timer
-        public static int SelectedMaxTime { get; set; } = 5000; // Maximum time for the game
+        public static int SelectedInterval { get; set; } = 500; // Selected interval for the timer
+        public static int SelectedMaxTime { get; set; } = 2000; // Maximum time for the game
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameWindow"/> class.
@@ -64,7 +64,7 @@ namespace Clicker_v2
             // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
 
-            // Initialize the timer with a 1-second interval
+            // Initialize the countdown timer with a 1-second interval
             Inits.TimerTickIndicator -= OnIndicatorTimerTick!; // Unsubscribe first to avoid duplicate subscriptions
             Inits.TimerTickIndicator += OnIndicatorTimerTick!; // Subscribe to the timer event
 
