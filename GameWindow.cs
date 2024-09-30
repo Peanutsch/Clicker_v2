@@ -24,10 +24,11 @@ namespace Clicker_v2
 
         private InitQuota _initQuota; // Manages initial quotas for the game
 
+        private int bonusTimeLimit = 5;
         private int _elapsedSeconds = 0; // Track elapsed seconds of the game
-        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time Countdown from Timer Values PanelTimerIndicator
+        private int startQuota = 100; // Starting quota for the game
 
-        int startQuota = 100; // Starting quota for the game
+        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time Countdown from Timer Values PanelTimerIndicator
 
         bool gameActive = false; // Indicates if the game is currently active
         bool isStartQuota = true; // Indicates if the starting quota is in effect
@@ -93,8 +94,8 @@ namespace Clicker_v2
         /// </summary>
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
-            // Check if bonus time should be added; only when remaining time <= 10
-            if (_clickManager.plusTime && _totalSeconds - _elapsedSeconds <= 10)
+            // Check if bonus time should be added; only when remaining time <= bonusTimeLimit
+            if (_clickManager.plusTime && _totalSeconds - _elapsedSeconds < bonusTimeLimit)
             {
                 _totalSeconds += 2; // Add extra time
                 _clickManager.plusTime = false; // Reset the flag after adding the bonus

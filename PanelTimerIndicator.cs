@@ -11,8 +11,10 @@ namespace Clicker_v2
     internal class PanelTimerIndicator : Panel
     {
         #region TIMER VALUES
-        internal const int totalSeconds = 30; // Total duration of the timer in seconds\
-        private int bonusSeconds = 0; // Bonus time in seconds
+        internal const int totalSeconds = 15; // Total duration of the timer in seconds
+        private int additionalTime = 1000; // Additional time in seconds
+
+        private int bonusTimeRemaining = 0; // Bonus time in seconds
         private int elapsedSeconds = 0; // Elapsed time in seconds
         internal const int colorChangeInterval = 1; // The interval for color change in seconds
         #endregion
@@ -50,18 +52,14 @@ namespace Clicker_v2
             // Activate bonus time if conditions are met
             if (_clickManager != null && _clickManager.plusTime && !isBonusActive)
             {
-                bonusSeconds += 50; // Add bonus seconds
-                isBonusActive = true;
-                this.BackColor = Color.White; // Change background to green during bonus time
-                
-                Debug.WriteLine($"Bonus Activated: Bonus Seconds: {bonusSeconds}, Elapsed Time: {elapsedSeconds}");
+                ActivateBonusTime(additionalTime); // Example bonus time
             }
 
             // Manage bonus time countdown and deactivation
             if (isBonusActive)
             {
-                //bonusSeconds--; // Decrease bonus time
-                if (bonusSeconds <= 0)
+                bonusTimeRemaining--; // Decrease bonus time
+                if (bonusTimeRemaining <= 0)
                 {
                     isBonusActive = false; // Deactivate bonus
                     this.BackColor = Color.Red; // Revert background to red
@@ -81,8 +79,20 @@ namespace Clicker_v2
         }
 
         /// <summary>
+        /// Activates bonus time and sets the panel's color to yellow.
+        /// </summary>
+        /// <param name="additionalSeconds">Additional seconds to add as bonus time.</param>
+        private void ActivateBonusTime(int additionalTime)
+        {
+            bonusTimeRemaining += additionalTime;
+            isBonusActive = true;
+            this.BackColor = Color.Yellow;
+            Debug.WriteLine($"Bonus Activated: Bonus Seconds: {bonusTimeRemaining}, Elapsed Time: {elapsedSeconds}");
+        }
+
+        /// <summary>
         /// Overrides the OnPaint method to visually represent the timer's progress.
-        /// The panel is filled from right to left, with sections colored red for normal time and green for bonus time.
+        /// The panel is filled from right to left, with sections colored red for normal time and yellow for bonus time.
         /// </summary>
         /// <param name="e">PaintEventArgs that contains data for the paint event.</param>
         protected override void OnPaint(PaintEventArgs e)
@@ -96,35 +106,21 @@ namespace Clicker_v2
             int sectionWidth = totalWidth / totalSeconds; // Width of each section based on total time
 
             // Calculate filled width for normal time and bonus time
-            int normalWidth = Math.Min(elapsedSeconds, totalSeconds) * sectionWidth;
-            int bonusWidth = Math.Min(bonusSeconds, totalSeconds - elapsedSeconds) * sectionWidth;
+            int filledWidth = Math.Min(elapsedSeconds + bonusTimeRemaining, totalSeconds) * sectionWidth;
+            int startX = totalWidth - filledWidth; // Start position for the filled section
 
-            if (!isBonusActive)
+            if (isBonusActive)
             {
-                // Draw the normal time section (red)
-                using (var redBrush = new SolidBrush(Color.Red))
-                {
-                    Debug.WriteLine($"[RED BRUSH] Elapsed Seconds: {elapsedSeconds}");
-
-                    int startX = totalWidth - normalWidth; // Start position for the red section
-                    startX = Math.Max(startX, 0); // Ensure startX is not less than 0
-                    graphics.FillRectangle(redBrush, new Rectangle(startX, 0, normalWidth, this.ClientRectangle.Height)); // Draw the red rectangle
-                }
-            }
-
-            // Draw the bonus time section (yellow) if active
-            //if (isBonusActive && bonusSeconds > 0)
-            else
-            {
-                Debug.WriteLine($"[YEWLLOWBRUSH] Elapsed Seconds: {elapsedSeconds}, isBonus: {isBonusActive}, Bonus Seconds: {bonusSeconds}");
-
                 using (var yellowBrush = new SolidBrush(Color.Yellow))
                 {
-                    Debug.WriteLine("YellowBrush active");
-
-                    int bonusStartX = totalWidth - normalWidth - bonusWidth; // Start position for the green section
-                    bonusStartX = Math.Max(bonusStartX, 0); // Ensure bonusStartX is not less than 0
-                    graphics.FillRectangle(yellowBrush, new Rectangle(bonusStartX, 0, bonusWidth, this.ClientRectangle.Height)); // Draw the green rectangle
+                    graphics.FillRectangle(yellowBrush, new Rectangle(startX, 0, filledWidth, this.ClientRectangle.Height));
+                }
+            }
+            else
+            {
+                using (var redBrush = new SolidBrush(Color.Red))
+                {
+                    graphics.FillRectangle(redBrush, new Rectangle(startX, 0, filledWidth, this.ClientRectangle.Height));
                 }
             }
         }
