@@ -94,8 +94,8 @@ namespace Clicker_v2
         /// </summary>
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
-            // Check if bonus time should be added; only when remaining time <= bonusTimeLimit
-            if (_clickManager.plusTime && _totalSeconds - _elapsedSeconds < bonusTimeLimit)
+            // Check if bonus time should be added; only when remaining time < bonusTimeLimit
+            if (_clickManager.plusTime && (_totalSeconds - _elapsedSeconds) < bonusTimeLimit)
             {
                 _totalSeconds += 2; // Add extra time
                 _clickManager.plusTime = false; // Reset the flag after adding the bonus
