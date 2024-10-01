@@ -15,7 +15,7 @@ namespace Clicker_v2
         private bool _isPositionInitialized = false; // Flag to check if circle positions are initialized
         private List<Circle> _listCircles = new List<Circle>(); // List to hold circles
 
-        // Public property to access Circles
+        // Public property to access Circles from ClickManager and ScoreManager
         public List<Circle> Circles => _listCircles;
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Clicker_v2
 
         /// <summary>
         /// Initializes the position and size of a new circle.
-        /// Adds the circle to the list and removes any circles that have expired based on time.
+        /// Adds the circle to the list and removes any circles that have expired based on time set in GameWindow.SelectedMaxTime.
         /// </summary>
         private void InitializeCirclePositionSize()
         {

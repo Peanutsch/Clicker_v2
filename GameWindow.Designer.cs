@@ -10,18 +10,38 @@ namespace Clicker_v2
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                // Opruimen van de timer en andere handmatige resources
+                if (indicatorTimer != null)
+                {
+                    indicatorTimer.Stop();
+                    indicatorTimer.Dispose();
+                    indicatorTimer = null; // Voorkom verdere toegang tot de opgeruimde timer
+                }
+
+                // Opruimen van overige handmatige resources zoals _clickManager en _drawPanelBoard
+                //_clickManager?.Dispose(); // Zorg ervoor dat ClickManager IDisposable implementeert als het resources opruimt
+                //_drawPanelBoard?.Dispose();
+                //_drawPanelTimerIndicator?.Dispose();
+
+                // Opruimen van door de designer gegenereerde componenten
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
+
+            // Roep de base class Dispose methode aan om ervoor te zorgen dat alle resources worden vrijgegeven
             base.Dispose(disposing);
         }
+
 
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
             this.drawPanelBoard = new PanelBoardCircles();
-            this.drawPanelTimerIndicator = new PanelTimerIndicator(_clickManager);
+            this.drawPanelTimerIndicator = new PanelTimerIndicator(clickManager);
             this.richTextBoxCountDown = new RichTextBox();
             this.pictureBoxTopLeft = new PictureBox();
             this.textBoxCoords = new TextBox();

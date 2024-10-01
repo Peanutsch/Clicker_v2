@@ -16,6 +16,7 @@ namespace Clicker_v2
         private List<Circle> listCircles; // List of circles in the game
         private ScoreManager scoreManager; // Manages scoring in the game
         private TextBox textBoxDisplayScore; // TextBox to display the current score
+        private PanelTimerIndicator panelTimerIndicator; // Reference to the panel timer indicator
 
         public bool plusTime { get; set; } = false; // New flag to indicate bonus time
 
@@ -27,12 +28,14 @@ namespace Clicker_v2
         /// <param name="circles">List of circles that can be clicked.</param>
         /// <param name="scoreManager">ScoreManager instance for handling scores.</param>
         /// <param name="textBoxDisplayScore">TextBox for displaying the score.</param>
-        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore)
+        /// <param name="panelTimerIndicator">Reference to the PanelTimerIndicator for managing bonus time.</param>
+        public ClickManager(TextBox textBoxHitMiss, List<Circle> circles, ScoreManager scoreManager, TextBox textBoxDisplayScore, PanelTimerIndicator panelTimerIndicator)
         {
             this.textBoxHitMiss = textBoxHitMiss;
             this.listCircles = circles;
             this.scoreManager = scoreManager;
             this.textBoxDisplayScore = textBoxDisplayScore;
+            this.panelTimerIndicator = panelTimerIndicator;
         }
 
         /// <summary>
@@ -61,26 +64,25 @@ namespace Clicker_v2
         /// <param name="drawPanel">The panel that contains the circles.</param>
         public void ClickInCircleRadius(int clickX, int clickY, TextBox textBoxCoords, PanelBoardCircles drawPanel)
         {
-            bool isHit = false;
-
             foreach (var circle in drawPanel.Circles)
             {
                 if (IsPointInCircle(clickX, clickY, circle))
                 {
-                    isHit = true;
                     plusTime = true; // Set bonus time flag when hit
+                    panelTimerIndicator.BoolBonusTime(true); // Pass bool to PanelTimerIndicator
 
                     Debug.WriteLine("isHit");
 
                     int points = ScoreManager.ValidateSizeAndPoints(circle.CircleSize);
                     scoreManager.HandleMissAndScores(circle, points, textBoxCoords, drawPanel, textBoxDisplayScore);
-                    break;
+                    break; // Exit loop after first hit
                 }
             }
 
-            if (!isHit)
+            if (!plusTime)
             {
                 plusTime = false; // Reset the flag when missed
+                panelTimerIndicator.BoolBonusTime(false); // Pass bool to PanelTimerIndicator
                 scoreManager.HandleMissAndScores(textBoxCoords, textBoxDisplayScore);
             }
         }

@@ -12,29 +12,31 @@ namespace Clicker_v2
     /// </summary>
     public partial class GameWindow : Form
     {
-        private static System.Windows.Forms.Timer? _indicatorTimer = new System.Windows.Forms.Timer();
+        #region VALUES
+        public static int SelectedInterval { get; set; } = 500; // Selected interval for the timer
+        public static int SelectedMaxTime { get; set; } = 2000; // Maximum time for the game
+
+        private int bonusTimeLimit = Inits.bonusTimeLimit;
+        private int additionalTime = Inits.additionalTimeCountdown;
+        private int totalSeconds = Inits.totalSeconds; // Total time Countdown from Timer Values PanelTimerIndicator
+        private int elapsedSeconds = Inits.elapsedSeconds; // Track elapsed seconds of the game
+        private int startQuota = Inits.startQuota; // Starting quota for the game
+        #endregion
+
+        private static System.Windows.Forms.Timer? indicatorTimer = new System.Windows.Forms.Timer();
 
         private PanelBoardCircles _drawPanelBoard; // The drawing board for the game
         private PanelTimerIndicator _drawPanelTimerIndicator; // Timer indicator to display time remaining
-        private ClickManager _clickManager; // Manages click interactions
+        private ClickManager clickManager; // Manages click interactions
         private ScoreManager _scoreManager; // Manages scoring and countdown display
         private TextBox? textBoxHitMiss; // Displays hit/miss status
 
         private List<Circle> _listCircles; // List to hold the circles in the game
 
-        private InitQuota _initQuota; // Manages initial quotas for the game
-
-        private int bonusTimeLimit = 5;
-        private int _elapsedSeconds = 0; // Track elapsed seconds of the game
-        private int startQuota = 100; // Starting quota for the game
-
-        private int _totalSeconds = PanelTimerIndicator.totalSeconds; // Total time Countdown from Timer Values PanelTimerIndicator
+        private InitQuota initQuota; // Manages initial quotas for the game
 
         bool gameActive = false; // Indicates if the game is currently active
         bool isStartQuota = true; // Indicates if the starting quota is in effect
-
-        public static int SelectedInterval { get; set; } = 500; // Selected interval for the timer
-        public static int SelectedMaxTime { get; set; } = 2000; // Maximum time for the game
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameWindow"/> class.
@@ -45,22 +47,22 @@ namespace Clicker_v2
             InitializeComponent();
 
             // Initialize InitQuota with the TextBox
-            _initQuota = new InitQuota(isStartQuota);
+            initQuota = new InitQuota(isStartQuota);
 
             // Display startQuota in textBoxQuota
-            _initQuota.NewPointsQuota(textBoxQuota);
+            initQuota.NewPointsQuota(textBoxQuota);
 
             _drawPanelBoard = new PanelBoardCircles(); // Ensure this instance is correctly initialized
             _listCircles = new List<Circle>(); // Initialize the List<Circle>
 
             // Create ScoreManager instance
-            _scoreManager = new ScoreManager(_totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
+            _scoreManager = new ScoreManager(totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
-            // Create the ClickManager instance
-            _clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _scoreManager, textBoxDisplayScore);
+            // Initialize the timer indicator first
+            _drawPanelTimerIndicator = new PanelTimerIndicator(clickManager); // Initialize timer indicator
 
-            // Pass the ClickManager instance to the DrawPanelTimerIndicator constructor
-            _drawPanelTimerIndicator = new PanelTimerIndicator(_clickManager); // Initialize timer indicator
+            // Create the ClickManager instance after initializing the timer indicator
+            clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _scoreManager, textBoxDisplayScore, _drawPanelTimerIndicator);
 
             // Mouse click Handler
             drawPanelBoard.MouseClick += CaptureMouseClickPosition!;
@@ -72,21 +74,6 @@ namespace Clicker_v2
             gameActive = true; // Set the game as active
         }
 
-        /// <summary>
-        /// Disposes the timer and cleans up resources when the form is closed.
-        /// </summary>
-        /// <param name="e">Event arguments for the form closing event.</param>
-        public void DisposeTimer(FormClosedEventArgs e)
-        {
-            if (_indicatorTimer != null)
-            {
-                // Stop and dispose timer
-                _indicatorTimer?.Stop();
-                _indicatorTimer?.Dispose();
-
-                base.Dispose();
-            }
-        }
 
         /// <summary>
         /// Handles the timer tick event.
@@ -95,16 +82,19 @@ namespace Clicker_v2
         private void OnIndicatorTimerTick(object sender, EventArgs e)
         {
             // Check if bonus time should be added; only when remaining time < bonusTimeLimit
-            if (_clickManager.plusTime && (_totalSeconds - _elapsedSeconds) < bonusTimeLimit)
+            if (clickManager.plusTime && (totalSeconds - elapsedSeconds) < bonusTimeLimit)
             {
-                _totalSeconds += 2; // Add extra time
-                _clickManager.plusTime = false; // Reset the flag after adding the bonus
+                totalSeconds += additionalTime; // Add 2 sec bonustime: 1 sec current tick, 1 sec bonus tick
+
+                Debug.WriteLine($"[COUNTDOWN TIMER] Added time: {additionalTime}");
+
+                clickManager.plusTime = false; // Reset the flag after adding the bonus
             }
 
-            _elapsedSeconds++;
-            _scoreManager.DisplayCountdown(_elapsedSeconds, _totalSeconds); // Update countdown display
+            elapsedSeconds++;
+            _scoreManager.DisplayCountdown(elapsedSeconds, totalSeconds); // Update countdown display
 
-            if (_elapsedSeconds >= _totalSeconds)
+            if (elapsedSeconds >= totalSeconds)
             {
                 Inits.StopTimer(drawPanelBoard); // Stop the timer if the total time has elapsed
                 richTextBoxCountDown.Text = "Countdown complete"; // Notify the user that the countdown is complete
@@ -140,7 +130,7 @@ namespace Clicker_v2
                 int clickY = e.Y;
 
                 // Pass the coordinates to the ClickManager method
-                _clickManager.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
+                clickManager.ClickInCircleRadius(clickX, clickY, textBoxCoords, drawPanelBoard);
             }
         }
     }

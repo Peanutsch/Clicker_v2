@@ -19,6 +19,7 @@ namespace Clicker_v2
         private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time
 
         private static PanelBoardCircles? drawPanelBoard;
+        private static PanelTimerIndicator? panelTimerIndicator;
 
         // Initialize and return root path including directory \Clicker\
         /*
@@ -57,7 +58,6 @@ namespace Clicker_v2
         */
 
         #region RANDOMIZERS
-
         /// <summary>
         /// Returns randomized coordinates (x, y) for a circle within the specified maximum width and height.
         /// </summary>
@@ -100,15 +100,26 @@ namespace Clicker_v2
             Random rand = new Random();
             return colors[rand.Next(colors.Count)];
         }
-
         #endregion
 
+        #region SETUP VALUES
+        internal const int totalSeconds = 16; // Total duration of the timer in seconds
+        internal const int colorChangeInterval = 1; // The interval for color change in seconds
+        internal const int timerInterval = 1500; // Set interval tick
+        internal const int additionalTimeIndicator = 5; // Additional time in seconds for TimerIndicator
+        internal const int additionalTimeCountdown = 5; // Additional time in seconds for TimerCountdown
+        internal const int bonusTimeLimit = 10;
+        internal const int elapsedSeconds = 0; // Elapsed time in seconds
+        internal const int bonusTimeRemaining = 0; // Bonus time in seconds
+        internal const int startQuota = 100;
+        
+        #endregion
         #region TIMER PANELBOARDCIRCLES
 
         /// <summary>
         /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
         /// </summary>
-        /// <param name="interval">The interval in milliseconds to set for the board timer.</param>
+        /// <param name="interval">The interval in milliseconds to set for the board timer from GameWindow.SelectedInterval.</param>
         public static void InitializeBoardTimer(int interval)
         {
             _boardTimer = new System.Windows.Forms.Timer();
@@ -154,13 +165,13 @@ namespace Clicker_v2
 
         #region TIMER PANELTIMERINDICATOR
         /// <summary>
-        /// Initializes the indicator timer with a 1-second interval and starts it.
+        /// Initializes the indicator timer with interval set in PanelTimerIndicator and starts it.
         /// </summary>
         public static void InitializeIndicatorTimer()
         {
             _indicatorTimer = new System.Windows.Forms.Timer();
             _indicatorTimer.Start();
-            _indicatorTimer.Interval = 1000; // 1 second interval
+            _indicatorTimer.Interval = timerInterval; // Gets interval from PanelTimerIndicator.timerInterval
             _indicatorTimer.Tick += Timer_TickIndicator!;
         }
 
