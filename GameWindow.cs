@@ -59,7 +59,7 @@ namespace Clicker_v2
             _scoreManager = new ScoreManager(totalSeconds, drawPanelTimerIndicator, richTextBoxCountDown);
 
             // Initialize the timer indicator first
-            _drawPanelTimerIndicator = new PanelTimerIndicator(clickManager); // Initialize timer indicator
+            _drawPanelTimerIndicator = new PanelTimerIndicator(clickManager!); // Initialize timer indicator
 
             // Create the ClickManager instance after initializing the timer indicator
             clickManager = new ClickManager(textBoxHitMiss!, _listCircles, _scoreManager, textBoxDisplayScore, _drawPanelTimerIndicator);

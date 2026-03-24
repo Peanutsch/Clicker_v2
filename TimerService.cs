@@ -114,7 +114,7 @@ namespace Clicker_v2
         /// <summary>
         /// Handles the board timer tick event and raises the TimerTickBoard event.
         /// </summary>
-        private void OnBoardTimerTick(object? sender, EventArgs e)
+        public void OnBoardTimerTick(object? sender, EventArgs e)
         {
             TimerTickBoard?.Invoke(sender, e);
         }
@@ -122,7 +122,7 @@ namespace Clicker_v2
         /// <summary>
         /// Handles the indicator timer tick event and raises the TimerTickIndicator event.
         /// </summary>
-        private void OnIndicatorTimerTick(object? sender, EventArgs e)
+        public void OnIndicatorTimerTick(object? sender, EventArgs e)
         {
             TimerTickIndicator?.Invoke(sender, e);
         }
