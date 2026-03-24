@@ -1,204 +1,170 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Clicker_v2
 {
     /// <summary>
-    /// Contains initialization methods and utility functions for the Clicker game.
-    /// Handles timers, randomizers, and path initialization.
+    /// Legacy compatibility class for the Clicker game initialization.
+    /// This class maintains backward compatibility with existing code while delegating to new services.
+    /// 
+    /// DEPRECATED: New code should use the individual services directly:
+    /// - RandomizerService for randomization
+    /// - TimerService for timer management
+    /// - GameConfiguration for configuration constants
     /// </summary>
+    [Obsolete("Use RandomizerService, TimerService, and GameConfiguration directly instead.", false)]
     public class Inits
     {
-        private static System.Windows.Forms.Timer? _boardTimer; // Timer for the game board
-        private static System.Windows.Forms.Timer? _indicatorTimer; // Timer for the indicator
-        private static Stopwatch? _stopwatch; // Stopwatch to track elapsed time
+        private static TimerService? _timerService;
 
-        private static PanelBoardCircles? drawPanelBoard;
-        private static PanelTimerIndicator? panelTimerIndicator;
-
-        // Initialize and return root path including directory \Clicker\
-        /*
-        public static string InitializeRootPath()
+        /// <summary>
+        /// Gets or creates the singleton TimerService instance.
+        /// </summary>
+        private static TimerService TimerServiceInstance
         {
-            // string directoryPath = Environment.CurrentDirectory;
-            string directoryPath = AppDomain.CurrentDomain.BaseDirectory;
-
-            if (string.IsNullOrEmpty(directoryPath))
+            get
             {
-                Debug.WriteLine("Error: Unable to determine root path.");
-                MessageBox.Show("Error: Unable to determine root path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return string.Empty; // Return an empty string
-            }
-
-            string[] directorySplitPath = directoryPath.Split(Path.DirectorySeparatorChar);
-            int index = Array.IndexOf(directorySplitPath, "Clicker");
-
-            if (index != -1)
-            {
-                string rootPath = string.Join(Path.DirectorySeparatorChar.ToString(), directorySplitPath.Take(index + 1));
-
-                if (!rootPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                {
-                    rootPath += Path.DirectorySeparatorChar;
-                }
-                return rootPath;
-            }
-            else
-            {
-                Debug.WriteLine("Error: 'KeepYourFocus' directory not found in path.");
-                MessageBox.Show("Error: 'KeepYourFocus' directory not found in path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return string.Empty; // Return an empty string
+                _timerService ??= new TimerService();
+                return _timerService;
             }
         }
-        */
 
-        #region RANDOMIZERS
+        #region CONFIGURATION CONSTANTS (DEPRECATED)
+        /// <summary>DEPRECATED: Use GameConfiguration.TotalSeconds instead.</summary>
+        internal const int totalSeconds = GameConfiguration.TotalSeconds;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.ColorChangeInterval instead.</summary>
+        internal const int colorChangeInterval = GameConfiguration.ColorChangeInterval;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.TimerInterval instead.</summary>
+        internal const int timerInterval = GameConfiguration.TimerInterval;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.AdditionalTimeIndicator instead.</summary>
+        internal const int additionalTimeIndicator = GameConfiguration.AdditionalTimeIndicator;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.AdditionalTimeCountdown instead.</summary>
+        internal const int additionalTimeCountdown = GameConfiguration.AdditionalTimeCountdown;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.BonusTimeLimit instead.</summary>
+        internal const int bonusTimeLimit = GameConfiguration.BonusTimeLimit;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.ElapsedSeconds instead.</summary>
+        internal const int elapsedSeconds = GameConfiguration.ElapsedSeconds;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.BonusTimeRemaining instead.</summary>
+        internal const int bonusTimeRemaining = GameConfiguration.BonusTimeRemaining;
+
+        /// <summary>DEPRECATED: Use GameConfiguration.StartQuota instead.</summary>
+        internal const int startQuota = GameConfiguration.StartQuota;
+        #endregion
+
+        #region RANDOMIZERS (DEPRECATED)
         /// <summary>
+        /// DEPRECATED: Use RandomizerService.GetRandomPosition instead.
         /// Returns randomized coordinates (x, y) for a circle within the specified maximum width and height.
         /// </summary>
-        /// <param name="maxWidth">The maximum width for the random x-coordinate.</param>
-        /// <param name="maxHeight">The maximum height for the random y-coordinate.</param>
-        /// <returns>A tuple containing the randomized x and y coordinates.</returns>
+        [Obsolete("Use RandomizerService.GetRandomPosition instead.", false)]
         public static (int, int) RandomizerPositions(int maxWidth, int maxHeight)
         {
-            Random randPos = new Random();
-            int x = randPos.Next(0, maxWidth);
-            int y = randPos.Next(0, maxHeight);
-
-            return (x, y);
+            return RandomizerService.GetRandomPosition(maxWidth, maxHeight);
         }
 
         /// <summary>
+        /// DEPRECATED: Use RandomizerService.GetRandomCircleSize instead.
         /// Returns a randomized size for a circle within a specified range.
         /// </summary>
-        /// <returns>A random integer representing the size of the circle.</returns>
+        [Obsolete("Use RandomizerService.GetRandomCircleSize instead.", false)]
         public static int RandomizerCircleSize()
         {
-            Random randPixels = new Random();
-            int size = randPixels.Next(10, 100); // Size range between 10 and 100 pixels
-
-            return size;
+            return RandomizerService.GetRandomCircleSize();
         }
 
         /// <summary>
+        /// DEPRECATED: Use RandomizerService.GetRandomColor instead.
         /// Returns a random color from a predefined list of colors.
         /// </summary>
-        /// <returns>A Color object representing a randomized color.</returns>
+        [Obsolete("Use RandomizerService.GetRandomColor instead.", false)]
         public static Color RandomizerColor()
         {
-            List<Color> colors = new List<Color>
-            {
-                Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.LightBlue,
-                Color.LavenderBlush, Color.Ivory, Color.HotPink, Color.AliceBlue,
-                Color.DarkOrange, Color.OrangeRed, Color.Orchid, Color.Aqua, Color.Cyan
-            };
-            Random rand = new Random();
-            return colors[rand.Next(colors.Count)];
+            return RandomizerService.GetRandomColor();
         }
         #endregion
 
-        #region SETUP VALUES
-        internal const int totalSeconds = 16; // Total duration of the timer in seconds
-        internal const int colorChangeInterval = 1; // The interval for color change in seconds
-        internal const int timerInterval = 1500; // Set interval tick
-        internal const int additionalTimeIndicator = 5; // Additional time in seconds for TimerIndicator
-        internal const int additionalTimeCountdown = 5; // Additional time in seconds for TimerCountdown
-        internal const int bonusTimeLimit = 10;
-        internal const int elapsedSeconds = 0; // Elapsed time in seconds
-        internal const int bonusTimeRemaining = 0; // Bonus time in seconds
-        internal const int startQuota = 100;
-        
-        #endregion
-        #region TIMER PANELBOARDCIRCLES
-
+        #region TIMER MANAGEMENT (DEPRECATED)
         /// <summary>
-        /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
-        /// </summary>
-        /// <param name="interval">The interval in milliseconds to set for the board timer from GameWindow.SelectedInterval.</param>
-        public static void InitializeBoardTimer(int interval)
-        {
-            _boardTimer = new System.Windows.Forms.Timer();
-            _boardTimer.Interval = interval;
-            _boardTimer.Tick += Timer_TickBoard!;
-            _stopwatch = new Stopwatch();
-            _boardTimer.Start();
-            _stopwatch.Start();
-        }
-
-        /// <summary>
+        /// DEPRECATED: Use TimerService directly instead.
         /// An event that is triggered on each tick of the board timer.
         /// </summary>
-        public static event EventHandler? TimerTickBoard;
-
-        /// <summary>
-        /// Invokes the TimerTickBoard event on each tick of the board timer.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments for the tick event.</param>
-        internal static void Timer_TickBoard(object sender, EventArgs e)
+        [Obsolete("Use TimerService.TimerTickBoard event instead.", false)]
+        public static event EventHandler? TimerTickBoard
         {
-            TimerTickBoard?.Invoke(sender, e);
+            add => TimerServiceInstance.TimerTickBoard += value;
+            remove => TimerServiceInstance.TimerTickBoard -= value;
         }
 
         /// <summary>
-        /// Stops both the board timer and the indicator timer, and the stopwatch.
-        /// </summary>
-        /// <returns>The elapsed time from the stopwatch when stopped.</returns>
-        public static TimeSpan StopTimer(PanelBoardCircles drawPanelBoard)
-        {
-            _boardTimer?.Stop();
-            _indicatorTimer?.Stop();
-            _stopwatch?.Stop();
-
-            //drawPanelBoard.Enabled = false;
-            drawPanelBoard.Visible = false;
-
-            return _stopwatch!.Elapsed;
-        }
-
-        #endregion
-
-        #region TIMER PANELTIMERINDICATOR
-        /// <summary>
-        /// Initializes the indicator timer with interval set in PanelTimerIndicator and starts it.
-        /// </summary>
-        public static void InitializeIndicatorTimer()
-        {
-            _indicatorTimer = new System.Windows.Forms.Timer();
-            _indicatorTimer.Start();
-            _indicatorTimer.Interval = timerInterval; // Gets interval from PanelTimerIndicator.timerInterval
-            _indicatorTimer.Tick += Timer_TickIndicator!;
-        }
-
-        /// <summary>
+        /// DEPRECATED: Use TimerService directly instead.
         /// An event that is triggered on each tick of the indicator timer.
         /// </summary>
-        public static event EventHandler? TimerTickIndicator;
+        [Obsolete("Use TimerService.TimerTickIndicator event instead.", false)]
+        public static event EventHandler? TimerTickIndicator
+        {
+            add => TimerServiceInstance.TimerTickIndicator += value;
+            remove => TimerServiceInstance.TimerTickIndicator -= value;
+        }
 
         /// <summary>
-        /// Invokes the TimerTickIndicator event on each tick of the indicator timer.
+        /// DEPRECATED: Use TimerService.InitializeBoardTimer instead.
+        /// Initializes the board timer and stopwatch, and starts the timers with the specified interval.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event arguments for the tick event.</param>
-        internal static void Timer_TickIndicator(object sender, EventArgs e)
+        [Obsolete("Use TimerService.InitializeBoardTimer instead.", false)]
+        public static void InitializeBoardTimer(int interval)
         {
-            TimerTickIndicator?.Invoke(sender, e);
+            TimerServiceInstance.InitializeBoardTimer(interval);
+        }
+
+        /// <summary>
+        /// DEPRECATED: Use TimerService.InitializeIndicatorTimer instead.
+        /// Initializes the indicator timer and starts it.
+        /// </summary>
+        [Obsolete("Use TimerService.InitializeIndicatorTimer instead.", false)]
+        public static void InitializeIndicatorTimer()
+        {
+            TimerServiceInstance.InitializeIndicatorTimer();
+        }
+
+        /// <summary>
+        /// DEPRECATED: Use TimerService.StopAllTimers instead.
+        /// Stops both the board timer and the indicator timer, and the stopwatch.
+        /// </summary>
+        [Obsolete("Use TimerService.StopAllTimers instead.", false)]
+        public static TimeSpan StopTimer(PanelBoardCircles drawPanelBoard)
+        {
+            drawPanelBoard.Visible = false;
+            return TimerServiceInstance.StopAllTimers();
         }
         #endregion
 
-        #region SETLEVELS
+        #region INITIALIZATION
         /// <summary>
-        /// Initializes game levels and quotas. (Currently not implemented)
+        /// DEPRECATED: This method is not implemented.
+        /// Initializes game levels and quotas.
         /// </summary>
+        [Obsolete("This method is no longer supported.", false)]
         public void InitLevels()
         {
-            // level and quota
+            // Not implemented
         }
         #endregion
+
+        /// <summary>
+        /// Cleans up the timer service resources.
+        /// Should be called when the application is shutting down.
+        /// </summary>
+        public static void Cleanup()
+        {
+            _timerService?.Dispose();
+            _timerService = null;
+        }
     }
 }
